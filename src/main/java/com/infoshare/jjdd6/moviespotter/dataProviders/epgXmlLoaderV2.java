@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.Properties;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
 
 public class epgXmlLoaderV2 {
@@ -30,13 +32,25 @@ public class epgXmlLoaderV2 {
         @Attribute
         public String channel;
 
-    }
 
+
+/*
+        Serializer serializer = new Persister();
+
+        tv example = serializer.read(tv.class,
+                tv.class.getResourceAsStream("simplexml.xml"));
+        System.out.println(example.g().size());
+        */
+
+
+
+    }
 
 
 
     public static void main(String[] args) {
 
         loader();
+
     }
 }

@@ -2,11 +2,15 @@ package com.infoshare.jjdd6.moviespotter.dataProviders;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+
+import com.infoshare.jjdd6.moviespotter.models.Programme;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.simpleframework.xml.*;
 
@@ -27,17 +31,26 @@ public class epgXmlLoader {
         doc.getDocumentElement().normalize();
 
         System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
-
         System.out.println("----------------------------");
 
         NodeList channelsList=doc.getDocumentElement().getElementsByTagName("programme");
 
-        for (int i =0 ; i < channelsList.getLength(); i++) {
-            Node node = channelsList.item(i);
-            System.out.println(node.getChildNodes().item(2));
+        ArrayList<Programme> tvProgramme = new ArrayList<>();
 
+        for (int i =0 ; i < channelsList.getLength(); i++) {
+
+            Node node = channelsList.item(i);
+            Programme programme = new Programme();
+
+            //node.getAttributes().getNamedItem("channel").toString();
+
+            programme.setChannel(node.getAttributes().getNamedItem("channel").getNodeValue());
+            programme.setStart(node.getAttributes().getNamedItem("start").getNodeValue());
+            programme.setStart(node.getAttributes().getNamedItem("stop").getNodeValue());
+
+            tvProgramme.add(programme);
         }
+
 
 
     } catch (Exception e) {
