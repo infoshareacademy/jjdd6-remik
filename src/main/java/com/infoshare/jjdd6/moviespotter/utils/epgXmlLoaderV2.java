@@ -1,4 +1,4 @@
-package com.infoshare.jjdd6.moviespotter.dataProviders;
+package com.infoshare.jjdd6.moviespotter.utils;
 
 import java.io.File;
 import java.io.FileReader;
@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.util.Properties;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 
 
 public class epgXmlLoaderV2 {

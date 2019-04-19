@@ -1,15 +1,30 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
+import java.util.HashMap;
+
 public class Programme {
 
     String channel;
     String start;
     String stop;
     String titlePl;
+    HashMap<String, String> otherTitles;
     String descPl;
     String categoryPl;
     String rating;
     int date;
+
+    public Programme () {
+        otherTitles = new HashMap<>();
+    }
+
+    public HashMap<String, String> getOtherTitles() {
+        return otherTitles;
+    }
+
+    public void setOtherTitles(HashMap<String, String> otherTitles) {
+        this.otherTitles = otherTitles;
+    }
 
     public String getChannel() {
         return channel;

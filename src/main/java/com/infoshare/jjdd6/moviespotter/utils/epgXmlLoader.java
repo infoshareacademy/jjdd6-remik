@@ -1,21 +1,17 @@
-package com.infoshare.jjdd6.moviespotter.dataProviders;
+package com.infoshare.jjdd6.moviespotter.utils;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
-
 import com.infoshare.jjdd6.moviespotter.models.Programme;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
-import org.w3c.dom.Element;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Collectors;
 
-import org.simpleframework.xml.*;
 
 public class epgXmlLoader {
-
 
    public static void loadEpgData() {
 
@@ -35,9 +31,10 @@ public class epgXmlLoader {
 
         NodeList channelsList=doc.getDocumentElement().getElementsByTagName("programme");
 
-        ArrayList<Programme> tvProgramme = new ArrayList<>();
+        ArrayList<Programme> tvProgrammes = new ArrayList<>();
 
         for (int i =0 ; i < channelsList.getLength(); i++) {
+        //for (int i =0 ; i < 5; i++) {
 
             Node node = channelsList.item(i);
             Programme programme = new Programme();
@@ -48,8 +45,29 @@ public class epgXmlLoader {
             programme.setStart(node.getAttributes().getNamedItem("start").getNodeValue());
             programme.setStart(node.getAttributes().getNamedItem("stop").getNodeValue());
 
-            tvProgramme.add(programme);
+                NodeList childnodes = node.getChildNodes();
+                for (int j = 0; j < childnodes.getLength(); j++) {
+
+                    Node child = childnodes.item(j);
+
+                    if (child.getNodeName().matches("title") &&
+                            child.getAttributes().getNamedItem("lang").getNodeValue().equals("pl") &&
+                            programme.getTitlePl() == null) {
+                        programme.setTitlePl(child.getTextContent());
+
+                    } else if (child.getNodeName().matches("title") && !child.getAttributes().getNamedItem("lang").getNodeValue().isEmpty()) {
+                        programme.getOtherTitles().put(child.getAttributes().getNamedItem("lang").getNodeValue(), child.getTextContent());
+                    }
+
+                    //System.out.println(programme.getOtherTitles().values());
+                }
+
+
+            tvProgrammes.add(programme);
+
+            
         }
+
 
 
 
