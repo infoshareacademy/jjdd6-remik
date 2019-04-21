@@ -30,7 +30,6 @@ public class EpgXmlLoader {
         } catch (Exception e) {
             e.printStackTrace();
             log.error("XML data not loaded: "+e);
-            //todo logger
             return null;
         }
     }

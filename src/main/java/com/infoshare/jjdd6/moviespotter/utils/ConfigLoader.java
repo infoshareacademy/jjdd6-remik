@@ -17,7 +17,7 @@ public class ConfigLoader {
 
         log.info("Loading app config");
 
-        try (InputStream input = new FileInputStream("appConfig.properties")) {
+        try (InputStream input = new FileInputStream("./data/appConfig.properties")) {
             Properties props = new Properties();
             props.load(input);
             properties = props;

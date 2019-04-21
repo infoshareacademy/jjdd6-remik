@@ -14,8 +14,8 @@ public class EpgXmlParser {
 
     private Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
 
-    public List<Programme> parseXmlTvData() {
 
+    public List<Programme> parseXmlTvData() {
         log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
 
         Document doc = EpgXmlLoader.loadEpgData();
@@ -34,7 +34,7 @@ public class EpgXmlParser {
 
             String channelName = node.getAttributes().getNamedItem("channel").getNodeValue();
 
-            if (ignore.contains(channelName) || (onlyLoad != null) && !onlyLoad.contains(channelName)) {
+            if ((ignore.contains(channelName)) || (onlyLoad != null) && !onlyLoad.contains(channelName)) {
                 continue;
             }
 
@@ -97,6 +97,8 @@ public class EpgXmlParser {
 
                     if (child.getAttributes().getNamedItem("system").getNodeValue().equals("xmltv_ns")) {
                         programme.setEpisodeXmlNs(child.getTextContent());
+                    } else if (child.getAttributes().getNamedItem("system").getNodeValue().equals("onscreen")) {
+                            programme.setEpisodeXmlNs(child.getTextContent());
                     } else {
                         log.info("New episode number format found: "+child.getAttributes().getNamedItem("system").getNodeValue());
                     }
