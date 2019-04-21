@@ -9,12 +9,14 @@ import org.w3c.dom.Document;
 import java.io.File;
 
 
-public class EpgXmlLoader {
+class EpgXmlLoader {
 
-    public static Document loadEpgData() {
+    Logger log = LoggerFactory.getLogger(EpgXmlLoader.class.getName());
 
-        Logger log = LoggerFactory.getLogger(EpgXmlLoader.class.getName());
-        log.trace("Loading XML data file...");
+    protected Document loadEpgData() {
+
+
+        log.info("Loading XML data file...");
 
         try {
             String epgXmpPath = ConfigLoader.properties.getProperty("xmlpath");
@@ -22,8 +24,8 @@ public class EpgXmlLoader {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
-
             doc.getDocumentElement().normalize();
+            log.info("XML data loaded!");
 
             return doc;
 

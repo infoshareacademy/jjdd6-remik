@@ -12,16 +12,19 @@ import java.util.List;
 
 public class EpgXmlParser {
 
-    private Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
-
+    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
     public List<Programme> parseXmlTvData() {
+
         log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
 
-        Document doc = EpgXmlLoader.loadEpgData();
+        EpgXmlLoader epgXmlLoader =  new EpgXmlLoader();
+        Document doc = epgXmlLoader.loadEpgData();
 
         String ignore = ConfigLoader.properties.getProperty("Ignore");
         String onlyLoad = ConfigLoader.properties.getProperty("OnlyLoad");
+
+        EpgDateConverter epgDateConverter = new EpgDateConverter();
 
         NodeList channelsList = doc.getDocumentElement().getElementsByTagName("programme");
 
@@ -34,13 +37,29 @@ public class EpgXmlParser {
 
             String channelName = node.getAttributes().getNamedItem("channel").getNodeValue();
 
-            if ((ignore.contains(channelName)) || (onlyLoad != null) && !onlyLoad.contains(channelName)) {
+            if ((ignore != null && ignore.contains(channelName)) || (onlyLoad != null) && !onlyLoad.contains(channelName))
                 continue;
-            }
+
 
             programme.setChannel(channelName);
-            programme.setStart(node.getAttributes().getNamedItem("start").getNodeValue());
-            programme.setStop(node.getAttributes().getNamedItem("stop").getNodeValue());
+
+            programme
+                    .setStart(epgDateConverter
+                            .ToLocalDateTime(node.getAttributes()
+                                            .getNamedItem("start")
+                                            .getNodeValue()
+                            )
+                    );
+
+
+            programme
+                    .setStop(epgDateConverter
+                            .ToLocalDateTime(node.getAttributes()
+                                            .getNamedItem("stop")
+                                            .getNodeValue()
+                            )
+                    );
+
 
             NodeList childnodes = node.getChildNodes();
 
@@ -57,21 +76,21 @@ public class EpgXmlParser {
                     } else if (child.getAttributes().getNamedItem("lang").getNodeValue().equals("xx") && programme.getTitleXx() == null) {
                         programme.setTitleXx(child.getTextContent());
                     } else {
-                        log.info("Title: new language code found: "+programme.getChannel()+", "+programme.getStart()+" :: "+child.getAttributes().getNamedItem("lang").getNodeValue());
+                        log.info("Title: new language code found: " + programme.getChannel() + ", " + programme.getStart() + " :: " + child.getAttributes().getNamedItem("lang").getNodeValue());
                     }
                 }
                 if (child.getNodeName().equalsIgnoreCase("sub-title")) {
                     if (child.getAttributes().getNamedItem("lang").getNodeValue().equals("pl") && programme.getSubtitlePl() == null) {
                         programme.setSubtitlePl(child.getTextContent());
                     } else {
-                        log.info("Sub-title: new language code found: "+programme.getChannel()+", "+programme.getStart()+" :: "+child.getAttributes().getNamedItem("lang").getNodeValue());
+                        log.info("Sub-title: new language code found: " + programme.getChannel() + ", " + programme.getStart() + " :: " + child.getAttributes().getNamedItem("lang").getNodeValue());
                     }
                 }
                 if (child.getNodeName().equalsIgnoreCase("desc")) {
                     if (child.getAttributes().getNamedItem("lang").getNodeValue().equals("pl") && programme.getDescPl() == null) {
                         programme.setDescPl(child.getTextContent());
                     } else {
-                        log.info("Desc: new language code found: "+programme.getChannel()+", "+programme.getStart()+" :: "+child.getAttributes().getNamedItem("lang").getNodeValue());
+                        log.info("Desc: new language code found: " + programme.getChannel() + ", " + programme.getStart() + " :: " + child.getAttributes().getNamedItem("lang").getNodeValue());
                     }
                 }
 
@@ -98,19 +117,21 @@ public class EpgXmlParser {
                     if (child.getAttributes().getNamedItem("system").getNodeValue().equals("xmltv_ns")) {
                         programme.setEpisodeXmlNs(child.getTextContent());
                     } else if (child.getAttributes().getNamedItem("system").getNodeValue().equals("onscreen")) {
-                            programme.setEpisodeXmlNs(child.getTextContent());
+                        programme.setEpisodeXmlNs(child.getTextContent());
                     } else {
-                        log.info("New episode number format found: "+child.getAttributes().getNamedItem("system").getNodeValue());
+                        log.info("New episode number format found: " + child.getAttributes().getNamedItem("system").getNodeValue());
                     }
                 }
 
                 if (child.getNodeName().equalsIgnoreCase("country")) {
-                        programme.addCountry(child.getTextContent());
+                    programme.addCountry(child.getTextContent());
                 }
             }
 
             tvProgrammes.add(programme);
         }
+        log.info("Programmes objects in memory: " + String.valueOf(tvProgrammes.size()));
+        log.info("Number of programmes in XML file: " + String.valueOf(channelsList.getLength()));
         return tvProgrammes;
     }
 }

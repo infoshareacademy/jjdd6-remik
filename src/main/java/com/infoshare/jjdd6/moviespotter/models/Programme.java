@@ -1,11 +1,13 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
 
+import java.time.LocalDateTime;
+
 public class Programme {
 
     private String channel;
-    private String start;
-    private String stop;
+    private LocalDateTime start;
+    private LocalDateTime stop;
     private String titlePl;
     private String titleEn;
     private String titleXx;
@@ -27,19 +29,19 @@ public class Programme {
         this.channel = channel;
     }
 
-    public String getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(String start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public String getStop() {
+    public LocalDateTime getStop() {
         return stop;
     }
 
-    public void setStop(String stop) {
+    public void setStop(LocalDateTime stop) {
         this.stop = stop;
     }
 
@@ -163,16 +165,16 @@ public class Programme {
     public String toString() {
         final StringBuffer sb = new StringBuffer("{");
         sb.append("channel=").append(channel);
-        //sb.append(", start='").append(start).append('\'');
-        //sb.append(", stop='").append(stop).append('\'');
+        sb.append(", start='").append(start).append('\'');
+        sb.append(", stop='").append(stop).append('\'');
         sb.append(", titles='").append(titlePl).append('\'').append(titleEn).append('\'').append(titleXx).append('\'');
         sb.append(", subtitlePl=").append(subtitlePl).append('\'');
-        sb.append(", director=").append(director).append('\'');
+        //sb.append(", director=").append(director).append('\'');
         //sb.append(", actor=").append(actor).append('\'');
         //sb.append(", descPl=").append(descPl).append('\'');\
-        sb.append(", cat:").append(categoriesPl).append('\'');
-        sb.append(", date:").append(date).append('\'');
-        sb.append(", ep:").append(episodeXmlNs).append('\'');
+        //sb.append(", cat:").append(categoriesPl).append('\'');
+        //sb.append(", date:").append(date).append('\'');
+        //sb.append(", ep:").append(episodeXmlNs).append('\'');
         sb.append(", country:").append(country).append('\'');
         sb.append('}');
         return sb.toString();

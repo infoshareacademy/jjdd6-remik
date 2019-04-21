@@ -1,34 +1,25 @@
 package com.infoshare.jjdd6.moviespotter.utils;
 
-import java.text.DateFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.text.SimpleDateFormat;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
 
 public class EpgDateConverter {
 
+    Logger log = LoggerFactory.getLogger(getClass().getName());
+
     public LocalDateTime ToLocalDateTime(String EpgDate) {
 
-        //2019 04 21 18 05 00 +0200
-
         String BaseDateTime=(EpgDate.split(" ")[0]);
-        //Integer TimeZoneDiff=Integer.parseInt((EpgDate.split(" ")[1]).substring(1,5));
-
-        ZoneOffset zoneOffset = ZoneOffset.of(EpgDate.split(" ")[1]);
-        TimeZone timezone = TimeZone.getTimeZone(zoneOffset);
-
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-
-        LocalDateTime localDateTime = LocalDateTime.parse(BaseDateTime, dtf);
-
-
-        System.out.println(localDateTime);
-        System.out.println(localDateTime+" "+timezone);
-
-        return null;
+     try {
+         LocalDateTime localDateTime = LocalDateTime.parse(BaseDateTime, dtf);
+         return localDateTime;
+     }  catch (DateTimeException e) {
+         log.info("Date formatting error: "+e);
+        return LocalDateTime.now().minusYears(1000);
+     }
     }
-
 }
