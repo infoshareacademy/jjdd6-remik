@@ -1,26 +1,37 @@
 package com.infoshare.jjdd6.moviespotter;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
-import com.infoshare.jjdd6.moviespotter.utils.epgXmlLoader;
+import com.infoshare.jjdd6.moviespotter.models.Programme;
 import com.infoshare.jjdd6.moviespotter.utils.ConfigLoader;
+import com.infoshare.jjdd6.moviespotter.utils.EpgXmlParser;
+import org.apache.log4j.BasicConfigurator;
 
-import java.lang.module.Configuration;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
-import java.util.Properties;
-
-import static java.lang.System.getProperty;
-import static java.lang.System.lineSeparator;
 
 public class App {
 
     public static void main(String[] args) {
 
+        System.setProperty("log4j.configurationFile","./log4j.properties");
+        BasicConfigurator.configure();
 
         System.out.println("App is starting...");
-        epgXmlLoader.loadEpgData();
 
+        ConfigLoader configLoader = new ConfigLoader();
+        configLoader.load();
+
+        EpgXmlParser epgXmlParser = new EpgXmlParser();
+
+        List <Programme> programme = epgXmlParser.parseXmlTvData();
+
+        System.out.println(programme.size());
+
+        for (Programme programme1 : programme) {
+
+            if ((programme1.getTitleXx() != null || programme1.getTitleEn()!=null) && programme1.getCountry()!=null ) {
+                System.out.println(programme1);
+            }
+        }
     }
 
 }

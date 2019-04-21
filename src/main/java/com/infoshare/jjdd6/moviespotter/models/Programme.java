@@ -16,6 +16,7 @@ public class Programme {
     private String actor;
     private String rating;
     private String episodeXmlNs;
+    private String country;
     private int date;
 
     public String getChannel() {
@@ -137,6 +138,19 @@ public class Programme {
         this.episodeXmlNs = episodeXmlNs;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void addCountry(String country) {
+        if (country != null && this.country == null) this.country = country;
+        else this.country = this.country + ", " + country;
+    }
+
     public int getDate() {
         return date;
     }
@@ -159,6 +173,7 @@ public class Programme {
         sb.append(", cat:").append(categoriesPl).append('\'');
         sb.append(", date:").append(date).append('\'');
         sb.append(", ep:").append(episodeXmlNs).append('\'');
+        sb.append(", country:").append(country).append('\'');
         sb.append('}');
         return sb.toString();
     }

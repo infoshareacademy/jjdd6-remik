@@ -7,7 +7,7 @@ import java.util.Properties;
 public class AppProps {
 
     public static void main (String [] args) {
-        try (OutputStream output = new FileOutputStream("./config.properties")) {
+        try (OutputStream output = new FileOutputStream("appConfig.properties")) {
 
 
             Properties props = new Properties();

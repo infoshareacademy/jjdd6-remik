@@ -1,23 +1,30 @@
 package com.infoshare.jjdd6.moviespotter.utils;
 
-import java.io.File;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Optional;
 import java.util.Properties;
+
 
 public class ConfigLoader {
 
-    public static Properties getInstance() {
+    private Logger log = LoggerFactory.getLogger(getClass());
+    public static Properties properties;
 
-        try (InputStream input = new FileInputStream("./config.properties")) {
+    public  void load() {
+
+        log.info("Loading app config");
+
+        try (InputStream input = new FileInputStream("appConfig.properties")) {
             Properties props = new Properties();
             props.load(input);
-            return props;
+            properties = props;
+            log.debug(props.toString());
 
         } catch (Exception e) {
-            //todo: logger
-            return null;
+            log.error("File not loaded: "+ e);
         }
     }
 }
