@@ -59,7 +59,7 @@ public class epgXmlLoader {
                         programme.getOtherTitles().put(child.getAttributes().getNamedItem("lang").getNodeValue(), child.getTextContent());
                     }
 
-                    //System.out.println(programme.getOtherTitles().values());
+                    System.out.println(programme.getOtherTitles().values());
                 }
 
 
