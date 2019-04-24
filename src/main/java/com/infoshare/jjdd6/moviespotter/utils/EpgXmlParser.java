@@ -7,10 +7,20 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequestScoped
 public class EpgXmlParser {
+
+    @Inject
+    ConfigLoader configLoader;
+
+    @Inject
+    EpgXmlLoader epgXmlLoader;
 
     private Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
@@ -18,11 +28,13 @@ public class EpgXmlParser {
 
         log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
 
-        EpgXmlLoader epgXmlLoader =  new EpgXmlLoader();
         Document doc = epgXmlLoader.loadEpgData();
-
+/*
         String ignore = ConfigLoader.properties.getProperty("Ignore");
         String onlyLoad = ConfigLoader.properties.getProperty("OnlyLoad");
+*/
+        String ignore = configLoader.getProperties().getProperty("Ignore");
+        String onlyLoad = configLoader.getProperties().getProperty("OnlyLoad");
 
         EpgDateConverter epgDateConverter = new EpgDateConverter();
 

@@ -1,16 +1,11 @@
 package com.infoshare.jjdd6.moviespotter;
 
-import com.infoshare.jjdd6.moviespotter.dao.WatchListEntryDao;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
-import com.infoshare.jjdd6.moviespotter.models.WatchListEntry;
 import com.infoshare.jjdd6.moviespotter.utils.ConfigLoader;
-import com.infoshare.jjdd6.moviespotter.utils.EpgDateConverter;
 import com.infoshare.jjdd6.moviespotter.utils.EpgXmlParser;
-import com.infoshare.jjdd6.moviespotter.viewers.FilmWebApiCaller;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import java.util.List;
 
@@ -26,9 +21,9 @@ public class App {
 
         log.info("App is starting...preparing configuration");
 
-        ConfigLoader configLoader = new ConfigLoader();
+        /*ConfigLoader configLoader = new ConfigLoader();
         configLoader.load();
-
+*/
         log.info("Configuration OK. calling parser for data object");
         EpgXmlParser epgXmlParser = new EpgXmlParser();
 

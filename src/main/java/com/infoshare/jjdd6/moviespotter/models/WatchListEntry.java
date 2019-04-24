@@ -1,19 +1,10 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
-import com.infoshare.jjdd6.moviespotter.dao.WatchListEntryDao;
-
-import javax.inject.Inject;
-import javax.naming.Name;
 import javax.persistence.*;
-import java.util.zip.CheckedOutputStream;
 
 @Entity
 @Table(name="WatchListEntry")
 public class WatchListEntry {
-
-    @Inject
-    private WatchListEntryDao watchListEntryDao;
-
 
     @Id
     @Column(name="id")

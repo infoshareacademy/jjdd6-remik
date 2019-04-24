@@ -3,28 +3,40 @@ package com.infoshare.jjdd6.moviespotter.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-
+@ApplicationScoped
 public class ConfigLoader {
 
+    private final String appConfigPath = "/home/anyrem/IdeaProjects/movieSpotter/data/appConfig.properties";
     private Logger log = LoggerFactory.getLogger(getClass());
-    public static Properties properties;
 
-    public  void load() {
+    private Properties properties;
 
-        log.info("Loading app config");
+    public Properties getProperties() {
 
-        try (InputStream input = new FileInputStream("./data/appConfig.properties")) {
+        log.info("asked for configuration");
+        if (properties == null) {
+            properties = load();
+        }
+        return properties;
+    }
+
+
+    private Properties load() {
+
+        try (InputStream input = new FileInputStream(appConfigPath)) {
             Properties props = new Properties();
             props.load(input);
-            properties = props;
-            log.debug(props.toString());
+            log.debug("Loaded config: " + props.toString());
+            return props;
 
         } catch (Exception e) {
-            log.error("File not loaded: "+ e);
+            log.error("config not loaded: " + e);
+            return null;
         }
     }
 }
