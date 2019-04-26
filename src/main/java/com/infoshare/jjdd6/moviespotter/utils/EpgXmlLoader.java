@@ -20,10 +20,10 @@ class EpgXmlLoader {
 
     protected Document loadEpgData() {
 
-
         log.info("Loading XML data file...");
 
         try {
+
             String epgXmpPath = configLoader.getProperties().getProperty("xmlpath");
             File fXmlFile = new File(epgXmpPath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

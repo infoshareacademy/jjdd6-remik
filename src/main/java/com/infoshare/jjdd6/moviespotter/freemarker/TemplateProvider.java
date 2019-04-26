@@ -1,4 +1,4 @@
-package com.isa.usersengine.freemarker;
+package com.infoshare.jjdd6.moviespotter.freemarker;
 
 
 import freemarker.template.Configuration;

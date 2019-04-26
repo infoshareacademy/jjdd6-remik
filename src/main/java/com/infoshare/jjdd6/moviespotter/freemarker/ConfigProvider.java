@@ -1,11 +1,10 @@
-package com.isa.usersengine.freemarker;
+package com.infoshare.jjdd6.moviespotter.freemarker;
 
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 
 import javax.enterprise.context.ApplicationScoped;
-import java.io.IOException;
 
 @ApplicationScoped
 public class ConfigProvider {

@@ -3,21 +3,22 @@ package com.infoshare.jjdd6.moviespotter.utils;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
 import com.sun.istack.Nullable;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.Max;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
-
-public class EgpDataFiters {
+@RequestScoped
+public class EpgDataFilters {
 
     @Inject
     EpgDataKeeper epgDataKeeper;
 
     private ArrayList<Programme> programsList = new ArrayList<>();
 
-    public List<Programme> getMoviesByChannel(@Nullable List<Programme> programmes, String channel) {
+    public List<Programme> getMoviesByChannel(@Nullable List<Programme> programmes, String[] channel) {
 
         if (programmes == null) {
             programmes = epgDataKeeper.getAllPrograms();
@@ -25,9 +26,7 @@ public class EgpDataFiters {
 
         return  programmes
                 .stream()
-                .filter(a -> a.getChannel().equals(channel))
+                .filter(a -> Arrays.asList(channel).contains(a.getChannel()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
-
-
 }
