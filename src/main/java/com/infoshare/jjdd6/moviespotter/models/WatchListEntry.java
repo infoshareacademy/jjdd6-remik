@@ -3,24 +3,24 @@ package com.infoshare.jjdd6.moviespotter.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="WatchListEntry")
+@Table(name = "WATCHLISTENTRY")
 public class WatchListEntry {
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="titlePl")
+    @Column(name = "titlePl")
     private String titlePl;
 
-    @Column(name="titleEn")
+    @Column(name = "titleEn")
     private String titleEn;
 
     @Column(name = "titleXx")
     private String titleXx;
 
-    @Column(name="director")
+    @Column(name = "director")
     private String director;
 
 

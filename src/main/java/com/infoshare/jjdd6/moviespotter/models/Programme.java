@@ -1,25 +1,63 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
-
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "PROGRAMME")
 public class Programme {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "channel")
     private String channel;
+
+    @Column(name = "start")
     private LocalDateTime start;
+
+    @Column(name = "stop")
     private LocalDateTime stop;
+
+    @Column(name = "titlePl")
     private String titlePl;
+
+    @Column(name = "titleEn")
     private String titleEn;
+
+    @Column(name = "titleXx")
     private String titleXx;
+
+    @Column(name = "subtitlePl")
     private String subtitlePl;
+
+    @Column(name = "descPl",length = 2048)
     private String descPl;
+
+    @Column(name = "categoriesPl")
     private String categoriesPl;
+
+    @Column(name = "director")
     private String director;
+
+    @Column(name="actor")
     private String actor;
+
+    @Column(name="rating")
     private String rating;
+
+    @Column(name="episodeXmlNs")
     private String episodeXmlNs;
+
+    @Column(name="country")
     private String country;
+
+    @Column(name="date")
     private int date;
+
+    public Programme () {}
 
     public String getChannel() {
         return channel;
@@ -95,7 +133,7 @@ public class Programme {
 
     public void addCategoryPl(String category) {
         if (categoriesPl == null) categoriesPl = category;
-        else categoriesPl=categoriesPl + ", " + category;
+        else categoriesPl = categoriesPl + ", " + category;
     }
 
     public String getDirector() {
@@ -108,9 +146,9 @@ public class Programme {
 
     public void addDirector(String director) {
         if (director != null && this.director == null) this.director = director;
-        else this.director = this.director+", "+director;
+        else this.director = this.director + ", " + director;
     }
-    
+
     public String getActor() {
         return actor;
     }
@@ -121,7 +159,7 @@ public class Programme {
 
     public void addActor(String actor) {
         if (actor != null && this.actor == null) this.actor = actor;
-        else this.actor = this.actor+", "+actor;
+        else this.actor = this.actor + ", " + actor;
     }
 
     public String getRating() {

@@ -9,11 +9,6 @@
 
     <properties>
       <!-- Hibernate settings -->
-
-      <property name="hibernate.connection.username" value="root"/>
-      <property name="hibernate.connection.password" value="pass123"/>
-      <property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:6603/movieSpotter?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw"/>
-
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>

@@ -1,5 +1,6 @@
 package com.infoshare.jjdd6.moviespotter.utils;
 
+import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -22,9 +23,12 @@ public class EpgXmlParser {
     @Inject
     EpgXmlLoader epgXmlLoader;
 
+    @Inject
+    ProgrammeDao programmeDao;
+
     private Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
-    public List<Programme> parseXmlTvData() {
+    public ArrayList<Programme> parseXmlTvData() {
 
         log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
 
@@ -140,6 +144,7 @@ public class EpgXmlParser {
                 }
             }
 
+            programmeDao.save(programme);
             tvProgrammes.add(programme);
         }
         log.info("Programmes objects in memory: " + String.valueOf(tvProgrammes.size()));
