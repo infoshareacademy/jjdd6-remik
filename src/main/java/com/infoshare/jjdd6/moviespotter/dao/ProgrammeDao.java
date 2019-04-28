@@ -1,10 +1,14 @@
 package com.infoshare.jjdd6.moviespotter.dao;
 
 import com.infoshare.jjdd6.moviespotter.models.Programme;
+import com.sun.istack.Nullable;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Stateless
 public class ProgrammeDao {
@@ -31,4 +35,32 @@ public class ProgrammeDao {
     public Programme findByName(String name) {
         return entityManager.find(Programme.class, name);
     }
+
+    public List<Programme> findByChannel(String channel) {
+        Query query = entityManager
+                .createQuery("SELECT s FROM Programme s WHERE s.channel like :channel ORDER BY s.start")
+                .setParameter("channel", channel);
+        return query.getResultList();
+    }
+
+    public List<Programme> findByChannelAndDate (String channel, @Nullable LocalDateTime from, @Nullable LocalDateTime to) {
+        if (from == null)
+            from = LocalDateTime.now();
+        if (to == null)
+            to = LocalDateTime.now().plusYears(100);
+
+        Query query = entityManager
+                .createQuery("SELECT s FROM Programme s WHERE s.channel like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.start")
+                .setParameter("channel", channel )
+                .setParameter("from", from)
+                .setParameter("to", to);
+        return query.getResultList();
+    }
+
+    public List<Programme> getAllProgrammes() {
+        Query query = entityManager.createQuery("SELECT s FROM Programme s");
+        return query.getResultList();
+    }
+
+
 }

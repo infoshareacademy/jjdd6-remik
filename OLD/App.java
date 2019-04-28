@@ -1,3 +1,4 @@
+/*
 package com.infoshare.jjdd6.moviespotter;
 
 import com.infoshare.jjdd6.moviespotter.models.Programme;
@@ -21,9 +22,9 @@ public class App {
 
         log.info("App is starting...preparing configuration");
 
-        /*ConfigLoader configLoader = new ConfigLoader();
+        ConfigLoader configLoader = new ConfigLoader();
         configLoader.load();
-*/
+
         log.info("Configuration OK. calling parser for data object");
         EpgXmlParser epgXmlParser = new EpgXmlParser();
 
@@ -48,3 +49,4 @@ public class App {
     }
 
 }
+*/

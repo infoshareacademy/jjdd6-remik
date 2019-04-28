@@ -1,16 +1,22 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "PROGRAMME")
+
 public class Programme {
+
+
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //private Long id;
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "channel")
     private String channel;
@@ -57,7 +63,16 @@ public class Programme {
     @Column(name="date")
     private int date;
 
-    public Programme () {}
+
+    //public Programme () {}
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getChannel() {
         return channel;

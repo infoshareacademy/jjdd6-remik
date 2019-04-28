@@ -13,9 +13,9 @@ public class ConfigLoader {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
-    //JAVA_OPTS="-DmovieSpotter.config=/home/dx/INFOSHARE/movieSpotter/data/appConfig.properties"
-    private Properties sysProps = System.getProperties();
-    private final String appConfigPath = sysProps.getProperty("movieSpotter.config");
+    //private Properties sysProps = System.getProperties();
+    //private final String appConfigPath = sysProps.getProperty("movieSpotter.config");
+    private final String appConfigPath = "/home/dx/INFOSHARE/movieSpotter/data/appConfig.properties";
 
     private Properties properties;
     public Properties getProperties() {

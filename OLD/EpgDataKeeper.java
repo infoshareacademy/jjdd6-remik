@@ -1,6 +1,7 @@
-package com.infoshare.jjdd6.moviespotter.utils;
+package com.infoshare.jjdd6.moviespotter.OLD;
 
 import com.infoshare.jjdd6.moviespotter.models.Programme;
+import com.infoshare.jjdd6.moviespotter.utils.EpgXmlParser;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

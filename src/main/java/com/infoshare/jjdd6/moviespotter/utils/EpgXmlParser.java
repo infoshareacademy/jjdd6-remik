@@ -28,7 +28,8 @@ public class EpgXmlParser {
 
     private Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
-    public ArrayList<Programme> parseXmlTvData() {
+    public void parseXmlTvData() {
+    //public ArrayList<Programme> parseXmlTvData() {
 
         log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
 
@@ -44,7 +45,7 @@ public class EpgXmlParser {
 
         NodeList channelsList = doc.getDocumentElement().getElementsByTagName("programme");
 
-        ArrayList<Programme> tvProgrammes = new ArrayList<>();
+//        ArrayList<Programme> tvProgrammes = new ArrayList<>();
 
         for (int i = 0; i < channelsList.getLength(); i++) {
 
@@ -144,11 +145,13 @@ public class EpgXmlParser {
                 }
             }
 
+            programme.setId((programme.getChannel() + programme.getStart().toString()).hashCode());
+
             programmeDao.save(programme);
-            tvProgrammes.add(programme);
+    //        tvProgrammes.add(programme);
         }
-        log.info("Programmes objects in memory: " + String.valueOf(tvProgrammes.size()));
+  //      log.info("Programmes objects in memory: " + String.valueOf(tvProgrammes.size()));
         log.info("Number of programmes in XML file: " + String.valueOf(channelsList.getLength()));
-        return tvProgrammes;
+  //      return tvProgrammes;
     }
 }
