@@ -77,29 +77,4 @@ public class FilmWebBrowser {
 
         return persons;
     }
-
-
-/*
-        try {
-
-        Long fId = 449390L;
-
-        Film film1 = fa.getFilmData(fId);
-
-        System.out.println(film1.getVotes());
-
-        List<Person> persons = fa.getPersons(fId, Profession.ACTOR, 0,5);
-
-        for (Person person : persons) {
-            System.out.println(person.getRole()+" - "+person.getName());
-
-        }
-
-
-    } catch (FilmwebException f) {
-        System.out.println(f);
-    }
-}
-}
-*/
 }

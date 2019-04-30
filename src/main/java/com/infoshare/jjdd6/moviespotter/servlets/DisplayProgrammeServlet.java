@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet ("/programme")
+@WebServlet("/programme")
 public class DisplayProgrammeServlet extends HttpServlet {
 
     @Inject
@@ -36,7 +36,7 @@ public class DisplayProgrammeServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        List <Programme> programmeList = programmeDao.findByChannel(request.getParameter("ch1"));
+        List<Programme> programmeList = programmeDao.findByChannel(request.getParameter("ch1"));
         programmeList.addAll(programmeDao.findByChannel(request.getParameter("ch2")));
         programmeList.addAll(programmeDao.findByChannel(request.getParameter("ch3")));
 
@@ -46,20 +46,20 @@ public class DisplayProgrammeServlet extends HttpServlet {
         channels.add(request.getParameter("ch3"));
 
         Map<String, Object> model = new HashMap<>();
-            model.put("programmes", programmeList);
-            model.put("channels", channels);
+        model.put("programmes", programmeList);
+        model.put("channels", channels);
 
-        log.info("programmes/model has entries: "+model.size());
+        log.info("programmes/model has entries: " + model.size());
 
 
         Template template = templateProvider.getTemplate(getServletContext(), "programme3cols.ftlh");
 
-        log.info("using freemarker template: "+template.getName());
+        log.info("using freemarker template: " + template.getName());
 
         try {
             template.process(model, response.getWriter());
         } catch (TemplateException e) {
-            log.error("Error processing template: "+e);
+            log.error("Error processing template: " + e);
         }
     }
 }

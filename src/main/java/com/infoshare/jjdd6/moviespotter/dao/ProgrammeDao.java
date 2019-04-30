@@ -43,7 +43,7 @@ public class ProgrammeDao {
         return query.getResultList();
     }
 
-    public List<Programme> findByChannelAndDate (String channel, @Nullable LocalDateTime from, @Nullable LocalDateTime to) {
+    public List<Programme> findByChannelAndDate(String channel, @Nullable LocalDateTime from, @Nullable LocalDateTime to) {
         if (from == null)
             from = LocalDateTime.now();
         if (to == null)
@@ -51,7 +51,7 @@ public class ProgrammeDao {
 
         Query query = entityManager
                 .createQuery("SELECT s FROM Programme s WHERE s.channel like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.channel, s.start")
-                .setParameter("channel", channel )
+                .setParameter("channel", channel)
                 .setParameter("from", from)
                 .setParameter("to", to);
         return query.getResultList();

@@ -9,10 +9,6 @@ import java.time.LocalDateTime;
 @Table(name = "PROGRAMME")
 public class    Programme {
 
-
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private Long id;
-
     @Id
     @Column(name = "id", length = 32)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,7 +60,7 @@ public class    Programme {
     private int date;
 
 
-    //public Programme () {}
+    public Programme () {}
 
     public int getId() {
         return id;

@@ -1,6 +1,7 @@
 package com.infoshare.jjdd6.moviespotter.dao;
 
 import com.infoshare.jjdd6.moviespotter.models.WatchListEntry;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

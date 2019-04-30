@@ -84,7 +84,7 @@ public class ProgrammeDetailsServlet extends HttpServlet {
         try {
             template.process(model, response.getWriter());
         } catch (TemplateException e) {
-            log.error("Error processing template: "+e);
+            log.error("Error processing template: " + e);
         }
     }
 }

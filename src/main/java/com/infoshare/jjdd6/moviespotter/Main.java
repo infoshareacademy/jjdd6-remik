@@ -22,7 +22,7 @@ public class Main {
     @PostConstruct
     public void startUp() {
 
-        System.setProperty("log4j.configurationFile","./data/log4j.properties");
+        System.setProperty("log4j.configurationFile", "./data/log4j.properties");
         BasicConfigurator.configure();
 
         log.info("Calling epgXmlParser.");

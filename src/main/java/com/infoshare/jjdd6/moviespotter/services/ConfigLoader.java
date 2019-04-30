@@ -15,6 +15,7 @@ public class ConfigLoader {
     private final String appConfigPath = "/home/dx/INFOSHARE/movieSpotter/data/appConfig.properties";
 
     private Properties properties;
+
     public Properties getProperties() {
 
         log.info("asked for configuration");

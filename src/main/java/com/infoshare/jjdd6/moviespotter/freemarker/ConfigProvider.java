@@ -23,7 +23,7 @@ public class ConfigProvider {
             configuration.setLogTemplateExceptions(false);
             configuration.setWrapUncheckedExceptions(true);
         }
-        log.info("Freemarker config "+configuration.getDefaultEncoding());
+        log.info("Freemarker config " + configuration.getDefaultEncoding());
         return configuration;
     }
 }

@@ -12,7 +12,7 @@ public class ProgrammeAllTitlesList {
     @Inject
     ProgrammeDao programmeDao;
 
-    public List<String> getTitlesList (int id) {
+    public List<String> getTitlesList(int id) {
 
         Programme detailed = programmeDao.findById(id);
 
