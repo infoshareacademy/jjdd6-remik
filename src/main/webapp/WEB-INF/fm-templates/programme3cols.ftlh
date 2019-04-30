@@ -20,7 +20,7 @@
 
 <#-- text -->
 <div class=row>
-<#list programmes as programme>
+    <#list programmes as programme>
 
         <#if programme.channel == channels[0]>
             <div class=column name=1>
@@ -29,8 +29,8 @@
                     <li>Tytuł: ${programme.titlePl}</li>
                     <li>Start: ${programme.start}</li>
                     <li>Opis: ${programme.descPl}</li>
-                     <li>Kategoria: ${programme.categoriesPl}</li>
-                     <li><a href="/programme/detail?id=${programme.id?c}">Szczegóły</a></li>
+                    <li>Kategoria: ${programme.categoriesPl}</li>
+                    <li><a href="/programme/detail?id=${programme.id?c}">Szczegóły</a></li>
                 </ul>
             </div>
         </#if>
@@ -45,6 +45,9 @@
                     <li>Tytuł: ${programme.titlePl}</li>
                     <li>Start: ${programme.start}</li>
                     <li>Opis: ${programme.descPl}</li>
+                    <li>Reżyseria: ${programme.director}</li>
+                    <li>Obsada: ${programme.actor}</li>
+                    <li>Rok: ${programme.date?c}</li>
                     <li>Kategoria: ${programme.categoriesPl}</li>
                     <li><a href="/programme/detail?id=${programme.id?c}">Szczegóły</a></li>
                 </ul>
@@ -65,7 +68,7 @@
                 </ul>
             </div>
         </#if>
-</#list>
+    </#list>
 </div>
 
 

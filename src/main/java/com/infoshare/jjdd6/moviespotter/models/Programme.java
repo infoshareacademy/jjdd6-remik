@@ -15,7 +15,8 @@ public class    Programme {
     //private Long id;
 
     @Id
-    @Column(name = "id", length = 64)
+    @Column(name = "id", length = 32)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "channel")
@@ -65,10 +66,6 @@ public class    Programme {
 
 
     //public Programme () {}
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getId() {
         return id;

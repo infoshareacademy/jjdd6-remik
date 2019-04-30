@@ -1,1 +1,0 @@
-Main-Class: com.infoshare.jjdd6.moviespotter.App

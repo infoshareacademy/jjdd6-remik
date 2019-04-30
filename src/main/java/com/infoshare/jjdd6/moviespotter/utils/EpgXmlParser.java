@@ -27,6 +27,10 @@ public class EpgXmlParser {
     private Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
     public void parseXmlTvData() {
+        doParse();
+    }
+
+    private void doParse() {
     //public ArrayList<Programme> parseXmlTvData() {
 
         log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
@@ -143,9 +147,9 @@ public class EpgXmlParser {
                 }
             }
 
-            programme.setId((programme.getChannel() + programme.getStart()).hashCode());
+            //programme.setId((programme.getChannel() + programme.getStart()).hashCode());
 
-            if (programmeDao.findById(programme.getId()) == null) {
+            if (programmeDao.findByChannelAndDate(programme.getChannel(), programme.getStart(),programme.getStop()).isEmpty()) {
 
                 try {
                     programmeDao.save(programme);
@@ -153,7 +157,7 @@ public class EpgXmlParser {
                     log.error("SQL transaction error: " + e);
                 }
             } else {
-                log.warn("PROGRAMME table: duplicate ID "+programme.getId());
+                log.warn("PROGRAMME table: duplicate ID "+programme.getStart()+programme.getChannel());
             }
 
     //        tvProgrammes.add(programme);

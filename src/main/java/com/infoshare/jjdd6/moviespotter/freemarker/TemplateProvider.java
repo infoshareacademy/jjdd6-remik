@@ -17,22 +17,6 @@ public class TemplateProvider {
 
     private Logger log = LoggerFactory.getLogger(TemplateProvider.class.getName());
 
-    @Inject
-    ConfigLoader configLoader;
-
-    private String configPathSet() {
-
-        return
-                configLoader
-                        .getProperties()
-                        .getProperty("deploymentPath")
-                        .concat(
-                                configLoader
-                                        .getProperties()
-                                        .getProperty("freemarkerTemplatesPath")
-                        );
-    }
-
     private final String TEMPLATES_DIRECTORY_PATH = "WEB-INF/fm-templates";
 
     private Configuration configuration;

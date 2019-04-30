@@ -38,7 +38,7 @@ public class ProgrammeDao {
 
     public List<Programme> findByChannel(String channel) {
         Query query = entityManager
-                .createQuery("SELECT s FROM Programme s WHERE s.channel like :channel ORDER BY s.start")
+                .createQuery("SELECT s FROM Programme s WHERE s.channel like :channel ORDER BY s.channel, s.start")
                 .setParameter("channel", channel);
         return query.getResultList();
     }
@@ -50,7 +50,7 @@ public class ProgrammeDao {
             to = LocalDateTime.now().plusYears(100);
 
         Query query = entityManager
-                .createQuery("SELECT s FROM Programme s WHERE s.channel like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.start")
+                .createQuery("SELECT s FROM Programme s WHERE s.channel like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.channel, s.start")
                 .setParameter("channel", channel )
                 .setParameter("from", from)
                 .setParameter("to", to);
@@ -58,7 +58,7 @@ public class ProgrammeDao {
     }
 
     public List<Programme> getAllProgrammes() {
-        Query query = entityManager.createQuery("SELECT s FROM Programme s");
+        Query query = entityManager.createQuery("SELECT s FROM Programme s ORDER BY s.channel, s.start");
         return query.getResultList();
     }
 
