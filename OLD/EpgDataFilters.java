@@ -1,4 +1,4 @@
-package com.infoshare.jjdd6.moviespotter.utils;
+package com.infoshare.jjdd6.moviespotter.services;
 
 import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.models.Programme;

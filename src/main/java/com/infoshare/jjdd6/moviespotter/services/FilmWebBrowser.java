@@ -1,4 +1,4 @@
-package com.infoshare.jjdd6.moviespotter.utils;
+package com.infoshare.jjdd6.moviespotter.services;
 
 import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
@@ -11,16 +11,8 @@ import info.talacha.filmweb.search.models.FilmSearchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.inject.Inject;
-import javax.inject.Qualifier;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.security.PublicKey;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 

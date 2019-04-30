@@ -25,12 +25,15 @@
         <#if programme.channel == channels[0]>
             <div class=column name=1>
                 <ul>
-                    <li>Program: ${programme.channel}</li>
-                    <li>Tytuł: ${programme.titlePl}</li>
-                    <li>Start: ${programme.start}</li>
-                    <li>Opis: ${programme.descPl}</li>
-                    <li>Kategoria: ${programme.categoriesPl}</li>
-                    <li><a href="/programme/detail?id=${programme.id?c}">Szczegóły</a></li>
+                    <li>Program: ${programme.channel!}</li>
+                    <li>Tytuł: ${programme.titlePl!}</li>
+                    <li>Start: ${programme.start!}</li>
+                    <li>Opis: ${programme.descPl!}</li>
+                    <li>Reżyseria: ${programme.director!}</li>
+                    <li>Obsada: ${programme.actor!}</li>
+                    <li>Rok: ${programme.date?c!}</li>
+                    <li>Kategoria: ${programme.categoriesPl!}</li>
+                    <li><a href="/programme/detail?id=${programme.id?c!}">Szczegóły</a></li>
                 </ul>
             </div>
         </#if>
@@ -41,15 +44,15 @@
             <div class=column name=2>
 
                 <ul>
-                    <li>Program: ${programme.channel}</li>
-                    <li>Tytuł: ${programme.titlePl}</li>
-                    <li>Start: ${programme.start}</li>
-                    <li>Opis: ${programme.descPl}</li>
-                    <li>Reżyseria: ${programme.director}</li>
-                    <li>Obsada: ${programme.actor}</li>
-                    <li>Rok: ${programme.date?c}</li>
-                    <li>Kategoria: ${programme.categoriesPl}</li>
-                    <li><a href="/programme/detail?id=${programme.id?c}">Szczegóły</a></li>
+                    <li>Program: ${programme.channel!}</li>
+                    <li>Tytuł: ${programme.titlePl!}</li>
+                    <li>Start: ${programme.start!}</li>
+                    <li>Opis: ${programme.descPl!}</li>
+                    <li>Reżyseria: ${programme.director!}</li>
+                    <li>Obsada: ${programme.actor!}</li>
+                    <li>Rok: ${programme.date?c!}</li>
+                    <li>Kategoria: ${programme.categoriesPl!}</li>
+                    <li><a href="/programme/detail?id=${programme.id?c!}">Szczegóły</a></li>
                 </ul>
             </div>
         </#if>
@@ -59,12 +62,15 @@
             <div class=column name=3>
 
                 <ul>
-                    <li>Program: ${programme.channel}</li>
-                    <li>Tytuł: ${programme.titlePl}</li>
-                    <li>Start: ${programme.start}</li>
-                    <li>Opis: ${programme.descPl}</li>
-                    <li>Kategoria: ${programme.categoriesPl}</li>
-                    <li><a href="/programme/detail?id=${programme.id?c}">Szczegóły</a></li>
+                    <li>Program: ${programme.channel!}</li>
+                    <li>Tytuł: ${programme.titlePl!}</li>
+                    <li>Start: ${programme.start!}</li>
+                    <li>Opis: ${programme.descPl!}</li>
+                    <li>Reżyseria: ${programme.director!}</li>
+                    <li>Obsada: ${programme.actor!}</li>
+                    <li>Rok: ${programme.date?c!}</li>
+                    <li>Kategoria: ${programme.categoriesPl!}</li>
+                    <li><a href="/programme/detail?id=${programme.id?c!}">Szczegóły</a></li>
                 </ul>
             </div>
         </#if>

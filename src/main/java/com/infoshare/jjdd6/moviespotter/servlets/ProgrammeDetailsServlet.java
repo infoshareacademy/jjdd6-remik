@@ -7,21 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
-import com.infoshare.jjdd6.moviespotter.utils.FilmWebBrowser;
-import com.infoshare.jjdd6.moviespotter.utils.ProgrammeAllTitlesList;
+import com.infoshare.jjdd6.moviespotter.services.FilmWebBrowser;
+import com.infoshare.jjdd6.moviespotter.services.ProgrammeAllTitlesList;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import info.talacha.filmweb.models.Film;
-import info.talacha.filmweb.models.Person;
 import org.apache.commons.lang3.math.NumberUtils;
 import info.talacha.filmweb.search.models.FilmSearchResult;
 import org.slf4j.Logger;

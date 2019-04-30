@@ -1,7 +1,7 @@
 package com.infoshare.jjdd6.moviespotter.servlets;
 
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
-import com.infoshare.jjdd6.moviespotter.utils.FilmWebBrowser;
+import com.infoshare.jjdd6.moviespotter.services.FilmWebBrowser;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import info.talacha.filmweb.models.Film;

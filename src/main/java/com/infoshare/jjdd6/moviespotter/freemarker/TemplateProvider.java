@@ -1,7 +1,6 @@
 package com.infoshare.jjdd6.moviespotter.freemarker;
 
 
-import com.infoshare.jjdd6.moviespotter.utils.ConfigLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.slf4j.Logger;

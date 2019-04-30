@@ -36,14 +36,14 @@ public class DisplayProgrammeServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
 
-        List <Programme> programmeList = programmeDao.findByChannel("Discovery HD");
-        programmeList.addAll(programmeDao.findByChannel("TNT"));
-        programmeList.addAll(programmeDao.findByChannel("Comedy Central"));
+        List <Programme> programmeList = programmeDao.findByChannel(request.getParameter("ch1"));
+        programmeList.addAll(programmeDao.findByChannel(request.getParameter("ch2")));
+        programmeList.addAll(programmeDao.findByChannel(request.getParameter("ch3")));
 
         List<String> channels = new ArrayList<>();
-        channels.add("Discovery HD");
-        channels.add("TNT");
-        channels.add("Comedy Central");
+        channels.add(request.getParameter("ch1"));
+        channels.add(request.getParameter("ch2"));
+        channels.add(request.getParameter("ch3"));
 
         Map<String, Object> model = new HashMap<>();
             model.put("programmes", programmeList);

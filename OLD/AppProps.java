@@ -1,4 +1,4 @@
-package com.infoshare.jjdd6.moviespotter.utils;
+package com.infoshare.jjdd6.moviespotter.services;
 
 import java.io.FileOutputStream;
 import java.io.OutputStream;

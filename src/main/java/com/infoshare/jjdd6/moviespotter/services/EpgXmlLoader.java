@@ -1,4 +1,4 @@
-package com.infoshare.jjdd6.moviespotter.utils;
+package com.infoshare.jjdd6.moviespotter.services;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

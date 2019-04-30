@@ -3,7 +3,7 @@ package com.infoshare.jjdd6.moviespotter.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "WATCHLISTENTRY")
+@Table(name = "WATCH_LIST_ENTRY")
 public class WatchListEntry {
 
     @Id
@@ -20,11 +20,15 @@ public class WatchListEntry {
     @Column(name = "titleXx")
     private String titleXx;
 
-    @Column(name = "director")
-    private String director;
+    @Column(name = "year")
+    private int year;
 
 
     public WatchListEntry() {
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitlePl() {
@@ -51,11 +55,11 @@ public class WatchListEntry {
         this.titleXx = titleXx;
     }
 
-    public String getDirector() {
-        return director;
+    public int getYear() {
+        return year;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void setYear(int year) {
+        this.year = year;
     }
 }

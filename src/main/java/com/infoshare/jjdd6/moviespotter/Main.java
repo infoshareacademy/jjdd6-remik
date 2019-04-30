@@ -1,6 +1,6 @@
 package com.infoshare.jjdd6.moviespotter;
 
-import com.infoshare.jjdd6.moviespotter.utils.EpgXmlParser;
+import com.infoshare.jjdd6.moviespotter.services.EpgXmlParser;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 
 @Startup
 @Singleton
