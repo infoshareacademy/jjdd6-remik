@@ -32,8 +32,8 @@ public class ProgrammeDao {
         }
     }
 
-    public Programme findByName(String name) {
-        return entityManager.find(Programme.class, name);
+    public Programme findById(int Id) {
+        return entityManager.find(Programme.class, Id);
     }
 
     public List<Programme> findByChannel(String channel) {

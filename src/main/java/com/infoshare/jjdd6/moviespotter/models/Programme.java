@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "PROGRAMME")
 
-public class Programme {
+public class    Programme {
 
 
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     //private Long id;
 
     @Id
-    @Column(name = "id")
+    @Column(name = "id", length = 64)
     private int id;
 
     @Column(name = "channel")
@@ -148,7 +148,7 @@ public class Programme {
 
     public void addCategoryPl(String category) {
         if (categoriesPl == null) categoriesPl = category;
-        else categoriesPl = categoriesPl + ", " + category;
+        else categoriesPl = categoriesPl + " " + category;
     }
 
     public String getDirector() {

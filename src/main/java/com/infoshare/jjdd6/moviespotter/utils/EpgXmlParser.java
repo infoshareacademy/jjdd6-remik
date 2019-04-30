@@ -11,8 +11,6 @@ import org.w3c.dom.NodeList;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
 
 @RequestScoped
 public class EpgXmlParser {
@@ -145,9 +143,19 @@ public class EpgXmlParser {
                 }
             }
 
-            programme.setId((programme.getChannel() + programme.getStart().toString()).hashCode());
+            programme.setId((programme.getChannel() + programme.getStart()).hashCode());
 
-            programmeDao.save(programme);
+            if (programmeDao.findById(programme.getId()) == null) {
+
+                try {
+                    programmeDao.save(programme);
+                } catch (javax.persistence.PersistenceException e) {
+                    log.error("SQL transaction error: " + e);
+                }
+            } else {
+                log.warn("PROGRAMME table: duplicate ID "+programme.getId());
+            }
+
     //        tvProgrammes.add(programme);
         }
   //      log.info("Programmes objects in memory: " + String.valueOf(tvProgrammes.size()));
