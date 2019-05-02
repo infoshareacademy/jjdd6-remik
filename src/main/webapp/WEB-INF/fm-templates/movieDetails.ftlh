@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>TV programme</title>
+    <title>Movie Details</title>
     <style>
         .column {
             float: left;
@@ -59,7 +59,7 @@
     pasujące filmy:
     <br>
 <#list movies as m>
-    <li>${m.polishTitle!}  (${m.title!})  ${m.year?c!} <a href="/movie/detail?fwID=${m.id?c!}">szukaj w movieSpotter</a></li>
+    <li>${m.polishTitle!}  (${m.title!})  ${m.year?c!} <a href="/movie?fwID=${m.id?c!}">szukaj w movieSpotter</a></li>
 </#list>
 </div>
 <#recover>

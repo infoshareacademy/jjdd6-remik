@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/programme")
+@WebServlet("/")
 public class DisplayProgrammeServlet extends HttpServlet {
 
     @Inject
@@ -33,8 +33,6 @@ public class DisplayProgrammeServlet extends HttpServlet {
     private Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        response.setContentType("text/html;charset=UTF-8");
 
         List<Programme> programmeList = programmeDao.findByChannel(request.getParameter("ch1"));
         programmeList.addAll(programmeDao.findByChannel(request.getParameter("ch2")));
@@ -50,7 +48,6 @@ public class DisplayProgrammeServlet extends HttpServlet {
         model.put("channels", channels);
 
         log.info("programmes/model has entries: " + model.size());
-
 
         Template template = templateProvider.getTemplate(getServletContext(), "programme3cols.ftlh");
 

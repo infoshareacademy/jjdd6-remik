@@ -33,7 +33,7 @@
                     <li>Obsada: ${programme.actor!}</li>
                     <li>Rok: ${programme.date?c!}</li>
                     <li>Kategoria: ${programme.categoriesPl!}</li>
-                    <li><a href="/programme/detail?id=${programme.id?c!}">Szczegóły</a></li>
+                    <li><a href="/programme?id=${programme.id?c!}">Szczegóły</a></li>
                 </ul>
             </div>
         </#if>
@@ -52,7 +52,7 @@
                     <li>Obsada: ${programme.actor!}</li>
                     <li>Rok: ${programme.date?c!}</li>
                     <li>Kategoria: ${programme.categoriesPl!}</li>
-                    <li><a href="/programme/detail?id=${programme.id?c!}">Szczegóły</a></li>
+                    <li><a href="/programme?id=${programme.id?c!}">Szczegóły</a></li>
                 </ul>
             </div>
         </#if>
@@ -70,7 +70,7 @@
                     <li>Obsada: ${programme.actor!}</li>
                     <li>Rok: ${programme.date?c!}</li>
                     <li>Kategoria: ${programme.categoriesPl!}</li>
-                    <li><a href="/programme/detail?id=${programme.id?c!}">Szczegóły</a></li>
+                    <li><a href="/programme?id=${programme.id?c!}">Szczegóły</a></li>
                 </ul>
             </div>
         </#if>

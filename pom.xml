@@ -112,7 +112,7 @@
             <version>0.3.4</version>
             <!--<scope>system</scope>-->
             <systemPath>
-              ${basedir}/lib/FilmwebApi-0.3.4.jar
+                ${basedir}/lib/FilmwebApi-0.3.4.jar
             </systemPath>
         </dependency>
 
@@ -151,6 +151,20 @@
 
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.infoshare.jjdd6.moviespotter.App</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
