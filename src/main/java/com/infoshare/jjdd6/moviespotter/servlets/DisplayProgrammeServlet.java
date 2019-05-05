@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/")
+@WebServlet("/programme/old")
 public class DisplayProgrammeServlet extends HttpServlet {
 
     @Inject

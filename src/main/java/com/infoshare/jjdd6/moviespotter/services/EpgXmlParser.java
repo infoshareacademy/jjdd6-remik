@@ -139,6 +139,12 @@ public class EpgXmlParser {
                 if (child.getNodeName().equalsIgnoreCase("country")) {
                     programme.addCountry(child.getTextContent());
                 }
+
+                if (child.getNodeName().equalsIgnoreCase("star-rating")) {
+                    if (child.getChildNodes().item(1).getNodeName().equalsIgnoreCase("value")) {
+                        programme.setRating(child.getChildNodes().item(1).getTextContent());
+                    }
+                }
             }
 
 

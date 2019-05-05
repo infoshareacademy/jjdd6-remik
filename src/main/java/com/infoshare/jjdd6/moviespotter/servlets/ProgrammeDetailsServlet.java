@@ -25,7 +25,7 @@ import info.talacha.filmweb.search.models.FilmSearchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@WebServlet(urlPatterns = {"/programme"})
+@WebServlet(urlPatterns = {"/programme/details"})
 public class ProgrammeDetailsServlet extends HttpServlet {
 
     private Logger log = LoggerFactory.getLogger(this.getClass().getName());
