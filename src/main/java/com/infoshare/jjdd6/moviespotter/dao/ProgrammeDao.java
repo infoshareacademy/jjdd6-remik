@@ -62,5 +62,13 @@ public class ProgrammeDao {
         return query.getResultList();
     }
 
+    public List<Programme> getAllOccurences(List<String> Titles) {
+        Query query = entityManager
+        .createQuery("SELECT s FROM Programme s WHERE s.titlePl in :Titles")
+                .setParameter("Titles", Titles);
+
+        return query.getResultList();
+    }
+
 
 }

@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/programme/movie/")
+@WebServlet("/programme/movie")
 public class DisplayMovieServlet extends HttpServlet {
 
     @Inject

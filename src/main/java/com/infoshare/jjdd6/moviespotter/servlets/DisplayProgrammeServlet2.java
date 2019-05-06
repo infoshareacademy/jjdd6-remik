@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/programme/new")
+@WebServlet(urlPatterns = {"/programme/new", "/error"})
 public class DisplayProgrammeServlet2 extends HttpServlet {
 
     @Inject
@@ -40,14 +40,13 @@ public class DisplayProgrammeServlet2 extends HttpServlet {
 
         String channel  = request.getParameter("ch");
 
-
         List<String> chList = channelsList.getAllNames();
 
         Map<String, Object> model = new HashMap<>();
 
         model.put("channels" , chList);
 
-        if (channel == null) {
+        if (!chList.contains(channel)) {
             channel = chList.get(0);
         }
 
