@@ -1,3 +1,4 @@
+<#setting url_escaping_charset='utf-8'>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">Do góry</a>

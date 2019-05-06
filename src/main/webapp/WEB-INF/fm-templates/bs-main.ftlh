@@ -33,7 +33,7 @@
             <div class="list-group">
 
                 <#list channels as channel>
-                    <a href="/programme/new?ch=${channel}" class="list-group-item">${channel!}</a>
+                    <a href="/programme/new?ch=${channel?url}" class="list-group-item">${channel!}</a>
                 </#list>
 
             </div>
