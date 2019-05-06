@@ -34,7 +34,7 @@
                     <a href=${m_movie.websiteURL!} class="list-group-item">Strona filmu na filmweb.pl</a>
                     <#recover>
                 </#attempt>
-                <a href="#" class="list-group-item"></a>
+                <a href="/" class="list-group-item">Wróć do programu</a>
             </div>
         </div>
 
