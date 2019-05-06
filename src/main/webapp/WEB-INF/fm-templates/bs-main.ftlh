@@ -68,11 +68,14 @@
 
         <div class="col-lg-9">
 
+            <#attempt>
             <div class="card card-outline-secondary my-4">
                 <div class="card-header">
-                    <h1>${tvProgramme[1].channel}</h1>
+                    <h1>${tvProgramme[1].channel!}</h1>
                 </div>
             </div>
+            <#recover>
+            </#attempt>
             <!-- /.card -->
 
             <#list tvProgramme as item>
@@ -98,18 +101,23 @@
                         <#if item.categoriesPl??>
                         </#if>
 
-                        <#if item.rating != "">
+                        <#if item.rating != "" && item??>
                             Ocena:  <span class="text-warning">${item.rating!}</span>
                         </#if>
-                        <p>
+                        <p class="text-right">
+                            <a href="#">
+                                <img src="/static/images/calendar-svgrepo-com.svg" height="36" width="36">
+                            </a>
+                            <a href="/programme/find?tvItem=${item.id?c!}">
+                                <img src="/static/images/newspaper-folded-svgrepo-com.svg" height="36" width="36">
+                            </a>
                             <a href="/programme/details?id=${item.id?c!}">
-                                <img src="/static/img/movie-camera-svgrepo-com.svg" alt="camera-action!" height="42" width="42">
+                                <img src="/static/images/movie-camera-svgrepo-com.svg" height="36" width="36">
                             </a>
                         </p>
 
                     </div>
                 </div>
-
             </#list>
             <!-- /.card -->
 
