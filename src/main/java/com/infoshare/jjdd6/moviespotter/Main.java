@@ -14,7 +14,7 @@ import javax.inject.Inject;
 @Singleton
 public class Main {
 
-    Logger log = LoggerFactory.getLogger(Main.class.getName());
+    private final static Logger log = LoggerFactory.getLogger(Main.class.getName());
 
     @Inject
     EpgXmlParser epgXmlParser;

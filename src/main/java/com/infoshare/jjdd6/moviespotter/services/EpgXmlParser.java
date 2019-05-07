@@ -16,15 +16,15 @@ import javax.inject.Inject;
 public class EpgXmlParser {
 
     @Inject
-    ConfigLoader configLoader;
+    private ConfigLoader configLoader;
 
     @Inject
-    EpgXmlLoader epgXmlLoader;
+    private EpgXmlLoader epgXmlLoader;
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDao programmeDao;
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private static final Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
 
     public void parseXmlTvData() {
         doParse();

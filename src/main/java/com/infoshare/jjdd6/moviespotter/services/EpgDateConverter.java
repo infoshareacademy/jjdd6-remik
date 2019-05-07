@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 public class EpgDateConverter {
 
-    Logger log = LoggerFactory.getLogger(getClass().getName());
+    private static final Logger log = LoggerFactory.getLogger(EpgDateConverter.class.getName());
 
     public LocalDateTime ToLocalDateTime(String EpgDate) {
 

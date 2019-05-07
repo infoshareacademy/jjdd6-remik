@@ -15,11 +15,11 @@ import java.io.File;
 class EpgXmlLoader {
 
     @Inject
-    ConfigLoader configLoader;
+    private ConfigLoader configLoader;
 
-    Logger log = LoggerFactory.getLogger(EpgXmlLoader.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(EpgXmlLoader.class.getName());
 
-    protected Document loadEpgData() {
+    Document loadEpgData() {
 
         log.info("Loading XML data file...");
 

@@ -214,12 +214,6 @@ public class    Programme {
         sb.append(", stop='").append(stop).append('\'');
         sb.append(", titles='").append(titlePl).append('\'').append(titleEn).append('\'').append(titleXx).append('\'');
         sb.append(", subtitlePl=").append(subtitlePl).append('\'');
-        //sb.append(", director=").append(director).append('\'');
-        //sb.append(", actor=").append(actor).append('\'');
-        //sb.append(", descPl=").append(descPl).append('\'');\
-        //sb.append(", cat:").append(categoriesPl).append('\'');
-        //sb.append(", date:").append(date).append('\'');
-        //sb.append(", ep:").append(episodeXmlNs).append('\'');
         sb.append(", country:").append(country).append('\'');
         sb.append('}');
         return sb.toString();
