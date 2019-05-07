@@ -1,5 +1,6 @@
 package com.infoshare.jjdd6.moviespotter.servlets;
 
+import com.infoshare.jjdd6.moviespotter.Main;
 import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
