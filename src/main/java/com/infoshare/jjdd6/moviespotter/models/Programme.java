@@ -44,7 +44,7 @@ public class    Programme {
     @Column(name = "director")
     private String director;
 
-    @Column(name="actor")
+    @Column(name="actor",length = 2048)
     private String actor;
 
     @Column(name="rating")

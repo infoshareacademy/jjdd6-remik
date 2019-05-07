@@ -16,25 +16,30 @@ import javax.inject.Inject;
 public class EpgXmlParser {
 
     @Inject
-    ConfigLoader configLoader;
+    private ConfigLoader configLoader;
 
     @Inject
-    EpgXmlLoader epgXmlLoader;
+    private EpgXmlLoader epgXmlLoader;
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDao programmeDao;
 
     private Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
     public void parseXmlTvData() {
-        doParse();
+
+        Document doc = epgXmlLoader.loadEpgData();
+
+        new Thread(() -> {
+            doParse(doc, programmeDao);
+        }).start();
     }
 
-    private void doParse() {
+    private void doParse(Document doc, ProgrammeDao programmeDao) {
 
         log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
 
-        Document doc = epgXmlLoader.loadEpgData();
+        //Document doc = epgXmlLoader.loadEpgData();
 
         String ignore = configLoader.getProperties().getProperty("Ignore");
         String onlyLoad = configLoader.getProperties().getProperty("OnlyLoad");
@@ -151,12 +156,13 @@ public class EpgXmlParser {
             if (programmeDao.findByChannelAndDate(programme.getChannel(), programme.getStart(), programme.getStop()).isEmpty()) {
 
                 try {
+                    log.debug("Trying to save: "+programme.getChannel()+programme.getStart());
                     programmeDao.save(programme);
                 } catch (javax.persistence.PersistenceException e) {
                     log.error("SQL transaction error: " + e);
                 }
             } else {
-                log.warn("PROGRAMME table: duplicate ID " + programme.getStart() + programme.getChannel());
+                log.warn("PROGRAMME table: duplicate ID " + programme.getChannel()+programme.getStart());
             }
 
         }

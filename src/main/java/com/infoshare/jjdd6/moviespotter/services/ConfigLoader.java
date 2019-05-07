@@ -12,7 +12,7 @@ import java.util.Properties;
 public class ConfigLoader {
 
     private Logger log = LoggerFactory.getLogger(getClass());
-    private final String appConfigPath = "/home/dx/INFOSHARE/movieSpotter_is/data/appConfig.properties";
+    private final String appConfigPath = "/home/anyrem/IdeaProjects/jjdd6-remik/data/appConfig.properties";
 
     private Properties properties;
 

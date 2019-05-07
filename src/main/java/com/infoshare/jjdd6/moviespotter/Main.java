@@ -6,11 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.ejb.*;
 import javax.inject.Inject;
 
 @Startup
+@Lock(LockType.READ)
 @Singleton
 public class Main {
 
@@ -20,12 +20,20 @@ public class Main {
     EpgXmlParser epgXmlParser;
 
     @PostConstruct
-    public void startUp() {
 
-        System.setProperty("log4j.configurationFile", "./data/log4j.properties");
-        BasicConfigurator.configure();
 
-        log.info("Calling epgXmlParser.");
-        epgXmlParser.parseXmlTvData();
-    }
+
+
+         void startUp(){
+
+            System.setProperty("log4j.configurationFile", "./data/log4j.properties");
+            BasicConfigurator.configure();
+
+            log.info("Calling epgXmlParser.");
+            epgXmlParser.parseXmlTvData();
+
+        }
+
+
+
 }
