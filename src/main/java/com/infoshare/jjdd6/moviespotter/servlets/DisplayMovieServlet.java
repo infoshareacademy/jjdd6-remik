@@ -23,12 +23,12 @@ import java.util.Map;
 public class DisplayMovieServlet extends HttpServlet {
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @Inject
-    FilmWebBrowser filmWebBrowser;
+    private FilmWebBrowser filmWebBrowser;
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private static final Logger log = LoggerFactory.getLogger(DisplayMovieServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

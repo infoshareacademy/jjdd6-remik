@@ -11,7 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class ConfigProvider {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private static final Logger log = LoggerFactory.getLogger(ConfigProvider.class.getName());
     private Configuration configuration;
 
     public Configuration getConfiguration() {

@@ -28,19 +28,19 @@ import org.slf4j.LoggerFactory;
 @WebServlet(urlPatterns = {"/programme"})
 public class ProgrammeDetailsServlet extends HttpServlet {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private static final Logger log = LoggerFactory.getLogger(ProgrammeDetailsServlet.class.getName());
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDao programmeDao;
 
     @Inject
-    FilmWebBrowser filmWebBrowser;
+    private FilmWebBrowser filmWebBrowser;
 
     @Inject
-    ProgrammeAllTitlesList programmeAllTitlesList;
+    private ProgrammeAllTitlesList programmeAllTitlesList;
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

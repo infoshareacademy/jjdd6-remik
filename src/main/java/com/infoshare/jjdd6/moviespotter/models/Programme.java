@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "PROGRAMME")
-public class    Programme {
+public class Programme {
 
     @Id
     @Column(name = "id", length = 32)
@@ -35,7 +35,7 @@ public class    Programme {
     @Column(name = "subtitlePl")
     private String subtitlePl;
 
-    @Column(name = "descPl",length = 2048)
+    @Column(name = "descPl", length = 2048)
     private String descPl;
 
     @Column(name = "categoriesPl")
@@ -44,23 +44,24 @@ public class    Programme {
     @Column(name = "director")
     private String director;
 
-    @Column(name="actor")
+    @Column(name = "actor")
     private String actor;
 
-    @Column(name="rating")
+    @Column(name = "rating")
     private String rating;
 
-    @Column(name="episodeXmlNs")
+    @Column(name = "episodeXmlNs")
     private String episodeXmlNs;
 
-    @Column(name="country")
+    @Column(name = "country")
     private String country;
 
-    @Column(name="date")
+    @Column(name = "date")
     private int date;
 
 
-    public Programme () {}
+    public Programme() {
+    }
 
     public int getId() {
         return id;
@@ -139,8 +140,11 @@ public class    Programme {
     }
 
     public void addCategoryPl(String category) {
-        if (categoriesPl == null) categoriesPl = category;
-        else categoriesPl = categoriesPl + " " + category;
+        if (categoriesPl == null) {
+            categoriesPl = category;
+        } else {
+            categoriesPl = categoriesPl + " " + category;
+        }
     }
 
     public String getDirector() {
@@ -152,8 +156,11 @@ public class    Programme {
     }
 
     public void addDirector(String director) {
-        if (director != null && this.director == null) this.director = director;
-        else this.director = this.director + ", " + director;
+        if (director != null && this.director == null) {
+            this.director = director;
+        } else {
+            this.director = this.director + ", " + director;
+        }
     }
 
     public String getActor() {
@@ -165,8 +172,11 @@ public class    Programme {
     }
 
     public void addActor(String actor) {
-        if (actor != null && this.actor == null) this.actor = actor;
-        else this.actor = this.actor + ", " + actor;
+        if (actor != null && this.actor == null) {
+            this.actor = actor;
+        } else {
+            this.actor = this.actor + ", " + actor;
+        }
     }
 
     public String getRating() {
@@ -194,8 +204,11 @@ public class    Programme {
     }
 
     public void addCountry(String country) {
-        if (country != null && this.country == null) this.country = country;
-        else this.country = this.country + ", " + country;
+        if (country != null && this.country == null) {
+            this.country = country;
+        } else {
+            this.country = this.country + ", " + country;
+        }
     }
 
     public int getDate() {
@@ -214,12 +227,6 @@ public class    Programme {
         sb.append(", stop='").append(stop).append('\'');
         sb.append(", titles='").append(titlePl).append('\'').append(titleEn).append('\'').append(titleXx).append('\'');
         sb.append(", subtitlePl=").append(subtitlePl).append('\'');
-        //sb.append(", director=").append(director).append('\'');
-        //sb.append(", actor=").append(actor).append('\'');
-        //sb.append(", descPl=").append(descPl).append('\'');\
-        //sb.append(", cat:").append(categoriesPl).append('\'');
-        //sb.append(", date:").append(date).append('\'');
-        //sb.append(", ep:").append(episodeXmlNs).append('\'');
         sb.append(", country:").append(country).append('\'');
         sb.append('}');
         return sb.toString();

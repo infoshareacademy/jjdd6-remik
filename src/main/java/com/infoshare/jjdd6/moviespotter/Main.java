@@ -14,15 +14,15 @@ import javax.inject.Inject;
 @Singleton
 public class Main {
 
-    Logger log = LoggerFactory.getLogger(Main.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(Main.class.getName());
 
     @Inject
-    EpgXmlParser epgXmlParser;
+    private EpgXmlParser epgXmlParser;
 
     @PostConstruct
     public void startUp() {
 
-        System.setProperty("log4j.configurationFile", "./data/log4j.properties");
+        System.setProperty("log4j.configurationFile", System.getProperty("user.home")+"/MovieSpotter_data/");
         BasicConfigurator.configure();
 
         log.info("Calling epgXmlParser.");

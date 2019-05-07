@@ -3,17 +3,16 @@ package com.infoshare.jjdd6.moviespotter.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateful;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-@ApplicationScoped
+@Stateful
 public class ConfigLoader {
 
-    private Logger log = LoggerFactory.getLogger(getClass());
-    private final String appConfigPath = "/home/dx/INFOSHARE/movieSpotter/data/appConfig.properties";
-
+    private static final Logger log = LoggerFactory.getLogger(ConfigLoader.class.getName());
+    private String appConfigPath = System.getProperty("user.home")+"/MovieSpotter_data/appConfig.properties";
     private Properties properties;
 
     public Properties getProperties() {
@@ -25,12 +24,12 @@ public class ConfigLoader {
         return properties;
     }
 
-
     private Properties load() {
 
         try (InputStream input = new FileInputStream(appConfigPath)) {
             Properties props = new Properties();
             props.load(input);
+            props.setProperty("dataPath", System.getProperty("user.home")+"/MovieSpotter_data/");
             log.debug("Loaded config: " + props.toString());
             return props;
 

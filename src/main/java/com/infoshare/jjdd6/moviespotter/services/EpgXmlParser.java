@@ -16,15 +16,15 @@ import javax.inject.Inject;
 public class EpgXmlParser {
 
     @Inject
-    ConfigLoader configLoader;
+    private ConfigLoader configLoader;
 
     @Inject
-    EpgXmlLoader epgXmlLoader;
+    private EpgXmlLoader epgXmlLoader;
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDao programmeDao;
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
 
     public void parseXmlTvData() {
         doParse();
@@ -109,16 +109,19 @@ public class EpgXmlParser {
 
                 if (child.getNodeName().equalsIgnoreCase("credits")) {
                     for (int k = 0; k < child.getChildNodes().getLength(); k++) {
-                        if (child.getChildNodes().item(k).getNodeName().equalsIgnoreCase("director"))
+                        if (child.getChildNodes().item(k).getNodeName().equalsIgnoreCase("director")) {
                             programme.addDirector(child.getChildNodes().item(k).getTextContent());
-                        if (child.getChildNodes().item(k).getNodeName().equalsIgnoreCase("actor"))
+                        }
+                        if (child.getChildNodes().item(k).getNodeName().equalsIgnoreCase("actor")) {
                             programme.addActor(child.getChildNodes().item(k).getTextContent());
+                        }
                     }
                 }
 
                 if (child.getNodeName().equalsIgnoreCase("date")) {
-                    if (NumberUtils.isDigits(child.getTextContent()))
+                    if (NumberUtils.isDigits(child.getTextContent())) {
                         programme.setDate(Integer.parseInt(child.getTextContent()));
+                    }
                 }
 
                 if (child.getNodeName().equalsIgnoreCase("category")) {
@@ -154,6 +157,6 @@ public class EpgXmlParser {
             }
 
         }
-        log.info("Number of programmes in XML file: " + String.valueOf(channelsList.getLength()));
+        log.info("Number of programmes in XML file: " + channelsList.getLength());
     }
 }

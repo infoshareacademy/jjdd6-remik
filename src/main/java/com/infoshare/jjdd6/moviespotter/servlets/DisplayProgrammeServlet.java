@@ -25,10 +25,10 @@ import java.util.Map;
 public class DisplayProgrammeServlet extends HttpServlet {
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDao programmeDao;
 
     private Logger log = LoggerFactory.getLogger(this.getClass().getName());
 

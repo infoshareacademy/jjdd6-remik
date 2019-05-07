@@ -10,7 +10,7 @@ import java.util.List;
 public class ProgrammeAllTitlesList {
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDao programmeDao;
 
     public List<String> getTitlesList(int id) {
 
@@ -19,17 +19,20 @@ public class ProgrammeAllTitlesList {
         if (detailed != null) {
             List<String> detailedTitles = new ArrayList<>();
 
-            if (detailed.getTitlePl() != null)
+            if (detailed.getTitlePl() != null) {
                 detailedTitles.add(detailed.getTitlePl());
+            }
 
-            if (detailed.getTitleEn() != null)
+            if (detailed.getTitleEn() != null) {
                 detailedTitles.add(detailed.getTitleEn());
+            }
 
-            if (detailed.getTitleXx() != null)
+            if (detailed.getTitleXx() != null) {
                 detailedTitles.add(detailed.getTitleXx());
-
+            }
             return detailedTitles;
-        } else
+        } else {
             return null;
+        }
     }
 }
