@@ -24,7 +24,8 @@ public class EpgXmlParser {
     @Inject
     private ProgrammeDao programmeDao;
 
-    private Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
+
 
     public void parseXmlTvData() {
         doParse();
