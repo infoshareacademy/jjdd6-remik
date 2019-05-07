@@ -26,7 +26,7 @@ public class Main {
 
          void startUp(){
 
-            System.setProperty("log4j.configurationFile", "./data/log4j.properties");
+            System.setProperty("log4j.configurationFile", System.getProperty("user.home")+"/MovieSpotter_data/");
             BasicConfigurator.configure();
 
             log.info("Calling epgXmlParser.");

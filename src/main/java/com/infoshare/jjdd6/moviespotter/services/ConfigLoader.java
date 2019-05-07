@@ -12,8 +12,7 @@ import java.util.Properties;
 public class ConfigLoader {
 
     private Logger log = LoggerFactory.getLogger(getClass());
-    private final String appConfigPath = "/home/anyrem/IdeaProjects/jjdd6-remik/data/appConfig.properties";
-
+    private String appConfigPath = System.getProperty("user.home")+"/MovieSpotter_data/appConfig.properties";
     private Properties properties;
 
     public Properties getProperties() {
@@ -31,6 +30,7 @@ public class ConfigLoader {
         try (InputStream input = new FileInputStream(appConfigPath)) {
             Properties props = new Properties();
             props.load(input);
+            props.setProperty("dataPath", System.getProperty("user.home")+"/MovieSpotter_data/");
             log.debug("Loaded config: " + props.toString());
             return props;
 
