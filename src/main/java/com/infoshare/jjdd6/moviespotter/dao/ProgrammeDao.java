@@ -16,7 +16,7 @@ import java.util.List;
 @Stateless
 public class ProgrammeDao {
 
-    private static final Logger log = LoggerFactory.getLogger(ConfigLoader.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(ProgrammeDao.class.getName());
 
     @PersistenceContext
     private EntityManager entityManager;

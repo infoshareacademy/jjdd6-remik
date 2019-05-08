@@ -16,16 +16,15 @@ import javax.inject.Inject;
 public class EpgXmlParser {
 
     @Inject
-    private ConfigLoader configLoader;
-
-    @Inject
     private EpgXmlLoader epgXmlLoader;
 
     @Inject
     private ProgrammeDao programmeDao;
 
-    private static final Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
+    @Inject
+    private ShouldLoadChannel shouldLoadChannel;
 
+    private static final Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
 
     public void parseXmlTvData() {
         doParse();
@@ -36,9 +35,7 @@ public class EpgXmlParser {
         log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
 
         Document doc = epgXmlLoader.loadEpgData();
-
-        String ignore = configLoader.getProperties().getProperty("Ignore");
-        String onlyLoad = configLoader.getProperties().getProperty("OnlyLoad");
+        ;
 
         EpgDateConverter epgDateConverter = new EpgDateConverter();
 
@@ -51,15 +48,15 @@ public class EpgXmlParser {
 
             String channelName = node.getAttributes().getNamedItem("channel").getNodeValue();
 
-            if ((ignore != null && ignore.contains(channelName)) || (onlyLoad != null) && !onlyLoad.contains(channelName))
+            if (shouldLoadChannel.checkShouldBeLoaded(channelName)) {
                 continue;
-
+            }
 
             programme.setChannel(channelName);
 
             programme
                     .setStart(epgDateConverter
-                            .ToLocalDateTime(node.getAttributes()
+                            .toLocalDateTime(node.getAttributes()
                                     .getNamedItem("start")
                                     .getNodeValue()
                             )
@@ -68,7 +65,7 @@ public class EpgXmlParser {
 
             programme
                     .setStop(epgDateConverter
-                            .ToLocalDateTime(node.getAttributes()
+                            .toLocalDateTime(node.getAttributes()
                                     .getNamedItem("stop")
                                     .getNodeValue()
                             )
