@@ -16,15 +16,15 @@ import javax.inject.Inject;
 public class EpgXmlParser {
 
     @Inject
-    private ConfigLoader configLoader;
-
-    @Inject
     private EpgXmlLoader epgXmlLoader;
 
     @Inject
     private ProgrammeDao programmeDao;
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    @Inject
+    private ShouldLoadChannel shouldLoadChannel;
+
+    private static final Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
 
     public void parseXmlTvData() {
 
@@ -39,11 +39,6 @@ public class EpgXmlParser {
 
         log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
 
-        //Document doc = epgXmlLoader.loadEpgData();
-
-        String ignore = configLoader.getProperties().getProperty("Ignore");
-        String onlyLoad = configLoader.getProperties().getProperty("OnlyLoad");
-
         EpgDateConverter epgDateConverter = new EpgDateConverter();
 
         NodeList channelsList = doc.getDocumentElement().getElementsByTagName("programme");
@@ -55,15 +50,15 @@ public class EpgXmlParser {
 
             String channelName = node.getAttributes().getNamedItem("channel").getNodeValue();
 
-            if ((ignore != null && ignore.contains(channelName)) || (onlyLoad != null) && !onlyLoad.contains(channelName))
+            if (shouldLoadChannel.checkShouldBeLoaded(channelName)) {
                 continue;
-
+            }
 
             programme.setChannel(channelName);
 
             programme
                     .setStart(epgDateConverter
-                            .ToLocalDateTime(node.getAttributes()
+                            .toLocalDateTime(node.getAttributes()
                                     .getNamedItem("start")
                                     .getNodeValue()
                             )
@@ -72,7 +67,7 @@ public class EpgXmlParser {
 
             programme
                     .setStop(epgDateConverter
-                            .ToLocalDateTime(node.getAttributes()
+                            .toLocalDateTime(node.getAttributes()
                                     .getNamedItem("stop")
                                     .getNodeValue()
                             )
@@ -114,16 +109,19 @@ public class EpgXmlParser {
 
                 if (child.getNodeName().equalsIgnoreCase("credits")) {
                     for (int k = 0; k < child.getChildNodes().getLength(); k++) {
-                        if (child.getChildNodes().item(k).getNodeName().equalsIgnoreCase("director"))
+                        if (child.getChildNodes().item(k).getNodeName().equalsIgnoreCase("director")) {
                             programme.addDirector(child.getChildNodes().item(k).getTextContent());
-                        if (child.getChildNodes().item(k).getNodeName().equalsIgnoreCase("actor"))
+                        }
+                        if (child.getChildNodes().item(k).getNodeName().equalsIgnoreCase("actor")) {
                             programme.addActor(child.getChildNodes().item(k).getTextContent());
+                        }
                     }
                 }
 
                 if (child.getNodeName().equalsIgnoreCase("date")) {
-                    if (NumberUtils.isDigits(child.getTextContent()))
+                    if (NumberUtils.isDigits(child.getTextContent())) {
                         programme.setDate(Integer.parseInt(child.getTextContent()));
+                    }
                 }
 
                 if (child.getNodeName().equalsIgnoreCase("category")) {
@@ -144,28 +142,21 @@ public class EpgXmlParser {
                 if (child.getNodeName().equalsIgnoreCase("country")) {
                     programme.addCountry(child.getTextContent());
                 }
-
-                if (child.getNodeName().equalsIgnoreCase("star-rating")) {
-                    if (child.getChildNodes().item(1).getNodeName().equalsIgnoreCase("value")) {
-                        programme.setRating(child.getChildNodes().item(1).getTextContent());
-                    }
-                }
             }
 
 
             if (programmeDao.findByChannelAndDate(programme.getChannel(), programme.getStart(), programme.getStop()).isEmpty()) {
 
                 try {
-                    log.debug("Trying to save: "+programme.getChannel()+programme.getStart());
                     programmeDao.save(programme);
                 } catch (javax.persistence.PersistenceException e) {
                     log.error("SQL transaction error: " + e);
                 }
             } else {
-                log.warn("PROGRAMME table: duplicate ID " + programme.getChannel()+programme.getStart());
+                log.warn("PROGRAMME table: duplicate ID " + programme.getStart() + programme.getChannel());
             }
 
         }
-        log.info("Number of programmes in XML file: " + String.valueOf(channelsList.getLength()));
+        log.info("Number of programmes in XML file: " + channelsList.getLength());
     }
 }

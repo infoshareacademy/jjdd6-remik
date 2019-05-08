@@ -15,11 +15,11 @@ import java.io.File;
 class EpgXmlLoader {
 
     @Inject
-    ConfigLoader configLoader;
+    private ConfigLoader configLoader;
 
-    Logger log = LoggerFactory.getLogger(EpgXmlLoader.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(EpgXmlLoader.class.getName());
 
-    protected Document loadEpgData() {
+    Document loadEpgData() {
 
         log.info("Loading XML data file...");
 
@@ -27,7 +27,8 @@ class EpgXmlLoader {
 
             String epgXmlFile = configLoader.getProperties().getProperty("xmlfile");
             String appConfigPath = configLoader.getProperties().getProperty("dataPath");
-            String epgXmlPath = appConfigPath+"/"+epgXmlFile;
+            final String epgXmlPath = appConfigPath+"/"+epgXmlFile;
+
             File fXmlFile = new File(epgXmlPath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -38,7 +39,6 @@ class EpgXmlLoader {
             return doc;
 
         } catch (Exception e) {
-            e.printStackTrace();
             log.error("XML data not loaded: " + e);
             return null;
         }

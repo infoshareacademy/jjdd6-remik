@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class ChannelsList {
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDao programmeDao;
 
     public List<String> getAllNames() {
 

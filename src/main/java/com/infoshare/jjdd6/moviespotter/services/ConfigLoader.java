@@ -11,7 +11,7 @@ import java.util.Properties;
 @ApplicationScoped
 public class ConfigLoader {
 
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger log = LoggerFactory.getLogger(ConfigLoader.class.getName());
     private String appConfigPath = System.getProperty("user.home")+"/MovieSpotter_data/appConfig.properties";
     private Properties properties;
 
@@ -23,7 +23,6 @@ public class ConfigLoader {
         }
         return properties;
     }
-
 
     private Properties load() {
 

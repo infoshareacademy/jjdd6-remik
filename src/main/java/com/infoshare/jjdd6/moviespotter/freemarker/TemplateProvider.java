@@ -14,7 +14,7 @@ import java.io.IOException;
 @RequestScoped
 public class TemplateProvider {
 
-    private Logger log = LoggerFactory.getLogger(TemplateProvider.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(TemplateProvider.class.getName());
 
     private final String TEMPLATES_DIRECTORY_PATH = "WEB-INF/fm-templates";
 

@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter;
 
 public class EpgDateConverter {
 
-    Logger log = LoggerFactory.getLogger(getClass().getName());
+    private static final Logger log = LoggerFactory.getLogger(EpgDateConverter.class.getName());
 
-    public LocalDateTime ToLocalDateTime(String EpgDate) {
+    public LocalDateTime toLocalDateTime(String EpgDate) {
 
         String BaseDateTime = (EpgDate.split(" ")[0]);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
@@ -20,7 +20,7 @@ public class EpgDateConverter {
             LocalDateTime localDateTime = LocalDateTime.parse(BaseDateTime, dtf);
             return localDateTime;
         } catch (DateTimeException e) {
-            log.info("Date formatting error: " + e);
+            log.error("Date formatting error: " + e);
             return LocalDateTime.now().minusYears(1000);
         }
     }

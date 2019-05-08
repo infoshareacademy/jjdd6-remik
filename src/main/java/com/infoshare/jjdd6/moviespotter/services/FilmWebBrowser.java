@@ -19,11 +19,11 @@ import java.util.List;
 @Local
 public class FilmWebBrowser {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private static final Logger log = LoggerFactory.getLogger(FilmWebBrowser.class.getName());
     private FilmwebApi filmwebApi = new FilmwebApi();
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDao programmeDao;
 
     public List<FilmSearchResult> findMoviesBriefInfo(int id) {
 
@@ -31,15 +31,17 @@ public class FilmWebBrowser {
         log.info("Analyzing: " + programme.toString());
 
         List<String> titles = new ArrayList<>();
-        if (programme.getTitlePl() != null && !programme.getTitlePl().isEmpty())
+        if (programme.getTitlePl() != null && !programme.getTitlePl().isEmpty()) {
             titles.add(programme.getTitlePl());
+        }
 
-        if (programme.getTitleEn() != null && !programme.getTitleEn().isEmpty())
+        if (programme.getTitleEn() != null && !programme.getTitleEn().isEmpty()) {
             titles.add(programme.getTitleEn());
+        }
 
-        if (programme.getTitleXx() != null && !programme.getTitleXx().isEmpty())
+        if (programme.getTitleXx() != null && !programme.getTitleXx().isEmpty()) {
             titles.add(programme.getTitleXx());
-
+        }
         log.info("Found titles: " + titles.toString());
 
         List<FilmSearchResult> output = new ArrayList<>();

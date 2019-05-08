@@ -28,60 +28,33 @@ import org.slf4j.LoggerFactory;
 @WebServlet(urlPatterns = {"/programme/details"})
 public class ProgrammeDetailsServlet extends HttpServlet {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    @Inject
+    private TemplateProvider templateProvider;
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDetailsLogic programmeDetailsLogic;
 
-    @Inject
-    FilmWebBrowser filmWebBrowser;
-
-    @Inject
-    ProgrammeAllTitlesList programmeAllTitlesList;
-
-    @Inject
-    TemplateProvider templateProvider;
+    private static final Logger log = LoggerFactory.getLogger(ProgrammeDetailsServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         int id = (NumberUtils.toInt(request.getParameter("id"), 0));
 
-        Programme detailed = programmeDao.findById(id);
-
-        List<String> allTitles = (programmeAllTitlesList.getTitlesList(id));
-
-        List<FilmSearchResult> briefList = filmWebBrowser.findMoviesBriefInfo(id);
 
         Map<String, Object> model = new HashMap<>();
 
-        for (FilmSearchResult filmSearchResult : briefList) {
+        if (id > 0) {
 
-            for (String allTitle : allTitles) {
-
-                if ((allTitle.equalsIgnoreCase(filmSearchResult.getTitle())
-                        || allTitle.equalsIgnoreCase(filmSearchResult.getPolishTitle())
-                        || allTitle.equalsIgnoreCase(filmSearchResult.getAlternativeTitle()))
-                        && detailed.getDate() == filmSearchResult.getYear()
-                ) {
-                    Film film = filmWebBrowser.getFilmInfo(filmSearchResult.getId());
-
-                    if (film != null) {
-                        model.put("m_movie", film);
-                        model.put("m_persons", filmWebBrowser.getFilmPersons(filmSearchResult.getId()));
-                        break;
-                    }
-                }
+            try {
+                model = (programmeDetailsLogic.findMovieDetais(id));
+                Template template = templateProvider.getTemplate(getServletContext(), "movieDetails.ftlh");
+                template.process(model, response.getWriter());
+            } catch (TemplateException e) {
+                log.error("Error processing template: " + e);
             }
-        }
 
-        model.put("movies", briefList);
-
-        Template template = templateProvider.getTemplate(getServletContext(), "movieDetails.ftlh");
-
-        try {
-            template.process(model, response.getWriter());
-        } catch (TemplateException e) {
-            log.error("Error processing template: " + e);
+        } else {
+            response.sendRedirect("/programme/error");
         }
     }
 }

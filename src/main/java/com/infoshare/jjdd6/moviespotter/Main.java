@@ -1,39 +1,35 @@
 package com.infoshare.jjdd6.moviespotter;
 
+import com.infoshare.jjdd6.moviespotter.services.ConfigLoader;
 import com.infoshare.jjdd6.moviespotter.services.EpgXmlParser;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.*;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.inject.Inject;
 
 @Startup
-@Lock(LockType.READ)
 @Singleton
 public class Main {
 
-    Logger log = LoggerFactory.getLogger(Main.class.getName());
+    private final static Logger log = LoggerFactory.getLogger(Main.class.getName());
 
     @Inject
-    EpgXmlParser epgXmlParser;
+    private EpgXmlParser epgXmlParser;
+
+    @Inject
+    private ConfigLoader configLoader;
 
     @PostConstruct
+    public void startUp() {
 
+        System.setProperty("log4j.configurationFile", configLoader.getProperties().getProperty("dataPath"));
+        BasicConfigurator.configure();
 
-
-
-         void startUp(){
-
-            System.setProperty("log4j.configurationFile", System.getProperty("user.home")+"/MovieSpotter_data/");
-            BasicConfigurator.configure();
-
-            log.info("Calling epgXmlParser.");
-            epgXmlParser.parseXmlTvData();
-
-        }
-
-
-
+        log.info("Calling epgXmlParser.");
+        epgXmlParser.parseXmlTvData();
+    }
 }

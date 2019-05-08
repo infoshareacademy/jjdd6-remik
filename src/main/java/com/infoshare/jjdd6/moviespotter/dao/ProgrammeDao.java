@@ -2,6 +2,8 @@ package com.infoshare.jjdd6.moviespotter.dao;
 
 import com.infoshare.jjdd6.moviespotter.models.Programme;
 import com.sun.istack.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,11 +15,14 @@ import java.util.List;
 @Stateless
 public class ProgrammeDao {
 
+    private static final Logger log = LoggerFactory.getLogger(ProgrammeDao.class.getName());
+
     @PersistenceContext
     private EntityManager entityManager;
 
     public String save(Programme p) {
         entityManager.persist(p);
+        log.debug("creating " + p);
         return p.getTitleEn();
     }
 
@@ -29,6 +34,7 @@ public class ProgrammeDao {
         final Programme p = entityManager.find(Programme.class, name);
         if (p != null) {
             entityManager.remove(p);
+            log.info("removing " + p);
         }
     }
 
@@ -44,10 +50,12 @@ public class ProgrammeDao {
     }
 
     public List<Programme> findByChannelAndDate(String channel, @Nullable LocalDateTime from, @Nullable LocalDateTime to) {
-        if (from == null)
+        if (from == null) {
             from = LocalDateTime.now();
-        if (to == null)
+        }
+        if (to == null) {
             to = LocalDateTime.now().plusYears(100);
+        }
 
         Query query = entityManager
                 .createQuery("SELECT s FROM Programme s WHERE s.channel like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.channel, s.start")
@@ -64,11 +72,9 @@ public class ProgrammeDao {
 
     public List<Programme> getAllOccurences(List<String> Titles) {
         Query query = entityManager
-        .createQuery("SELECT s FROM Programme s WHERE s.titlePl in :Titles")
+                .createQuery("SELECT s FROM Programme s WHERE s.titlePl in :Titles")
                 .setParameter("Titles", Titles);
 
         return query.getResultList();
     }
-
-
 }
