@@ -4,9 +4,17 @@ import org.apache.logging.log4j.core.config.plugins.validation.constraints.Requi
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "PROGRAMME")
+@Inheritance(strategy=InheritanceType.JOINED)
+@SecondaryTable(name="CHANNELS",
+        pkJoinColumns = {
+                @PrimaryKeyJoinColumn(name = "id")
+        }
+)
+
 public class Programme {
 
     @Id

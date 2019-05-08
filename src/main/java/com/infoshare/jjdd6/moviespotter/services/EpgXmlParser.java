@@ -153,7 +153,7 @@ public class EpgXmlParser {
                     log.error("SQL transaction error: " + e);
                 }
             } else {
-                log.warn("PROGRAMME table: duplicate ID " + programme.getStart() + programme.getChannel());
+                log.debug("PROGRAMME table: duplicate ID " + programme.getStart() + programme.getChannel());
             }
 
         }

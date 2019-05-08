@@ -6,3 +6,9 @@
 body {
   padding-top: 56px;
 }
+
+.list-group-item {
+
+  font-size: smaller;
+}
+

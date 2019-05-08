@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
 
@@ -16,6 +16,21 @@
     <!-- Custom styles for this template -->
     <link href="/static/css/shop-item.css" rel="stylesheet">
 
+    <style>
+        button {
+            background-color: Transparent;
+            background-repeat:no-repeat;
+            border: none;
+            cursor:pointer;
+            overflow: hidden;
+            outline:none;
+        }
+        button:focus {
+            border: none;
+        }
+    </style>
+
+
 </head>
 
 <body>
@@ -31,11 +46,13 @@
         <div class="col-lg-3">
             <h3 class="my-4">Lista kanałów</h3>
             <div class="list-group">
+<#--                <form method="post" onsubmit="/programme/fav">-->
 
                 <#list channels as channel>
-                    <a href="/programme/new?ch=${channel?url}" class="list-group-item">${channel!}</a>
+                    <div class="list-group-item"><button onclick="favorites()" style="button">☆</button><a href="/programme/new?ch=${channel?url}">${channel!}</a></div>
                 </#list>
-
+<#--                style="font-size: 12px"-->
+<#--                </form>-->
             </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -111,6 +128,17 @@
 <!-- Bootstrap core JavaScript -->
 <script src="/static/vendor/jquery/jquery.min.js"></script>
 <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+
+<script>
+    function favorites() {
+
+       alert("asdasd");
+
+    }
+</script>
+
 
 </body>
 

@@ -17,7 +17,7 @@ public class ConfigLoader {
 
     public Properties getProperties() {
 
-        log.info("asked for configuration");
+        log.debug("asked for configuration");
         if (properties == null) {
             properties = load();
         }
