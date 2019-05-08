@@ -25,8 +25,10 @@ class EpgXmlLoader {
 
         try {
 
-            String epgXmpPath = configLoader.getProperties().getProperty("xmlpath");
-            File fXmlFile = new File(epgXmpPath);
+            String epgXmlFile = configLoader.getProperties().getProperty("xmlfile");
+            String appConfigPath = configLoader.getProperties().getProperty("dataPath");
+            String epgXmlPath = appConfigPath+"/"+epgXmlFile;
+            File fXmlFile = new File(epgXmlPath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(fXmlFile);
