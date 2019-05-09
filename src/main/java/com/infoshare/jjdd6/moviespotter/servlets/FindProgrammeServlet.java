@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/programme/find"})
 public class FindProgrammeServlet extends HttpServlet {
@@ -31,18 +31,11 @@ public class FindProgrammeServlet extends HttpServlet {
     TemplateProvider templateProvider;
 
     @Inject
-    ChannelsList channelsList;
+    FindProgrammeLogic findProgrammeLogic;
 
-    @Inject
-    ProgrammeAllTitlesList programmeAllTitlesList;
+    private Map<String, Object> model = new HashMap<>();
 
-    @Inject
-    ProgrammeDao programmeDao;
-
-    @Inject
-    StarRating starRating;
-
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private final static Logger log = LoggerFactory.getLogger(FindProgrammeServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -50,30 +43,13 @@ public class FindProgrammeServlet extends HttpServlet {
 
         int tvItemInt = NumberUtils.toInt(tvItemStr, -1);
 
-        if (tvItemInt == -1) {
-            response.sendRedirect("/error");
+        if (tvItemInt >-1) {
+            model = findProgrammeLogic.searchProgramme(tvItemInt);
+            log.info("Numeric parameter "+tvItemStr+": searching by list option");
+        } else {
+            model = findProgrammeLogic.searchProgramme(tvItemStr);
+            log.info("String-like parameter "+tvItemStr+": searching by form");
         }
-
-        List<String> progAllTitles = programmeAllTitlesList.getTitlesList(tvItemInt);
-        List <Programme> allTvItemOccurences = programmeDao.getAllOccurences(progAllTitles);
-
-
-        List<Programme> allTvItemOccurencesSorted = allTvItemOccurences
-                .stream()
-                //.sorted((p1, p2) -> p1.getStart().compareTo(p2.getStart()))
-                .sorted(Comparator.comparing(Programme::getStart))
-                .collect(Collectors.toList());
-        //.forEach(a-> a.setRating(starRating.toStars(a.getRating())));
-
-        allTvItemOccurencesSorted.forEach(a -> a.setRating(starRating.toStars(a.getRating())));
-
-        List<String> chList = channelsList.getAllNames();
-
-        Map<String, Object> model = new HashMap<>();
-
-        model.put("channels", chList);
-        model.put("tvProgramme",allTvItemOccurencesSorted);
-
 
         log.info("programmes/model has entries: " + model.size());
 
@@ -87,4 +63,11 @@ public class FindProgrammeServlet extends HttpServlet {
             log.error("Error processing template: " + e);
         }
     }
+
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        doGet(request, response);
+    }
 }
+

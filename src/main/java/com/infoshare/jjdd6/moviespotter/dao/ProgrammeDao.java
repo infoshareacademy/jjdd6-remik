@@ -77,4 +77,12 @@ public class ProgrammeDao {
 
         return query.getResultList();
     }
+
+    public List<Programme> getByStringTitle(String title) {
+        Query query = entityManager
+                .createQuery("SELECT s FROM Programme s WHERE s.titlePl like :title OR s.titleEn like :title OR s.titleXx like :title")
+                .setParameter("title", title);
+        return query.getResultList();
+    }
+
 }
