@@ -1,7 +1,5 @@
 package com.infoshare.jjdd6.moviespotter.servlets;
 
-import com.infoshare.jjdd6.moviespotter.Main;
-import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
 import com.infoshare.jjdd6.moviespotter.services.ChannelsList;
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,15 +24,15 @@ import java.util.Map;
 public class DisplayProgrammeServlet extends HttpServlet {
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @Inject
-    ChannelsList channelsList;
+    private ChannelsList channelsList;
 
     @Inject
-    StarRating starRating;
+    private StarRating starRating;
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private final static Logger log = LoggerFactory.getLogger(DisplayProgrammeServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

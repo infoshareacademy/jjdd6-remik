@@ -6,7 +6,7 @@
 
     <#list channels as channel>
         <div class="list-group-item">
-            <button  class="favbutton" onclick="this.blur(); favorites('${channel!}')">☆</button><a href="/programme/new?ch=${channel?url}">${channel!}</a>
+            <button  class="favbutton" onclick="favorites('${channel!}')">☆</button><a href="/programme/new?ch=${channel?url}">${channel!}</a>
         </div>
     </#list>
     <#--                style="font-size: 12px"-->

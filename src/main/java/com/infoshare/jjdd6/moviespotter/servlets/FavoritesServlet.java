@@ -19,11 +19,9 @@ public class FavoritesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String channel = request.getParameter("channel");
-        log.info("favorite channel clicked: "+channel);
-
+        log.info("favorite changed::channel clicked: "+channel);
 
     }
-
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

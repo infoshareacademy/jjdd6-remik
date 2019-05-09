@@ -28,21 +28,21 @@ import java.util.stream.Collectors;
 public class FindProgrammeServlet extends HttpServlet {
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @Inject
-    ChannelsList channelsList;
+    private ChannelsList channelsList;
 
     @Inject
-    ProgrammeAllTitlesList programmeAllTitlesList;
+    private ProgrammeAllTitlesList programmeAllTitlesList;
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDao programmeDao;
 
     @Inject
-    StarRating starRating;
+    private StarRating starRating;
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private static final Logger log = LoggerFactory.getLogger(FindProgrammeServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -60,10 +60,8 @@ public class FindProgrammeServlet extends HttpServlet {
 
         List<Programme> allTvItemOccurencesSorted = allTvItemOccurences
                 .stream()
-                //.sorted((p1, p2) -> p1.getStart().compareTo(p2.getStart()))
                 .sorted(Comparator.comparing(Programme::getStart))
                 .collect(Collectors.toList());
-        //.forEach(a-> a.setRating(starRating.toStars(a.getRating())));
 
         allTvItemOccurencesSorted.forEach(a -> a.setRating(starRating.toStars(a.getRating())));
 
@@ -73,7 +71,6 @@ public class FindProgrammeServlet extends HttpServlet {
 
         model.put("channels", chList);
         model.put("tvProgramme",allTvItemOccurencesSorted);
-
 
         log.info("programmes/model has entries: " + model.size());
 
