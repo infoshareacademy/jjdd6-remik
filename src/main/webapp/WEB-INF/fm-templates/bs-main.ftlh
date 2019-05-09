@@ -27,6 +27,8 @@
         }
         button:focus {
             border: none;
+            overflow: hidden;
+            outline:none;
         }
     </style>
 
