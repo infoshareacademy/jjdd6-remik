@@ -21,9 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/programme/find"})
 public class FindProgrammeServlet extends HttpServlet {
@@ -57,18 +56,28 @@ public class FindProgrammeServlet extends HttpServlet {
 
         List<String> progAllTitles = programmeAllTitlesList.getTitlesList(tvItemInt);
         List <Programme> allTvItemOccurences = programmeDao.getAllOccurences(progAllTitles);
-        allTvItemOccurences.forEach(a-> a.setRating(starRating.toStars(a.getRating())));
+
+
+        List<Programme> allTvItemOccurencesSorted = allTvItemOccurences
+                .stream()
+                //.sorted((p1, p2) -> p1.getStart().compareTo(p2.getStart()))
+                .sorted(Comparator.comparing(Programme::getStart))
+                .collect(Collectors.toList());
+        //.forEach(a-> a.setRating(starRating.toStars(a.getRating())));
+
+        allTvItemOccurencesSorted.forEach(a -> a.setRating(starRating.toStars(a.getRating())));
+
         List<String> chList = channelsList.getAllNames();
 
         Map<String, Object> model = new HashMap<>();
 
         model.put("channels", chList);
-        model.put("tvProgramme",allTvItemOccurences);
+        model.put("tvProgramme",allTvItemOccurencesSorted);
 
 
         log.info("programmes/model has entries: " + model.size());
 
-        Template template = templateProvider.getTemplate(getServletContext(), "bs-main.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "findProgramme.ftlh");
 
         log.info("using freemarker template: " + template.getName());
 
@@ -79,4 +88,3 @@ public class FindProgrammeServlet extends HttpServlet {
         }
     }
 }
-
