@@ -29,33 +29,26 @@
     <div class="row">
 
         <div class="col-lg-3">
-            <h3 class="my-4">Lista kanałów</h3>
-            <div class="list-group">
-
-                <#list channels as channel>
-                    <a href="/programme/new?ch=${channel?url}" class="list-group-item">${channel!}</a>
-                </#list>
-
-            </div>
-        </div>
+            <#include "ChannelsMenuWithFavorites.ftlh">
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
 
-            <#attempt>
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header">
-                    <h1>${tvProgramme[1].channel!}</h1>
-                </div>
-            </div>
-            <#recover>
-            </#attempt>
+            <#--            <#attempt>-->
+            <#--            <div class="card card-outline-secondary my-4">-->
+            <#--                <div class="card-header">-->
+            <#--                    <h1>${tvProgramme[1].channel!}</h1>-->
+            <#--                </div>-->
+            <#--            </div>-->
+            <#--            <#recover>-->
+            <#--            </#attempt>-->
             <!-- /.card -->
 
             <#list tvProgramme as item>
 
                 <div class="card mt-4">
                     <div class="card-body">
+                        <h1>${item.channel!}</h1>
                         <h3 class="card-title">${item.start!}</h3>
                         <h4>${item.titlePl!}<br></h4>
                         <#if item.director??>
