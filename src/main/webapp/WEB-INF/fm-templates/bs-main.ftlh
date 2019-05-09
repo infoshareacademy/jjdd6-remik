@@ -16,21 +16,6 @@
     <!-- Custom styles for this template -->
     <link href="/static/css/shop-item.css" rel="stylesheet">
 
-    <style>
-        button {
-            background-color: Transparent;
-            background-repeat:no-repeat;
-            border: none;
-            cursor:pointer;
-            overflow: hidden;
-            outline:none;
-        }
-        button:focus {
-            border: none;
-        }
-    </style>
-
-
 </head>
 
 <body>
@@ -44,28 +29,18 @@
     <div class="row">
 
         <div class="col-lg-3">
-            <h3 class="my-4">Lista kanałów</h3>
-            <div class="list-group">
-<#--                <form method="post" onsubmit="/programme/fav">-->
 
-                <#list channels as channel>
-                    <div class="list-group-item"><button onclick="favorites()" style="button">☆</button><a href="/programme/new?ch=${channel?url}">${channel!}</a></div>
-                </#list>
-<#--                style="font-size: 12px"-->
-<#--                </form>-->
-            </div>
-        </div>
-        <!-- /.col-lg-3 -->
+            <#include "ChannelsMenuWithFavorites.ftlh">
 
         <div class="col-lg-9">
 
             <#attempt>
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header">
-                    <h1>${tvProgramme[1].channel!}</h1>
+                <div class="card card-outline-secondary my-4">
+                    <div class="card-header">
+                        <h1>${tvProgramme[1].channel!}</h1>
+                    </div>
                 </div>
-            </div>
-            <#recover>
+                <#recover>
             </#attempt>
             <!-- /.card -->
 
@@ -130,12 +105,13 @@
 <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 
-
 <script>
-    function favorites() {
+    function favorites(a) {
 
-       alert("asdasd");
-
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/programme/favorites", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        xhr.send('channel=' + a);
     }
 </script>
 
