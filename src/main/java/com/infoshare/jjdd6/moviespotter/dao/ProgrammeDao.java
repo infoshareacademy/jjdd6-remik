@@ -12,6 +12,8 @@ import javax.persistence.Query;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.hibernate.hql.internal.antlr.HqlTokenTypes.CONCAT;
+
 @Stateless
 public class ProgrammeDao {
 
@@ -80,7 +82,7 @@ public class ProgrammeDao {
 
     public List<Programme> getByStringTitle(String title) {
         Query query = entityManager
-                .createQuery("SELECT s FROM Programme s WHERE s.titlePl like :title OR s.titleEn like :title OR s.titleXx like :title")
+                .createQuery("SELECT s FROM Programme s WHERE s.titlePl like CONCAT('%', :title, '%') OR s.titleEn like CONCAT('%', :title, '%') OR s.titleXx like CONCAT('%', :title, '%')")
                 .setParameter("title", title);
         return query.getResultList();
     }

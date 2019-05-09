@@ -28,12 +28,12 @@ import java.util.Map;
 public class FindProgrammeServlet extends HttpServlet {
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @Inject
-    FindProgrammeLogic findProgrammeLogic;
+    private FindProgrammeLogic findProgrammeLogic;
 
-    private Map<String, Object> model = new HashMap<>();
+
 
     private final static Logger log = LoggerFactory.getLogger(FindProgrammeServlet.class.getName());
 
@@ -42,6 +42,8 @@ public class FindProgrammeServlet extends HttpServlet {
         String tvItemStr = request.getParameter("tvItem");
 
         int tvItemInt = NumberUtils.toInt(tvItemStr, -1);
+
+        Map<String, Object> model;
 
         if (tvItemInt >-1) {
             model = findProgrammeLogic.searchProgramme(tvItemInt);

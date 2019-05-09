@@ -11,14 +11,14 @@
 <#--            <span class="navbar-toggler-icon"></span>-->
 <#--        </button>-->
 
-        <form class="form-inline">
+        <form class="form-inline" method="post" action="/programme/find">
             <div class="form-group mb-2">
 
-                <input type="text" class="form-control-plaintext" id="searchInputField" value="szukaj programu lub filmu">
+                <input type="text" class="form-control-plaintext" name="tvItem" id="searchInputField" value="szukaj programu lub filmu">
             </div>
             <div>&nbsp;</div>
             <div>
-            <button type="submit" class="btn btn-warning mb-2" onclick="searchTv()">szukaj programu</button>
+            <input type="submit" class="btn btn-warning mb-2" value="🔍" onclick="searchTv()"/>
             </div>
         </form>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -44,7 +44,7 @@
 
     function searchTv() {
 
-        var programme2search = document.getElementById("searchInputField").value
+        var programme2search = document.getElementById("searchInputField").value;
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "/programme/find", true);
