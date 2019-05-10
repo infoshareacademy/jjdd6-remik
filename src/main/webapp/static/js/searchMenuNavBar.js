@@ -3,19 +3,20 @@
 function searchTv() {
 
     var programme2search = document.getElementById("searchInputField").value;
+    var full = "/programme/find?tvItem="+programme2search;
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/programme/find", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-    xhr.send('tvItem=' + programme2search);
+    window.location.assign(full);
+
 }
 
 function searchFilmweb() {
 
-    var movieSearch = document.getElementById("searchInputField").value;
+    //var full = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '')+"/programme/details";
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/programme/details", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-    xhr.send('title=' + movieSearch);
+    var movieSearch = document.getElementById("searchInputField").value;
+    var full = "/programme/details?title="+movieSearch;
+
+    window.location.assign(full);
+
+
 }
