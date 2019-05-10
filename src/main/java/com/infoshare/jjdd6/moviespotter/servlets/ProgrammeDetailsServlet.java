@@ -39,22 +39,34 @@ public class ProgrammeDetailsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         int id = (NumberUtils.toInt(request.getParameter("id"), 0));
+        String title = request.getParameter("title");
 
 
         Map<String, Object> model = new HashMap<>();
 
         if (id > 0) {
 
-            try {
-                model = (programmeDetailsLogic.findMovieDetais(id));
-                Template template = templateProvider.getTemplate(getServletContext(), "movieDetails.ftlh");
-                template.process(model, response.getWriter());
-            } catch (TemplateException e) {
-                log.error("Error processing template: " + e);
-            }
+            model = (programmeDetailsLogic.findMovieDetails(id));
+        } else if (title != null && !title.isEmpty()) {
 
+            model = programmeDetailsLogic.findMovieDetails(title);
         } else {
             response.sendRedirect("/programme/error");
         }
+
+        Template template = templateProvider.getTemplate(getServletContext(), "movieDetails.ftlh");
+
+        try {
+
+            template.process(model, response.getWriter());
+        } catch (TemplateException e) {
+            log.error("Error processing template: " + e);
+        }
+
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        doGet(request, response);
     }
 }

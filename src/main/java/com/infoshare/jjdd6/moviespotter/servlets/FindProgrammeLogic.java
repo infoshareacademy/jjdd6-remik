@@ -18,19 +18,19 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RequestScoped
-public class FindProgrammeLogic {
+public class    FindProgrammeLogic {
 
     @Inject
-    ChannelsList channelsList;
+    private ChannelsList channelsList;
 
     @Inject
-    ProgrammeAllTitlesList programmeAllTitlesList;
+    private ProgrammeAllTitlesList programmeAllTitlesList;
 
     @Inject
-    ProgrammeDao programmeDao;
+    private ProgrammeDao programmeDao;
 
     @Inject
-    StarRating starRating;
+    private StarRating starRating;
 
     private Map<String, Object> model = new HashMap<>();
 
@@ -45,12 +45,23 @@ public class FindProgrammeLogic {
         return model;
     }
 
+    public Map<String, Object> searchProgramme() {
+        model = findTvProgramme(null, null);
+        return model;
+    }
 
     public Map<String, Object> searchProgramme(String tvItemString) {
 
         List<Programme> progsMatchingTitles = programmeDao.getByStringTitle(tvItemString);
         log.info("String parameter accepted. Got programmes list of items: "+progsMatchingTitles.size());
-        model = findTvProgramme(null, progsMatchingTitles);
+
+        if (progsMatchingTitles.isEmpty()) {
+
+            model = findTvProgramme(null, null);
+        }
+        else {
+            model = findTvProgramme(null, progsMatchingTitles);
+        }
 
         return model;
     }
@@ -61,10 +72,16 @@ public class FindProgrammeLogic {
 
         if (progAllTitles != null) {
             allTvItemOccurences = programmeDao.getAllOccurences(progAllTitles);
-        }
-        if (progsMatchingTitles != null) {
+        } else if (progsMatchingTitles != null) {
             allTvItemOccurences = progsMatchingTitles;
+        } else {
+            Programme programmeNotFound = new Programme();
+            programmeNotFound.setChannel(":-(");
+            programmeNotFound.setDescPl("Niestety, wyszukiwanie nie przyniosło resultatów. Może pora na ciastko? Albo lody...");
+            allTvItemOccurences.add(programmeNotFound);
         }
+
+
 
         List<Programme> allTvItemOccurencesSorted = allTvItemOccurences
                 .stream()
@@ -83,7 +100,5 @@ public class FindProgrammeLogic {
         model.put("tvProgramme", allTvItemOccurencesSorted);
 
         return model;
-
     }
-
 }

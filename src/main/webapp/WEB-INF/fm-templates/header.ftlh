@@ -1,7 +1,7 @@
 <#setting url_escaping_charset='utf-8'>
-
+<script src="/static/js/searchMenuNavBar.js"></script>
 <script src="/static/js/returnTopButton.js"></script>
-<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<button onclick="topFunction()" id="myBtn" class="myBtn" title="Go to top">Top</button>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -11,14 +11,24 @@
 <#--            <span class="navbar-toggler-icon"></span>-->
 <#--        </button>-->
 
-        <form class="form-inline" method="post" action="/programme/find">
-            <div class="form-group mb-2">
+        <form class="form-inline">
+            <div class="form-group nav-item active">
 
-                <input type="text" class="form-control-plaintext" name="tvItem" id="searchInputField" value="szukaj programu lub filmu">
+                <input type="text" class="nav-item active" name="tvItem" id="searchInputField" placeholder="szukaj programu lub filmu">
             </div>
-            <div>&nbsp;</div>
             <div>
-            <input type="submit" class="btn btn-warning mb-2" value="🔍" onclick="searchTv()"/>
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button class="btn btn-default nav-link" onclick="this.blur(); searchTv()" name="mS" id="mS">mS</button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-default nav-link" onclick="this.blur(); searchFilmweb()" name="FW" id="FW">FW</button>
+                </li>
+                </ul>
+            </div>
+            <div>
+<#--            <input type="submit" class="btn btn-default nav-item active" value="mS" onclick="searchTv()"/>-->
+
             </div>
         </form>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -40,16 +50,3 @@
         </div>
     </div>
 </nav>
-<script>
-
-    function searchTv() {
-
-        var programme2search = document.getElementById("searchInputField").value;
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/programme/find", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-        xhr.send('tvItem=' + programme2search);
-    }
-
-</script>

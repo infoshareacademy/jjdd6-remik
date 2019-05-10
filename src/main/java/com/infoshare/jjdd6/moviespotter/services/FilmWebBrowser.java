@@ -11,12 +11,12 @@ import info.talacha.filmweb.search.models.FilmSearchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.Local;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-@Local
+@RequestScoped
 public class FilmWebBrowser {
 
     private static final Logger log = LoggerFactory.getLogger(FilmWebBrowser.class.getName());
@@ -24,6 +24,16 @@ public class FilmWebBrowser {
 
     @Inject
     private ProgrammeDao programmeDao;
+
+    public List<FilmSearchResult> findMoviesBriefInfo(String filmTitle) {
+        try {
+            return filmwebApi.findFilm(filmTitle);
+
+        } catch (Exception e) {
+            log.error("filmweb: "+ e);
+            return null;
+        }
+    }
 
     public List<FilmSearchResult> findMoviesBriefInfo(int id) {
 

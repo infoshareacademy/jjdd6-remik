@@ -21,7 +21,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/programme/find"})
@@ -45,12 +47,19 @@ public class FindProgrammeServlet extends HttpServlet {
 
         Map<String, Object> model;
 
-        if (tvItemInt >-1) {
+        if (tvItemInt >0) {
             model = findProgrammeLogic.searchProgramme(tvItemInt);
             log.info("Numeric parameter "+tvItemStr+": searching by list option");
-        } else {
-            model = findProgrammeLogic.searchProgramme(tvItemStr);
-            log.info("String-like parameter "+tvItemStr+": searching by form");
+        }
+
+        else {
+            if (tvItemStr != null && !tvItemStr.isEmpty()) {
+                model = findProgrammeLogic.searchProgramme(tvItemStr);
+                log.info("String-like parameter " + tvItemStr + ": searching by form");
+            } else {
+                model = findProgrammeLogic.searchProgramme();
+                log.info("Empty tvItem parameter, generating dummy programme");
+            }
         }
 
         log.info("programmes/model has entries: " + model.size());
