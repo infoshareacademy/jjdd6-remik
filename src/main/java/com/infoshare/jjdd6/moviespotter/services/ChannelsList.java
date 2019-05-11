@@ -17,7 +17,7 @@ public class ChannelsList {
         return programmeDao
                 .getAllProgrammes()
                 .stream()
-                .map(a -> a.getChannel())
+                .map(a -> a.getChannel().getName())
                 .sorted()
                 .distinct()
                 .collect(Collectors.toList());
@@ -28,7 +28,7 @@ public class ChannelsList {
         return programmeDao
                 .getAllProgrammes()
                 .stream()
-                .filter(a -> a.getChannel().equalsIgnoreCase(programmeName))
+                .filter(a -> a.getChannel().getName().equalsIgnoreCase(programmeName))
                 .collect(Collectors.toList());
     }
 }

@@ -2,6 +2,7 @@ package com.infoshare.jjdd6.moviespotter.dao;
 
 import com.infoshare.jjdd6.moviespotter.models.Programme;
 import com.sun.istack.Nullable;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,8 +15,11 @@ import java.util.List;
 
 import static org.hibernate.hql.internal.antlr.HqlTokenTypes.CONCAT;
 
+
 @Stateless
 public class ProgrammeDao {
+
+    private Session session;
 
     private static final Logger log = LoggerFactory.getLogger(ProgrammeDao.class.getName());
 
@@ -23,9 +27,10 @@ public class ProgrammeDao {
     private EntityManager entityManager;
 
     public String save(Programme p) {
+        log.debug("programme " + p.getChannel().getName() + p.getStart());
         entityManager.persist(p);
         log.debug("creating " + p);
-        return p.getTitleEn();
+        return p.getTitlePl();
     }
 
     public Programme update(Programme p) {
@@ -36,7 +41,7 @@ public class ProgrammeDao {
         final Programme p = entityManager.find(Programme.class, name);
         if (p != null) {
             entityManager.remove(p);
-            log.info("removing " + p);
+            log.warn("removing " + p);
         }
     }
 
@@ -46,12 +51,13 @@ public class ProgrammeDao {
 
     public List<Programme> findByChannel(String channel) {
         Query query = entityManager
-                .createQuery("SELECT s FROM Programme s WHERE s.channel like :channel ORDER BY s.channel, s.start")
+                .createQuery("SELECT s FROM Programme s WHERE s.channel.name like :channel ORDER BY s.channel.name, s.start")
                 .setParameter("channel", channel);
         return query.getResultList();
     }
 
     public List<Programme> findByChannelAndDate(String channel, @Nullable LocalDateTime from, @Nullable LocalDateTime to) {
+
         if (from == null) {
             from = LocalDateTime.now();
         }
@@ -60,7 +66,7 @@ public class ProgrammeDao {
         }
 
         Query query = entityManager
-                .createQuery("SELECT s FROM Programme s WHERE s.channel like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.channel, s.start")
+                .createQuery("SELECT s FROM Programme s WHERE s.channel.name like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.channel.name, s.start")
                 .setParameter("channel", channel)
                 .setParameter("from", from)
                 .setParameter("to", to);
@@ -68,7 +74,7 @@ public class ProgrammeDao {
     }
 
     public List<Programme> getAllProgrammes() {
-        Query query = entityManager.createQuery("SELECT s FROM Programme s ORDER BY s.channel, s.start");
+        Query query = entityManager.createQuery("SELECT s FROM Programme s ORDER BY s.channel.name, s.start");
         return query.getResultList();
     }
 

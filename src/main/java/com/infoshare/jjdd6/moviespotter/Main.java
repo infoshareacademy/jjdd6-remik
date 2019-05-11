@@ -1,7 +1,7 @@
 package com.infoshare.jjdd6.moviespotter;
 
 import com.infoshare.jjdd6.moviespotter.services.ConfigLoader;
-import com.infoshare.jjdd6.moviespotter.services.EpgXmlParser;
+import com.infoshare.jjdd6.moviespotter.XmlTools.EpgXmlParser;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

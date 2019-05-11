@@ -76,7 +76,7 @@ public class    FindProgrammeLogic {
             allTvItemOccurences = progsMatchingTitles;
         } else {
             Programme programmeNotFound = new Programme();
-            programmeNotFound.setChannel(":-(");
+            programmeNotFound.getChannel().setName(":-(");
             programmeNotFound.setDescPl("Niestety, wyszukiwanie nie przyniosło resultatów. Może pora na ciastko? Albo lody...");
             allTvItemOccurences.add(programmeNotFound);
         }

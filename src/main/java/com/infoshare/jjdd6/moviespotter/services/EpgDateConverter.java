@@ -3,10 +3,12 @@ package com.infoshare.jjdd6.moviespotter.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.RequestScoped;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@RequestScoped
 public class EpgDateConverter {
 
     private static final Logger log = LoggerFactory.getLogger(EpgDateConverter.class.getName());
