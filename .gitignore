@@ -2,5 +2,5 @@
 .gitignore
 /target/
 /.idea/
-/data/appConfig.properties
+#/data/appConfig.properties
 /OLD/

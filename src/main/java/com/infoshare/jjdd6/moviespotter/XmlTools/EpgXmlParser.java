@@ -4,6 +4,7 @@ import com.infoshare.jjdd6.moviespotter.dao.ChannelDao;
 import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
+import com.infoshare.jjdd6.moviespotter.services.ConfigLoader;
 import com.infoshare.jjdd6.moviespotter.services.EpgDateConverter;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ import org.w3c.dom.NodeList;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.Optional;
+
 
 @RequestScoped
 public class EpgXmlParser {
@@ -29,23 +30,35 @@ public class EpgXmlParser {
     private ChannelDao channelDao;
 
     @Inject
+    private ConfigLoader configLoader;
+
+    @Inject
     ShouldLoadChannel shouldLoadChannel;
 
+
     private static final Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
+    private String doLoad = "false" ;//configLoader.getProperties().getProperty("doLoadXml").toLowerCase().replace(" ","");
 
     public void parseXmlTvData() {
 
-        log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
-        Document doc = epgXmlLoader.loadEpgData();
+        if (doLoad.equals("true") || doLoad.equals("yes")) {
 
-//        doParse(doc, programmeDao, channelDao);
+            log.info("XML parser will try to call EpgXmlLoader.loadEpgData");
+            Document doc = epgXmlLoader.loadEpgData();
 
-        new Thread(() -> {
-            doParse(doc, programmeDao, channelDao, shouldLoadChannel);
-        }).start();
+
+////        doParse(doc, programmeDao, channelDao);
+//
+//        new Thread(() -> {
+            doParse(doc);
+////            doParse(doc, programmeDao, channelDao, shouldLoadChannel);
+//        }).start();
+        }
     }
 
-    private void doParse(Document doc, ProgrammeDao programmeDao, ChannelDao channelDao, ShouldLoadChannel shouldLoadChannel) {
+//    private void doParse(Document doc, ProgrammeDao programmeDao, ChannelDao channelDao, ShouldLoadChannel shouldLoadChannel) {
+
+    private void doParse(Document doc) {
 
         NodeList channelsList = doc.getDocumentElement().getElementsByTagName("channel");
 
@@ -86,7 +99,6 @@ public class EpgXmlParser {
         }
 
 
-
         EpgDateConverter epgDateConverter = new EpgDateConverter();
         NodeList programmesList = doc.getDocumentElement().getElementsByTagName("programme");
 
@@ -119,10 +131,9 @@ public class EpgXmlParser {
             }
 
 
-
-            if (shouldLoadChannel.checkShouldBeLoaded(channelName)) {
-                continue;
-            }
+//            if (shouldLoadChannel.checkShouldBeLoaded(channelName)) {
+//                continue;
+//            }
 
 //
 //
@@ -238,24 +249,21 @@ public class EpgXmlParser {
 
                 try {
 
+
                     programmeDao.save(programme);
                 } catch (javax.persistence.PersistenceException e) {
 
                     log.error("SQL transaction error: " + e);
                 }
             } else {
-                log.debug("PROGRAMME table::duplicate found::" + programme.getStart() +programme.getChannel());
+                log.debug("PROGRAMME table::duplicate found::" + programme.getStart() + programme.getChannel());
             }
 
         }
         log.info("Number of programmes in XML file: " + programmesList.getLength());
 
 
-
-
     }
-
-
 
 
 }

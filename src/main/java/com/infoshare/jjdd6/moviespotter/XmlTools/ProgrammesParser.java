@@ -20,7 +20,7 @@
 //import javax.inject.Inject;
 //
 //@Stateful
-//class ProgrammesParser {
+//public class ProgrammesParser implements Runnable {
 //
 //    private static final Logger log = LoggerFactory.getLogger(ProgrammesParser.class.getName());
 //
@@ -39,7 +39,10 @@
 //    @Inject
 //    private ShouldLoadChannel shouldLoadChannel;
 //
-//    void doParseProgrammes(Document doc) {
+//    private Document document;
+//
+//    public void ProgrammesParser(Document doc) {
+//        this.document = doc;
 //
 //
 //
@@ -209,5 +212,7 @@
 //        log.info("Number of programmes in XML file: " + programmesList.getLength());
 //    }
 //
+//
+//    public void run(){}
 //
 //}

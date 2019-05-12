@@ -38,7 +38,7 @@
             <#attempt>
                 <div class="card card-outline-secondary my-4">
                     <div class="card-header">
-                        <h1>${tvProgramme[1].channel!}</h1>
+                        <h1>${tvProgramme[1].channel.name!}</h1>
                     </div>
                 </div>
                 <#recover>

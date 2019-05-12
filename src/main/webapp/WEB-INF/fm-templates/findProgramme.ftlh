@@ -48,7 +48,7 @@
 
                 <div class="card mt-4">
                     <div class="card-body">
-                        <h1>${item.channel!}</h1>
+                        <h1>${item.channel.name!}</h1>
                         <h3 class="card-title">${item.start!}</h3>
                         <h4>${item.titlePl!}<br></h4>
                         <#if item.director??>
