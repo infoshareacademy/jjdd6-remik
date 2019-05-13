@@ -8,7 +8,7 @@ import java.util.List;
 
 @Transactional
 @Entity
-@Table(name = "CHANNEL")
+@Table(name = "CHANNELS")
 public class Channel {
 
     @Id
@@ -24,8 +24,8 @@ public class Channel {
     @Column(name = "iconURL", length = 128)
     String iconUrl;
 
-//    @OneToMany(mappedBy = "channel", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-//    private List<Programme> programmes;
+    @OneToMany(mappedBy = "channel", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    private List<Programme> programmes;
 
 
     public Channel() {
@@ -58,5 +58,13 @@ public class Channel {
 
     public void setIconUrl(String iconUrl) {
         this.iconUrl = iconUrl;
+    }
+
+    public List<Programme> getProgrammes() {
+        return programmes;
+    }
+
+    public void setProgrammes(List<Programme> programmes) {
+        this.programmes = programmes;
     }
 }

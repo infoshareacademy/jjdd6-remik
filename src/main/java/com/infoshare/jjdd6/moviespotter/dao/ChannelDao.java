@@ -56,4 +56,6 @@ public class ChannelDao {
 
         return query.getResultStream().findFirst();
     }
+
+//    public List <Channel>
 }

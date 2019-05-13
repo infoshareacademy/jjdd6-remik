@@ -38,7 +38,7 @@
             <#attempt>
                 <div class="card card-outline-secondary my-4">
                     <div class="card-header">
-                        <h1>${tvProgramme[1].channel.name!}</h1>
+                        <h1 align="right"><img align="left" height="64"  src="${tvProgramme[1].channel.iconUrl!}"/>&nbsp;${tvProgramme[1].channel.name!}</h1>
                     </div>
                 </div>
                 <#recover>
