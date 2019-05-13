@@ -36,25 +36,39 @@ public class DisplayProgrammeServlet extends HttpServlet {
     @Inject
     StarRating starRating;
 
-    private Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private static Logger log = LoggerFactory.getLogger(DisplayProgrammeServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String channel  = request.getParameter("ch");
+        final String channel = request.getParameter("ch");
+        String channelAlt = channel;
+
+        log.info("Channel passed in parameter ch="+channelAlt);
 
         List<Channel> chList = channelsList.getAllNames();
 
         Map<String, Object> model = new HashMap<>();
 
-        model.put("channels" , chList);
+        model.put("channels", chList);
 
-        if (!chList.contains(channel)) {
-            channel = chList.get(0).getName();
-        }
 
-        List <Programme> tvProgramme = channelsList.programme1channel(channel);
+        channelAlt = (
+                chList
+                        .stream()
+                        .filter(a -> a.getName().equals(channel))
+                        .findFirst().orElse(chList.get(0))
+        )
+                .getName();
 
-        tvProgramme.forEach(a-> a.setRating(starRating.toStars(a.getRating())));
+
+//        if (!chList.contains(channel)) {
+//            channel = chList.get(0).getName();
+//        }
+
+        List<Programme> tvProgramme = channelsList.programme1channel(channelAlt);
+
+        tvProgramme
+                .forEach(a -> a.setRating(starRating.toStars(a.getRating())));
 
         model.put("tvProgramme", tvProgramme);
 

@@ -78,6 +78,17 @@ public class ProgrammeDao {
         return query.getResultList();
     }
 
+    public List<Programme> findByName (String name) {
+        Query query = entityManager
+                .createQuery("SELECT s FROM Programme s WHERE s.channel.name like :name ORDER BY s.start")
+                .setParameter("name",name);
+        List <Programme> ret =query.getResultList();
+
+        log.info("Asked for "+name+", found"+ret.stream().findAny().orElse(null).getChannel().getName());
+
+        return ret;
+    }
+
     public List<Programme> getAllOccurences(List<String> Titles) {
         Query query = entityManager
                 .createQuery("SELECT s FROM Programme s WHERE s.titlePl in :Titles")

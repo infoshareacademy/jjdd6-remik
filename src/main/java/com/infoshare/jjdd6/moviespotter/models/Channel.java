@@ -27,6 +27,8 @@ public class Channel {
     @OneToMany(mappedBy = "channel", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     private List<Programme> programmes;
 
+    @OneToMany(mappedBy = "channels", fetch = FetchType.EAGER)
+    private List<User> users;
 
     public Channel() {
     }
@@ -66,5 +68,13 @@ public class Channel {
 
     public void setProgrammes(List<Programme> programmes) {
         this.programmes = programmes;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

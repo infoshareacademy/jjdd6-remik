@@ -1,4 +1,5 @@
 <link href="/static/css/ChannelMenuWithFavorites.css" rel="stylesheet">
+<script src="/static/js/favorites.js"></script>
 
 <h3 class="my-4">Lista kanałów</h3>
 <div class="list-group">

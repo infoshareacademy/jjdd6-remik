@@ -105,19 +105,6 @@
 <script src="/static/vendor/jquery/jquery.min.js"></script>
 <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-
-<script>
-    function favorites(a) {
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/programme/favorites", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-        xhr.send('channel=' + a);
-    }
-
-</script>
-
-
 </body>
 
 </html>

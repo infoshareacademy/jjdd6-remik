@@ -5,19 +5,21 @@ import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Transactional
 public class ChannelsList {
 
-    @Inject
+    @EJB
     private ProgrammeDao programmeDao;
 
-    @Inject
+    @EJB
     ChannelDao channelDao;
 
 
@@ -44,10 +46,12 @@ public class ChannelsList {
 
     public List<Programme> programme1channel(String programmeName) {
 
-        return programmeDao
-                .getAllProgrammes()
-                .stream()
-                .filter(a -> a.getChannel().getName().equalsIgnoreCase(programmeName))
-                .collect(Collectors.toList());
+        return programmeDao.findByName(programmeName);
+
+//                .getAllProgrammes()
+//                .stream()
+//                .filter(a -> a.getChannel().getName().equalsIgnoreCase(programmeName))
+//                .sorted(Comparator.comparing(Programme::getStart))
+//                .collect(Collectors.toList());
     }
 }
