@@ -3,6 +3,7 @@ package com.infoshare.jjdd6.moviespotter.servlets;
 import com.infoshare.jjdd6.moviespotter.Main;
 import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
+import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
 import com.infoshare.jjdd6.moviespotter.services.ChannelsList;
 import com.infoshare.jjdd6.moviespotter.services.StarRating;
@@ -41,14 +42,14 @@ public class DisplayProgrammeServlet extends HttpServlet {
 
         String channel  = request.getParameter("ch");
 
-        List<String> chList = channelsList.getAllNames();
+        List<Channel> chList = channelsList.getAllNames();
 
         Map<String, Object> model = new HashMap<>();
 
         model.put("channels" , chList);
 
         if (!chList.contains(channel)) {
-            channel = chList.get(0);
+            channel = chList.get(0).getName();
         }
 
         List <Programme> tvProgramme = channelsList.programme1channel(channel);

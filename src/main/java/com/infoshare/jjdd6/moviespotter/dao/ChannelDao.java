@@ -57,5 +57,9 @@ public class ChannelDao {
         return query.getResultStream().findFirst();
     }
 
-//    public List <Channel>
+    public List <Channel> findAll() {
+        Query query = entityManager
+                .createQuery("SELECT c from Channel c");
+        return query.getResultList();
+    }
 }

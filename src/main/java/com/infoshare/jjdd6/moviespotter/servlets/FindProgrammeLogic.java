@@ -1,6 +1,7 @@
 package com.infoshare.jjdd6.moviespotter.servlets;
 
 import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
+import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
 import com.infoshare.jjdd6.moviespotter.services.ChannelsList;
 import com.infoshare.jjdd6.moviespotter.services.ProgrammeAllTitlesList;
@@ -92,7 +93,7 @@ public class    FindProgrammeLogic {
 
         allTvItemOccurencesSorted.forEach(a -> a.setRating(starRating.toStars(a.getRating())));
 
-        List<String> chList = channelsList.getAllNames();
+        List<Channel> chList = channelsList.getAllNames();
 
         Map<String, Object> model = new HashMap<>();
 
