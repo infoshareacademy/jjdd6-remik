@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProgrammeAllTitlesList {
+public class    ProgrammeAllTitlesList {
 
     @Inject
     private ProgrammeDao programmeDao;

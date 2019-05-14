@@ -3,18 +3,13 @@ package com.infoshare.jjdd6.moviespotter.models;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
 
+@Transactional
 @Entity
-@Table(name = "PROGRAMME")
-@Inheritance(strategy=InheritanceType.JOINED)
-@SecondaryTable(name="CHANNELS",
-        pkJoinColumns = {
-                @PrimaryKeyJoinColumn(name = "id")
-        }
-)
-
+@Table(name = "PROGRAMMES")
 public class Programme {
 
     @Id
@@ -22,8 +17,10 @@ public class Programme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "channel")
-    private String channel;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "channel_id")
+    Channel channel;
 
     @Column(name = "start")
     private LocalDateTime start;
@@ -46,13 +43,13 @@ public class Programme {
     @Column(name = "descPl", length = 2048)
     private String descPl;
 
-    @Column(name = "categoriesPl")
+    @Column(name = "categoriesPl", length = 4096)
     private String categoriesPl;
 
     @Column(name = "director")
     private String director;
 
-    @Column(name = "actor")
+    @Column(name = "actor", length = 4096)
     private String actor;
 
     @Column(name = "rating")
@@ -71,15 +68,37 @@ public class Programme {
     public Programme() {
     }
 
+    public Programme(Channel channel, LocalDateTime start, LocalDateTime stop, String titlePl, String titleEn, String titleXx, String subtitlePl, String descPl, String categoriesPl, String director, String actor, String rating, String episodeXmlNs, String country, int date) {
+        this.channel = channel;
+        this.start = start;
+        this.stop = stop;
+        this.titlePl = titlePl;
+        this.titleEn = titleEn;
+        this.titleXx = titleXx;
+        this.subtitlePl = subtitlePl;
+        this.descPl = descPl;
+        this.categoriesPl = categoriesPl;
+        this.director = director;
+        this.actor = actor;
+        this.rating = rating;
+        this.episodeXmlNs = episodeXmlNs;
+        this.country = country;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }
 
-    public String getChannel() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Channel getChannel() {
         return channel;
     }
 
-    public void setChannel(String channel) {
+    public void setChannel(Channel channel) {
         this.channel = channel;
     }
 

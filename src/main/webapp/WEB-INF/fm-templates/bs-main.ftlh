@@ -16,6 +16,7 @@
     <!-- Custom styles for this template -->
     <link href="/static/css/shop-item.css" rel="stylesheet">
 
+
 </head>
 
 <body>
@@ -37,7 +38,7 @@
             <#attempt>
                 <div class="card card-outline-secondary my-4">
                     <div class="card-header">
-                        <h1>${tvProgramme[1].channel!}</h1>
+                        <h1 align="right"><img align="left" height="64"  src="${tvProgramme[1].channel.iconUrl!}"/>&nbsp;${tvProgramme[1].channel.name!}</h1>
                     </div>
                 </div>
                 <#recover>
@@ -103,18 +104,6 @@
 <!-- Bootstrap core JavaScript -->
 <script src="/static/vendor/jquery/jquery.min.js"></script>
 <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
-<script>
-    function favorites(a) {
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/programme/favorites", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-        xhr.send('channel=' + a);
-    }
-</script>
-
 
 </body>
 

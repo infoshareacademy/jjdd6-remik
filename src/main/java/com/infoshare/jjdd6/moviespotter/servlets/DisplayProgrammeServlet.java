@@ -1,7 +1,12 @@
 package com.infoshare.jjdd6.moviespotter.servlets;
 
+import com.infoshare.jjdd6.moviespotter.Main;
+import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
+import com.infoshare.jjdd6.moviespotter.dao.UserDao;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
+import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
+import com.infoshare.jjdd6.moviespotter.models.User;
 import com.infoshare.jjdd6.moviespotter.services.ChannelsList;
 import com.infoshare.jjdd6.moviespotter.services.StarRating;
 import freemarker.template.Template;
@@ -16,45 +21,67 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/programme/new", "/error"})
 public class DisplayProgrammeServlet extends HttpServlet {
 
     @Inject
-    private TemplateProvider templateProvider;
+    TemplateProvider templateProvider;
 
     @Inject
-    private ChannelsList channelsList;
+    ChannelsList channelsList;
 
     @Inject
-    private StarRating starRating;
+    StarRating starRating;
 
-    private final static Logger log = LoggerFactory.getLogger(DisplayProgrammeServlet.class.getName());
+    @Inject
+    UserDao userDao;
+
+    @Inject
+    FavoritesListOfUser favoritesListOfUser;
+
+    private static Logger log = LoggerFactory.getLogger(DisplayProgrammeServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String channel  = request.getParameter("ch");
+        final String channel = request.getParameter("ch");
+        String channelAlt = channel;
 
-        List<String> chList = channelsList.getAllNames();
+        log.info("Channel passed in parameter ch="+channelAlt);
+
+        List<Channel> chList = channelsList.getAllNames();
 
         Map<String, Object> model = new HashMap<>();
 
-        model.put("channels" , chList);
+        model.put("channels", chList);
 
-        if (!chList.contains(channel)) {
-            channel = chList.get(0);
-        }
+        channelAlt = (
+                chList
+                        .stream()
+                        .filter(a -> a.getName().equals(channel))
+                        .findFirst().orElse(chList.get(0))
+        )
+                .getName();
 
-        List <Programme> tvProgramme = channelsList.programme1channel(channel);
+        List<Programme> tvProgramme = channelsList.programme1channel(channelAlt);
 
-        tvProgramme.forEach(a-> a.setRating(starRating.toStars(a.getRating())));
+        tvProgramme
+                .forEach(a -> a.setRating(starRating.toStars(a.getRating())));
 
         model.put("tvProgramme", tvProgramme);
 
         log.info("programmes/model has entries: " + model.size());
+
+
+        User loggedUser = userDao.findByLogin(Main.mockedUser).orElse(userDao.findById(1));
+
+        model.put("usersFavorites", favoritesListOfUser.getFavoriteChannels());
+
 
         Template template = templateProvider.getTemplate(getServletContext(), "bs-main.ftlh");
 

@@ -3,6 +3,7 @@ package com.infoshare.jjdd6.moviespotter.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.Stateful;
 import javax.enterprise.context.ApplicationScoped;
 import java.io.FileInputStream;
 import java.io.InputStream;
