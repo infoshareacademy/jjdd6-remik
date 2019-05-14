@@ -1,6 +1,7 @@
 package com.infoshare.jjdd6.moviespotter.servlets;
 
 import com.infoshare.jjdd6.moviespotter.Main;
+import com.infoshare.jjdd6.moviespotter.dao.ChannelDao;
 import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.dao.UserDao;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
@@ -45,12 +46,30 @@ public class DisplayProgrammeServlet extends HttpServlet {
     @Inject
     FavoritesListOfUser favoritesListOfUser;
 
+    @Inject
+    ProgrammeDao programmeDao;
+
+    @Inject
+    ChannelDao channelDao;
+
     private static Logger log = LoggerFactory.getLogger(DisplayProgrammeServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         final String channel = request.getParameter("ch");
         String channelAlt = channel;
+
+        try {
+
+            int id = programmeDao.findByName(channel).get(0).getId();
+            Channel c = channelDao.findById(id);
+            c.setDisplayCounter(c.getDisplayCounter()+1);
+            channelDao.update(c);
+
+        } catch (Exception e) {
+
+            log.error(e.getMessage());
+        }
 
         log.info("Channel passed in parameter ch="+channelAlt);
 
