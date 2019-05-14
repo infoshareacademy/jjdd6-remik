@@ -51,13 +51,13 @@ public class ChannelDao {
     }
 
 
-    public Optional<Channel> findByName(String channel) {
+    public Channel findByName(String channel) {
 
         Query query = entityManager
                 .createQuery("SELECT c FROM Channel c WHERE c.name like :channel")
                 .setParameter("channel", channel);
 
-        return query.getResultStream().findFirst();
+        return (Channel)query.getResultStream().findAny().orElse(null);
     }
 
     public List<Channel> findAll() {
@@ -66,4 +66,6 @@ public class ChannelDao {
 
         return query.getResultList();
     }
+
+
 }

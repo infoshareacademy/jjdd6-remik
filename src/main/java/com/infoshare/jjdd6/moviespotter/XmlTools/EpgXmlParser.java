@@ -59,7 +59,7 @@ public class EpgXmlParser {
             }
 
 
-            if (channelDao.findByName(channelName).isEmpty()) {
+            if (channelDao.findByName(channelName) == null) {
 
                 try {
                     channelDao.save(channel);
@@ -85,7 +85,7 @@ public class EpgXmlParser {
             String channelName = node.getAttributes().getNamedItem("channel").getNodeValue();
 
 
-            if (channelDao.findByName(channelName) == null || channelDao.findByName(channelName).isEmpty()) {
+            if (channelDao.findByName(channelName) == null || channelDao.findByName(channelName) == null) {
                 channel.setName(channelName);
 
                 try {
@@ -99,7 +99,7 @@ public class EpgXmlParser {
 
             } else {
 
-                programme.setChannel(channelDao.findByName(channelName).orElse(null));
+                programme.setChannel(channelDao.findByName(channelName));
                 log.info("Programme channel found and set: " + programme.getChannel().getName());
             }
 

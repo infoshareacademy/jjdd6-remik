@@ -22,11 +22,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/programme/new", "/error"})
 public class DisplayProgrammeServlet extends HttpServlet {
@@ -61,17 +59,19 @@ public class DisplayProgrammeServlet extends HttpServlet {
 
         try {
 
-            int id = programmeDao.findByName(channel).get(0).getId();
-            Channel c = channelDao.findById(id);
-            c.setDisplayCounter(c.getDisplayCounter()+1);
-            channelDao.update(c);
+            Channel c = channelDao.findByName(channel);
+
+            if (c != null) {
+                c.setDisplayCounter(c.getDisplayCounter() + 1);
+                channelDao.update(c);
+            }
 
         } catch (Exception e) {
 
             log.error(e.getMessage());
         }
 
-        log.info("Channel passed in parameter ch="+channelAlt);
+        log.info("Channel passed in parameter ch=" + channelAlt);
 
         List<Channel> chList = channelsList.getAllNames();
 
