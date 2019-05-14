@@ -18,16 +18,19 @@ public class Channel {
 
 
     @NotNull
-    @Column(name = "name", length = 48, unique = true)
-    String name;
+    @Column(name = "name", length = 48)
+    private String name;
 
     @Column(name = "iconURL", length = 128)
-    String iconUrl;
+    private String iconUrl;
 
-    @OneToMany(mappedBy = "channel", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @Column(name = "displayCounter")
+    private int displayCounter;
+
+    @OneToMany(mappedBy = "channel", fetch = FetchType.EAGER)
     private List<Programme> programmes;
 
-    @OneToMany(mappedBy = "channels", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "channels", fetch = FetchType.LAZY)
     private List<User> users;
 
     public Channel() {
@@ -76,5 +79,13 @@ public class Channel {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public int getDisplayCounter() {
+        return displayCounter;
+    }
+
+    public void setDisplayCounter(int displayCounter) {
+        this.displayCounter = displayCounter;
     }
 }

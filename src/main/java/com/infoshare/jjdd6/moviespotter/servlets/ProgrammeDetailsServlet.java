@@ -56,13 +56,11 @@ public class ProgrammeDetailsServlet extends HttpServlet {
         } catch (TemplateException e) {
             log.error("Error processing template: " + e);
         }
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         log.info("POST: "+request.getParameter("title"));
         doGet(request, response);
-
     }
 }

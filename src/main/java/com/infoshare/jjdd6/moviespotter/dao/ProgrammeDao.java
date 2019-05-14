@@ -103,5 +103,4 @@ public class ProgrammeDao {
                 .setParameter("title", title);
         return query.getResultList();
     }
-
 }

@@ -13,7 +13,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -103,22 +102,10 @@ public class EpgXmlParser {
                 programme.setChannel(channelDao.findByName(channelName).orElse(null));
                 log.info("Programme channel found and set: " + programme.getChannel().getName());
             }
-//
-//
-//                if (shouldLoadChannel.checkShouldBeLoaded(channelName)) {
-//                    continue;
-//                }
 
-//
-//
-//            try {
-//                programme.setChannel((channelDao.findByName(channelName)));
-//            } catch (Exception e) {
-//                log.error("Error setting channel: " + channelName);
-//                continue;
-//            }
-
-//            log.info("Programme channel: "+ programme.getChannel().getName());
+            if (shouldLoadChannel.checkShouldBeLoaded(channelName)) {
+                continue;
+            }
 
             programme
                     .setStart(epgDateConverter
@@ -208,15 +195,6 @@ public class EpgXmlParser {
                 }
             }
 
-
-//
-//            log.info(programme.getChannel().getName());
-//            log.info(""+programme.getChannel().getId());
-//            log.info(programme.getTitlePl());
-//            log.info(programme.getDescPl());
-//            log.info(programme.getCategoriesPl());
-
-
             if ((programmeDao.findByChannelAndDate(programme.getChannel().getName(), programme.getStart(), programme.getStop()).isEmpty()
                     || (programmeDao.findByChannelAndDate(programme.getChannel().getName(), programme.getStart(), programme.getStop())) == null)
             ) {
@@ -229,7 +207,7 @@ public class EpgXmlParser {
                     log.error("SQL transaction error: " + e);
                 }
             } else {
-                log.debug("PROGRAMME table::duplicate found::" + programme.getStart() + programme.getChannel());
+                log.info("PROGRAMME table::duplicate found::" + programme.getStart() + programme.getChannel());
             }
 
         }

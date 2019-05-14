@@ -1,5 +1,8 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
+import org.checkerframework.checker.units.qual.C;
+import org.checkerframework.common.aliasing.qual.Unique;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -23,6 +26,11 @@ public class User {
     @Column(name = "surname")
     private String Surname;
 
+    @Column(name = "onlyShowFavorites")
+    private Boolean onlyShowFavorites;
+
+
+    @Unique
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_TO_FAV_CHANNELS",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
@@ -55,6 +63,14 @@ public class User {
 
     public List<Channel> getChannels() {
         return channels;
+    }
+
+    public Boolean getOnlyShowFavorites() {
+        return onlyShowFavorites;
+    }
+
+    public void setOnlyShowFavorites(Boolean onlyShowFavorites) {
+        this.onlyShowFavorites = onlyShowFavorites;
     }
 
     public void setChannels(List<Channel> channels) {

@@ -20,7 +20,7 @@ public class EpgXmlCaller {
     private EpgXmlLoader epgXmlLoader;
 
     @EJB
-    EpgXmlParser epgXmlParser;
+    private EpgXmlParser epgXmlParser;
 
     private static final Logger log = LoggerFactory.getLogger(EpgXmlCaller.class.getName());
 

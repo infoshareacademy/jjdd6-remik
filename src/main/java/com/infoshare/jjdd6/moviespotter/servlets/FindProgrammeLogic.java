@@ -33,6 +33,9 @@ public class    FindProgrammeLogic {
     @Inject
     private StarRating starRating;
 
+    @Inject
+    FavoritesListOfUser favoritesListOfUser;
+
     private Map<String, Object> model = new HashMap<>();
 
     private final static Logger log = LoggerFactory.getLogger(FindProgrammeLogic.class.getName());
@@ -77,19 +80,15 @@ public class    FindProgrammeLogic {
             allTvItemOccurences = progsMatchingTitles;
         } else {
             Programme programmeNotFound = new Programme();
-            programmeNotFound.getChannel().setName(":-(");
+            programmeNotFound.setTitlePl(":-(");
             programmeNotFound.setDescPl("Niestety, wyszukiwanie nie przyniosło resultatów. Może pora na ciastko? Albo lody...");
             allTvItemOccurences.add(programmeNotFound);
         }
 
-
-
         List<Programme> allTvItemOccurencesSorted = allTvItemOccurences
                 .stream()
-                //.sorted((p1, p2) -> p1.getStart().compareTo(p2.getStart()))
                 .sorted(Comparator.comparing(Programme::getStart))
                 .collect(Collectors.toList());
-        //.forEach(a-> a.setRating(starRating.toStars(a.getRating())));
 
         allTvItemOccurencesSorted.forEach(a -> a.setRating(starRating.toStars(a.getRating())));
 
@@ -99,6 +98,7 @@ public class    FindProgrammeLogic {
 
         model.put("channels", chList);
         model.put("tvProgramme", allTvItemOccurencesSorted);
+        model.put("usersFavorites", favoritesListOfUser.getFavoriteChannels());
 
         return model;
     }

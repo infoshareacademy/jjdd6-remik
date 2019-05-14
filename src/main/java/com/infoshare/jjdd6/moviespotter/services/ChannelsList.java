@@ -29,29 +29,12 @@ public class ChannelsList {
                 .findAll()
                 .stream()
                 .filter(a -> !a.getProgrammes().isEmpty())
-                //.map(a -> a.getName())
                 .sorted(Comparator.comparing(Channel::getName))
-//                .distinct()
                 .collect(Collectors.toList());
-
-
-//        return programmeDao
-//                .getAllProgrammes()
-//                .stream()
-//                .map(a -> a.getChannel().getName())
-//                .sorted()
-//                .distinct()
-//                .collect(Collectors.toList());
     }
 
     public List<Programme> programme1channel(String programmeName) {
 
         return programmeDao.findByName(programmeName);
-
-//                .getAllProgrammes()
-//                .stream()
-//                .filter(a -> a.getChannel().getName().equalsIgnoreCase(programmeName))
-//                .sorted(Comparator.comparing(Programme::getStart))
-//                .collect(Collectors.toList());
     }
 }

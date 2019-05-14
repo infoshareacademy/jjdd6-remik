@@ -25,8 +25,6 @@ public class FindProgrammeServlet extends HttpServlet {
     @Inject
     private FindProgrammeLogic findProgrammeLogic;
 
-
-
     private final static Logger log = LoggerFactory.getLogger(FindProgrammeServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,7 +62,6 @@ public class FindProgrammeServlet extends HttpServlet {
             log.error("Error processing template: " + e);
         }
     }
-
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

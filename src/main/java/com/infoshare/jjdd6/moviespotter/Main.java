@@ -30,6 +30,10 @@ public class Main {
     @Inject
     UserDao userDao;
 
+    public String returnLoggedUserLogin () {
+        return mockedUser;
+    }
+
     @PostConstruct
     public void startUp() {
 

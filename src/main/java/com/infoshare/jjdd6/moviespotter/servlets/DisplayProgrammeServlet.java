@@ -2,9 +2,11 @@ package com.infoshare.jjdd6.moviespotter.servlets;
 
 import com.infoshare.jjdd6.moviespotter.Main;
 import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
+import com.infoshare.jjdd6.moviespotter.dao.UserDao;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
 import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
+import com.infoshare.jjdd6.moviespotter.models.User;
 import com.infoshare.jjdd6.moviespotter.services.ChannelsList;
 import com.infoshare.jjdd6.moviespotter.services.StarRating;
 import freemarker.template.Template;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @WebServlet(urlPatterns = {"/programme/new", "/error"})
 public class DisplayProgrammeServlet extends HttpServlet {
@@ -35,6 +38,12 @@ public class DisplayProgrammeServlet extends HttpServlet {
 
     @Inject
     StarRating starRating;
+
+    @Inject
+    UserDao userDao;
+
+    @Inject
+    FavoritesListOfUser favoritesListOfUser;
 
     private static Logger log = LoggerFactory.getLogger(DisplayProgrammeServlet.class.getName());
 
@@ -51,7 +60,6 @@ public class DisplayProgrammeServlet extends HttpServlet {
 
         model.put("channels", chList);
 
-
         channelAlt = (
                 chList
                         .stream()
@@ -59,11 +67,6 @@ public class DisplayProgrammeServlet extends HttpServlet {
                         .findFirst().orElse(chList.get(0))
         )
                 .getName();
-
-
-//        if (!chList.contains(channel)) {
-//            channel = chList.get(0).getName();
-//        }
 
         List<Programme> tvProgramme = channelsList.programme1channel(channelAlt);
 
@@ -73,6 +76,12 @@ public class DisplayProgrammeServlet extends HttpServlet {
         model.put("tvProgramme", tvProgramme);
 
         log.info("programmes/model has entries: " + model.size());
+
+
+        User loggedUser = userDao.findByLogin(Main.mockedUser).orElse(userDao.findById(1));
+
+        model.put("usersFavorites", favoritesListOfUser.getFavoriteChannels());
+
 
         Template template = templateProvider.getTemplate(getServletContext(), "bs-main.ftlh");
 

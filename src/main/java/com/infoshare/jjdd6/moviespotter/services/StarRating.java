@@ -12,22 +12,14 @@ public class StarRating {
         String strStars="";
 
         if (rate > -1) {
-
             for (int i = 0; i < 5; i++) {
-
                 if (i<rate) {
                     strStars+="★";
                 } else {
                     strStars+="☆";
                 }
-
             }
-
         }
-
         return strStars;
     }
-
-
-
 }
