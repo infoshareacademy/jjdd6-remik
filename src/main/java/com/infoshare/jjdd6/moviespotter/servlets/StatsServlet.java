@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -97,8 +99,19 @@ public class StatsServlet extends HttpServlet {
 
 
     private String countPercentage(Integer total, Integer part) {
-        return String.valueOf(Math.round(((double) part * 100) / total )).replace(",",".");
 
+        Locale locale  = new Locale("en", "UK");
+        String pattern = "###.##";
+
+        DecimalFormat decimalFormat = (DecimalFormat)
+                NumberFormat.getNumberInstance(locale);
+        decimalFormat.applyPattern(pattern);
+
+        String format = decimalFormat.format(
+                (((double) part * 100) / total )
+        );
+
+        return format;
     }
 
 }
