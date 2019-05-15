@@ -93,7 +93,7 @@ public class EpgXmlParser {
                     programme.setChannel(channel);
                     log.info("Programme channel created and set: " + programme.getChannel().getName());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                   log.error("Error adding channel: "+e);
                     continue;
                 }
 

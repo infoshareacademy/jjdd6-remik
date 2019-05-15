@@ -31,19 +31,19 @@ import java.util.stream.Collectors;
 public class DisplayProgrammeServlet extends HttpServlet {
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @Inject
-    ChannelsList channelsList;
+    private ChannelsList channelsList;
 
     @Inject
-    StarRating starRating;
+    private StarRating starRating;
 
     @Inject
-    UserDao userDao;
+    private UserDao userDao;
 
     @Inject
-    FavoritesListOfUser favoritesListOfUser;
+    private FavoritesListOfUser favoritesListOfUser;
 
     private static Logger log = LoggerFactory.getLogger(DisplayProgrammeServlet.class.getName());
 
@@ -55,9 +55,7 @@ public class DisplayProgrammeServlet extends HttpServlet {
         log.info("Channel passed in parameter ch="+channelAlt);
 
         List<Channel> chList = channelsList.getAllNames();
-
         Map<String, Object> model = new HashMap<>();
-
         model.put("channels", chList);
 
         channelAlt = (
@@ -73,12 +71,10 @@ public class DisplayProgrammeServlet extends HttpServlet {
         tvProgramme
                 .forEach(a -> a.setRating(starRating.toStars(a.getRating())));
 
+
         model.put("tvProgramme", tvProgramme);
 
         log.info("programmes/model has entries: " + model.size());
-
-
-        User loggedUser = userDao.findByLogin(Main.mockedUser).orElse(userDao.findById(1));
 
         model.put("usersFavorites", favoritesListOfUser.getFavoriteChannels());
 

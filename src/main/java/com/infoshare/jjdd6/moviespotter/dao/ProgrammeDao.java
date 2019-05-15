@@ -19,8 +19,6 @@ import static org.hibernate.hql.internal.antlr.HqlTokenTypes.CONCAT;
 @Stateless
 public class ProgrammeDao {
 
-    private Session session;
-
     private static final Logger log = LoggerFactory.getLogger(ProgrammeDao.class.getName());
 
     @PersistenceContext

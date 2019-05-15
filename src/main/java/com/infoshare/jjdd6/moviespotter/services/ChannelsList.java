@@ -20,7 +20,7 @@ public class ChannelsList {
     private ProgrammeDao programmeDao;
 
     @EJB
-    ChannelDao channelDao;
+    private ChannelDao channelDao;
 
 
     public List<Channel> getAllNames() {
