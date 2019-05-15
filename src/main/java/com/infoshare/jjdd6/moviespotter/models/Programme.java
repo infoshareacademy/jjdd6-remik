@@ -2,11 +2,14 @@ package com.infoshare.jjdd6.moviespotter.models;
 
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 
+import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+@Stateful
 @Transactional
 @Entity
 @Table(name = "PROGRAMMES")

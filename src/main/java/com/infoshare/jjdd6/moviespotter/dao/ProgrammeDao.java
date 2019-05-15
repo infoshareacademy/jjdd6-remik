@@ -58,19 +58,24 @@ public class ProgrammeDao {
 
     public List<Programme> findByChannelAndDate(String channel, @Nullable LocalDateTime from, @Nullable LocalDateTime to) {
 
-        if (from == null) {
-            from = LocalDateTime.now();
-        }
-        if (to == null) {
-            to = LocalDateTime.now().plusYears(100);
-        }
+        try {
+            if (from == null) {
+                from = LocalDateTime.now();
+            }
+            if (to == null) {
+                to = LocalDateTime.now().plusYears(100);
+            }
 
-        Query query = entityManager
-                .createQuery("SELECT s FROM Programme s WHERE s.channel.name like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.channel.name, s.start")
-                .setParameter("channel", channel)
-                .setParameter("from", from)
-                .setParameter("to", to);
-        return query.getResultList();
+            Query query = entityManager
+                    .createQuery("SELECT s FROM Programme s WHERE s.channel.name like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.channel.name, s.start")
+                    .setParameter("channel", channel)
+                    .setParameter("from", from)
+                    .setParameter("to", to);
+            return query.getResultList();
+        } catch (Exception e) {
+            log.error("By channel, from, to: "+e);
+            return null;
+        }
     }
 
     public List<Programme> getAllProgrammes() {

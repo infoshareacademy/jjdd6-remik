@@ -14,12 +14,19 @@ class ShouldLoadChannel {
         String ignore = configLoader.getProperties().getProperty("Ignore");
         String onlyLoad = configLoader.getProperties().getProperty("OnlyLoad");
 
-        if ((ignore != null && ignore.contains(channelName))
-                || (onlyLoad != null)
-                && !onlyLoad.contains(channelName)) {
+        if (ignore == null && onlyLoad == null) {
             return true;
-        } else {
-            return false;
         }
+
+        if (onlyLoad == null && !ignore.toLowerCase().contains(channelName.toLowerCase())) {
+            return true;
+        }
+
+        if (ignore == null && !onlyLoad.toLowerCase().contains(channelName.toLowerCase())) {
+            return true;
+        }
+
+        return false;
     }
 }
+

@@ -101,7 +101,14 @@
             <version>1.4.1-beta</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.api.client/google-api-client-auth-oauth2 -->
+
+
+        <!-- https://mvnrepository.com/artifact/org.jboss.ejb3/jboss-ejb3-ext-api -->
+        <dependency>
+            <groupId>org.jboss.ejb3</groupId>
+            <artifactId>jboss-ejb3-ext-api</artifactId>
+            <version>2.3.0.Final</version>
+        </dependency>
 
         <dependency>
             <groupId>com.google.api.client</groupId>
