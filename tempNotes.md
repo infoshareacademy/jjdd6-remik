@@ -1,9 +1,9 @@
 Dockerfile
 
-FROM jboss/wildfly
-​ADD target/ApkaWebowa.war /opt/jboss/wildfly/standalone/deployments/
-​RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+            FROM jboss/wildfly
+            ​ADD target/ApkaWebowa.war /opt/jboss/wildfly/standalone/deployments/
+            ​RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
+            CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
 
 uruchomienie kontenerow z compose (i przebudoanie obrazow na sile): docker-compose up -d --build --force-recreate
 
@@ -32,3 +32,5 @@ services:
     links:
       - db
     dns: 8.8.8.8
+    
+    docker run -d --env="MYSQL_ROOT_PASSWORD=pass123" -p 4341:3306 --name "anyrem-mysql" 7bb2586065cd

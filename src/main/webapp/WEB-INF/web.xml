@@ -7,7 +7,8 @@
   <data-source>
     <name>java:ds/demods</name>
     <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-    <url>jdbc:mysql://127.0.0.1:6603/movieSpotter?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>
+<!--    <url>jdbc:mysql://127.0.0.1:6603/movieSpotter?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>-->
+    <url>jdbc:mysql://db/movieSpotter?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>
     <user>root</user>
     <password>pass123</password>
   </data-source>
@@ -20,10 +21,4 @@
 <!--    <error-code>404</error-code>-->
     <location>/error.html</location>
   </error-page>
-
-<!--  <error-page>-->
-<!--  <error-code>500</error-code>-->
-<!--  <location>/error.html</location>-->
-<!--  </error-page>-->
-<!--  -->
 </web-app>
