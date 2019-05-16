@@ -79,9 +79,11 @@ public class    FindProgrammeLogic {
         } else if (progsMatchingTitles != null) {
             allTvItemOccurences = progsMatchingTitles;
         } else {
+            Channel  channel = new Channel();
             Programme programmeNotFound = new Programme();
-            programmeNotFound.setTitlePl(":-(");
-            programmeNotFound.setDescPl("Niestety, wyszukiwanie nie przyniosło resultatów. Może pora na ciastko? Albo lody...");
+            programmeNotFound.setChannel(channel);
+            programmeNotFound.getChannel().setName(":-(");
+            programmeNotFound.setDescPl("Niestety, wyszukiwanie nie przyniosło resultatów - w aktualnym programie brak pasującej pozycji.");
             allTvItemOccurences.add(programmeNotFound);
         }
 

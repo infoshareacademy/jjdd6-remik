@@ -16,7 +16,6 @@
     <!-- Custom styles for this template -->
     <link href="/static/css/shop-item.css" rel="stylesheet">
 
-
     <script>
 
         window.onload = function () {

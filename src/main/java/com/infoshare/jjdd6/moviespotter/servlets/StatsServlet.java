@@ -4,8 +4,10 @@ import com.infoshare.jjdd6.moviespotter.dao.ChannelDao;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
 import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.ChannelStatUnit;
+import com.infoshare.jjdd6.moviespotter.services.ConfigLoader;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,12 +32,15 @@ public class StatsServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
+    @Inject
+    ConfigLoader configLoader;
+
     private static final Logger log = LoggerFactory.getLogger(StatsServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        int maxChannels=NumberUtils.toInt(configLoader.getProperties().getProperty("channelsInStats"), 10);
         List<Channel> channels = channelDao.findAll();
-
         Map<String, Object> model = new HashMap<>();
         List <ChannelStatUnit> stats = new ArrayList<>();
 
@@ -53,7 +58,7 @@ public class StatsServlet extends HttpServlet {
         List<Channel> channelsClicked = channels
                 .stream()
                 .filter(a -> a.getDisplayCounter() > 0)
-                .sorted(Comparator.comparing(Channel::getDisplayCounter))
+                .sorted(Comparator.comparing(Channel::getDisplayCounter).reversed())
                 .collect(Collectors.toList());
 
         int tmp = 0;
@@ -63,7 +68,7 @@ public class StatsServlet extends HttpServlet {
 
         for (Channel c : channelsClicked) {
 
-            if (tmp < 10) {
+            if (tmp < maxChannels) {
 
                 ChannelStatUnit channelStatUnit = new ChannelStatUnit();
                 channelStatUnit.setName(c.getName());
@@ -78,7 +83,7 @@ public class StatsServlet extends HttpServlet {
         }
 
 
-        if (tmp >= 10) {
+        if (tmp >= maxChannels) {
 
             others.setClickCounter(othersTmp);
             others.setClickCounterPercentage(countPercentage(totalClicks, othersTmp));
