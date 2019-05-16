@@ -111,6 +111,7 @@ public class EpgXmlParser {
         Programme programme = new Programme();
         Channel channel = new Channel();
         String channelName2 = "";
+        int hash;
 
         if (shouldLoadChannel.checkShouldBeLoaded(channelName)) {
 
@@ -221,9 +222,14 @@ public class EpgXmlParser {
                 }
             }
 
-            if ((programmeDao.findByChannelAndDate(programme.getChannel().getName(), programme.getStart(), programme.getStop()).isEmpty()
-                    || (programmeDao.findByChannelAndDate(programme.getChannel().getName(), programme.getStart(), programme.getStop())) == null)
-            ) {
+            programme.setHash((channelName + programme.getStart()).hashCode());
+
+//            if ((programmeDao.findByChannelAndDate(programme.getChannel().getName(), programme.getStart(), programme.getStop()).isEmpty()
+//                    || (programmeDao.findByChannelAndDate(programme.getChannel().getName(), programme.getStart(), programme.getStop())) == null)
+//            ) {
+
+
+//            if (programmeDao.findByHash(programme.getHash()) == null) {
 
                 try {
 
@@ -235,7 +241,7 @@ public class EpgXmlParser {
             } else {
                 log.debug("PROGRAMME table::duplicate found::" + programme.getStart() + programme.getChannel());
             }
-        }
+//        }
 
         return true;
     }

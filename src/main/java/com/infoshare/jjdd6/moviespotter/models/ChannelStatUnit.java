@@ -4,6 +4,7 @@ public class ChannelStatUnit {
 
     private String name;
     private String clickCounterPercentage;
+    private int clickCounter;
 
     public String getName() {
         return name;
@@ -19,5 +20,13 @@ public class ChannelStatUnit {
 
     public void setClickCounterPercentage(String clickCounterPercentage) {
         this.clickCounterPercentage = clickCounterPercentage;
+    }
+
+    public int getClickCounter() {
+        return clickCounter;
+    }
+
+    public void setClickCounter(int clickCounter) {
+        this.clickCounter = clickCounter;
     }
 }

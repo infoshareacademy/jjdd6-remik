@@ -108,4 +108,8 @@ public class ProgrammeDao {
                 .setParameter("title", title);
         return query.getResultList();
     }
+
+    public Programme findByHash(int hash) {
+        return entityManager.find(Programme.class, hash);
+    }
 }

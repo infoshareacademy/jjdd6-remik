@@ -67,6 +67,7 @@ public class StatsServlet extends HttpServlet {
 
                 ChannelStatUnit channelStatUnit = new ChannelStatUnit();
                 channelStatUnit.setName(c.getName());
+                channelStatUnit.setClickCounter(c.getDisplayCounter());
                 channelStatUnit.setClickCounterPercentage(countPercentage(totalClicks, c.getDisplayCounter()));
                 stats.add(channelStatUnit);
 
@@ -79,10 +80,12 @@ public class StatsServlet extends HttpServlet {
 
         if (tmp >= 10) {
 
+            others.setClickCounter(othersTmp);
             others.setClickCounterPercentage(countPercentage(totalClicks, othersTmp));
             stats.add(others);
         }
 
+        model.put("totalClicks", totalClicks);
         model.put("Channels", stats);
 
         Template template = templateProvider.getTemplate(getServletContext(), "stats.ftlh");

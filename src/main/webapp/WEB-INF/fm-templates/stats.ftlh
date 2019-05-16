@@ -19,7 +19,7 @@
 
     <script>
 
-        window.onload = function() {
+        window.onload = function () {
 
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
@@ -36,17 +36,34 @@
                         <#list Channels as channel>
                         {y: ${channel.clickCounterPercentage}, label: "${channel.name}"},
                         </#list>
-                        //{y:0, label:""}
-
-                        // {y: 79.45, label: "Google"},
-                        // {y: 7.31, label: "Bing"},
-                        // {y: 7.06, label: "Baidu"},
-                        // {y: 4.91, label: "Yahoo"},
-                        // {y: 1.26, label: "Others"}
                     ]
                 }]
             });
             chart.render();
+
+            var chartBar = new CanvasJS.Chart("chartContainer2", {
+                animationEnabled: true,
+                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                title: {
+                    text: "Ilość wyświetleń (całkowita: ${totalClicks})"
+                },
+                axisY: {
+                    title: "Ilość wyświetleń"
+                },
+                data: [{
+                    type: "column",
+                    showInLegend: true,
+                    legendMarkerColor: "grey",
+                    legendText: "Najpopularniejsze kanały TV na tle pozostałych",
+                    dataPoints: [
+
+                        <#list Channels as channel>
+                        {y: ${channel.clickCounter}, label: "${channel.name}"},
+                        </#list>
+                    ]
+                }]
+            });
+            chartBar.render();
 
         }
     </script>
@@ -63,19 +80,22 @@
         <form class="col-12">
             <div class="align-content-md-center">
                 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-
-                <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
+                <script src="/static/js/canvasjs.min.js"></script
             </div>
-        </form>
+            <br><br>
+            <div id="chartContainer2" style="height: 370px; width: 100%;">
+                <script src="/static/js/canvasjs.min.js"></script>
+            </div>
     </div>
+    </form>
+</div>
 </div>
 
 <footer class="py-5 bg-dark">
     <#include "copyright-footer.ftlh">
 </footer>
 
-    <script src="/static/vendor/jquery/jquery.min.js"></script>
+<script src="/static/vendor/jquery/jquery.min.js"></script>
 <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
