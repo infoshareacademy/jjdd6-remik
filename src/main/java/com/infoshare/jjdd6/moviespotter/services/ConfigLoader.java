@@ -4,11 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateful;
+import javax.enterprise.context.ApplicationScoped;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-@Stateful
+@ApplicationScoped
 public class ConfigLoader {
 
     private static final Logger log = LoggerFactory.getLogger(ConfigLoader.class.getName());
@@ -17,7 +18,7 @@ public class ConfigLoader {
 
     public Properties getProperties() {
 
-        log.info("asked for configuration");
+        log.debug("asked for configuration");
         if (properties == null) {
             properties = load();
         }

@@ -1,8 +1,10 @@
-package com.infoshare.jjdd6.moviespotter.services;
+package com.infoshare.jjdd6.moviespotter.XmlTools;
+
+import com.infoshare.jjdd6.moviespotter.services.ConfigLoader;
 
 import javax.inject.Inject;
 
-public class ShouldLoadChannel {
+class ShouldLoadChannel {
 
     @Inject
     private ConfigLoader configLoader;

@@ -94,6 +94,21 @@
             <version>2.11.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.google.api.client/google-api-client-googleapis -->
+        <dependency>
+            <groupId>com.google.api.client</groupId>
+            <artifactId>google-api-client-googleapis</artifactId>
+            <version>1.4.1-beta</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.api.client/google-api-client-auth-oauth2 -->
+
+        <dependency>
+            <groupId>com.google.api.client</groupId>
+            <artifactId>google-api-client-auth-oauth2</artifactId>
+            <version>1.2.3-alpha</version>
+        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -148,6 +163,8 @@
             <version>2.3.28</version>
         </dependency>
     </dependencies>
+
+
 
     <build>
         <plugins>

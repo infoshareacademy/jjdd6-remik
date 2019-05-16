@@ -1,6 +1,9 @@
 package com.infoshare.jjdd6.moviespotter;
 
-import com.infoshare.jjdd6.moviespotter.services.EpgXmlParser;
+import com.infoshare.jjdd6.moviespotter.dao.UserDao;
+import com.infoshare.jjdd6.moviespotter.models.User;
+import com.infoshare.jjdd6.moviespotter.services.ConfigLoader;
+import com.infoshare.jjdd6.moviespotter.XmlTools.EpgXmlCaller;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,16 +19,35 @@ public class Main {
 
     private final static Logger log = LoggerFactory.getLogger(Main.class.getName());
 
+    public static String mockedUser = "anyrem";
+
     @Inject
-    private EpgXmlParser epgXmlParser;
+    private EpgXmlCaller epgXmlCaller;
+
+    @Inject
+    private ConfigLoader configLoader;
+
+    @Inject
+    UserDao userDao;
+
+    public String returnLoggedUserLogin () {
+        return mockedUser;
+    }
 
     @PostConstruct
     public void startUp() {
 
-        System.setProperty("log4j.configurationFile", System.getProperty("user.home")+"/MovieSpotter_data/");
+        System.setProperty("log4j.configurationFile", configLoader.getProperties().getProperty("dataPath"));
         BasicConfigurator.configure();
 
+        try {
+            User anyrem = new User();
+            anyrem.setLogin("anyrem");
+            userDao.save(anyrem);
+        } catch (Exception e){
+        }
+
         log.info("Calling epgXmlParser.");
-        epgXmlParser.parseXmlTvData();
+        epgXmlCaller.parseXmlTvData();
     }
 }
