@@ -3,16 +3,17 @@ package com.infoshare.jjdd6.moviespotter.servlets;
 import com.infoshare.jjdd6.moviespotter.dao.ProgrammeDao;
 import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
+import com.infoshare.jjdd6.moviespotter.oAuth2.SessionInfo;
 import com.infoshare.jjdd6.moviespotter.services.ChannelsList;
 import com.infoshare.jjdd6.moviespotter.services.ProgrammeAllTitlesList;
 import com.infoshare.jjdd6.moviespotter.services.StarRating;
 import com.sun.istack.Nullable;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.*;
@@ -35,6 +36,9 @@ public class    FindProgrammeLogic {
 
     @Inject
     FavoritesListOfUser favoritesListOfUser;
+
+    @Inject
+    SessionInfo sessionInfo;
 
     private Map<String, Object> model = new HashMap<>();
 
@@ -98,9 +102,11 @@ public class    FindProgrammeLogic {
 
         Map<String, Object> model = new HashMap<>();
 
+
+
         model.put("channels", chList);
         model.put("tvProgramme", allTvItemOccurencesSorted);
-        model.put("usersFavorites", favoritesListOfUser.getFavoriteChannels());
+        model.put("usersFavorites", favoritesListOfUser.getFavoriteChannels(sessionInfo.getUserName()));
 
         return model;
     }

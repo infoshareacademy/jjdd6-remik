@@ -34,9 +34,7 @@
 
 <div class="container h-100">
     <div class="row h-100 justify-content-center align-items-center">
-
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
+        <a href="/programme/account/logout" onclick="signOut();">Sign out</a>
     </div>
 </div>
 

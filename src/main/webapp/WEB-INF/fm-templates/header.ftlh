@@ -3,6 +3,11 @@
 <script src="/static/js/returnTopButton.js"></script>
 <button onclick="topFunction()" id="myBtn" class="myBtn" title="Go to top">Top</button>
 
+<script>
+
+
+</script>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <span class="container">
         <#--        <a class="navbar-brand" href="/">Start</a>-->
@@ -46,12 +51,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/programme/stats">Statystyki</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Kuku :)</a>
-                    </li>
-                    <li class="nav-item">
-                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-<#--                        <a class="nav-link" href="/movieSpotter/login">Sign In</a>-->
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/programme/account">🗝</a>
                     </li>
                 </ul>
             </div>

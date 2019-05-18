@@ -13,17 +13,20 @@ import java.util.stream.Collectors;
 public class FavoritesListOfUser {
 
     @Inject
-    UserDao userDao;
+    private UserDao userDao;
 
-    public List<Integer> getFavoriteChannels() {
+        public List<Integer> getFavoriteChannels(String login) {
 
-        User loggedUser = userDao.findByLogin(Main.mockedUser).orElse(userDao.findById(1));
+        User loggedUser = userDao.findByLogin(login).orElse(null);
 
-        return loggedUser
-                .getChannels()
-                .stream()
-                .map(a-> a.getId())
-                .sorted()
-                .collect(Collectors.toList());
+        if (loggedUser != null) {
+            return loggedUser
+                    .getChannels()
+                    .stream()
+                    .map(a -> a.getId())
+                    .sorted()
+                    .collect(Collectors.toList());
+        }
+        else return null;
     }
 }
