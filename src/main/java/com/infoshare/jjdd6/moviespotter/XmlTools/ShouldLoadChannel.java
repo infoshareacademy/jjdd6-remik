@@ -22,7 +22,7 @@ class ShouldLoadChannel {
             return true;
         }
 
-        if (ignore == null && !onlyLoad.toLowerCase().contains(channelName.toLowerCase())) {
+        if (onlyLoad.toLowerCase().contains(channelName.toLowerCase())) {
             return true;
         }
 

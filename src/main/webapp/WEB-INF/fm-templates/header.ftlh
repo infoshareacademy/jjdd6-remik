@@ -50,7 +50,8 @@
                         <a class="nav-link" href="#">Kuku :)</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+<#--                        <a class="nav-link" href="/movieSpotter/login">Sign In</a>-->
                     </li>
                 </ul>
             </div>

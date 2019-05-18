@@ -3,13 +3,12 @@ package com.infoshare.jjdd6.moviespotter.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.Stateful;
-import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Singleton;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-@ApplicationScoped
+@Singleton
 public class ConfigLoader {
 
     private static final Logger log = LoggerFactory.getLogger(ConfigLoader.class.getName());
