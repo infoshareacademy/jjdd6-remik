@@ -1,5 +1,6 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
+import info.talacha.filmweb.models.Film;
 import org.checkerframework.checker.units.qual.C;
 import org.checkerframework.common.aliasing.qual.Unique;
 
@@ -36,6 +37,12 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "channel_id", referencedColumnName = "channel_id"))// COURSES
     private List<Channel> channels;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "USER_TO_FAV_MOVIES",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "filmweb_id", referencedColumnName = "filmweb_id"))// COURSES
+    private List<FavoriteMovie> movies;
 
     public String getLogin() {
         return login;

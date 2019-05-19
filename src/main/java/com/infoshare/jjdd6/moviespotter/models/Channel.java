@@ -30,7 +30,7 @@ public class Channel {
     @Column(name = "displayCounter")
     private int displayCounter;
 
-    @OneToMany(mappedBy = "channel", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "channel", fetch = FetchType.LAZY)
     private List<Programme> programmes;
 
     @OneToMany(mappedBy = "channels", fetch = FetchType.LAZY)

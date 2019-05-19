@@ -1,6 +1,10 @@
 package com.infoshare.jjdd6.moviespotter.servlets;
 
+import com.infoshare.jjdd6.moviespotter.dao.FavoriteMovieDao;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
+import com.infoshare.jjdd6.moviespotter.models.FavoriteMovie;
+import com.infoshare.jjdd6.moviespotter.models.User;
+import com.infoshare.jjdd6.moviespotter.oAuth2.SessionInfo;
 import com.infoshare.jjdd6.moviespotter.services.FilmWebBrowser;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -9,6 +13,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,6 +33,15 @@ public class DisplayMovieServlet extends HttpServlet {
     @Inject
     private FilmWebBrowser filmWebBrowser;
 
+    @Inject
+    FavoriteMovieDao favoriteMovieDao;
+
+    @Inject
+    SessionInfo sessionInfo;
+
+    @Inject
+    User user;
+
     private static final Logger log = LoggerFactory.getLogger(DisplayMovieServlet.class.getName());
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -42,6 +56,15 @@ public class DisplayMovieServlet extends HttpServlet {
             model.put("m_movie", film);
             model.put("m_persons", filmWebBrowser.getFilmPersons(id));
         }
+
+        if (favoriteMovieDao
+                .findById(id)
+                .getUsers()
+                .contains(sessionInfo.getUserName())) {
+
+            model.put("isFavorite", true);
+        }
+
 
         Template template = templateProvider.getTemplate(getServletContext(), "movieDetails.ftlh");
 
