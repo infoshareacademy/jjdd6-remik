@@ -47,7 +47,7 @@ public class FavoritesServlet extends HttpServlet {
         if (channelInt > 0) {
 
             HttpSession session = request.getSession();
-            User user = userDao.findByLogin(session.getAttribute("userName").toString()).orElse(null);
+            User user = userDao.findByLogin(session.getAttribute("userName").toString());
             log.info(user.getLogin());
 
             List<Channel> userList = user.getChannels()

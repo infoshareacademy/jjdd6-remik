@@ -17,7 +17,7 @@ public class FavoritesListOfUser {
 
         public List<Integer> getFavoriteChannels(String login) {
 
-        User loggedUser = userDao.findByLogin(login).orElse(null);
+        User loggedUser = userDao.findByLogin(login);
 
         if (loggedUser != null) {
             return loggedUser

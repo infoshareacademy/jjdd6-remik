@@ -1,8 +1,8 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
-import info.talacha.filmweb.models.Film;
-import org.checkerframework.checker.units.qual.C;
 import org.checkerframework.common.aliasing.qual.Unique;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -32,16 +32,18 @@ public class User {
 
 
     @Unique
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany//(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_TO_FAV_CHANNELS",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "channel_id", referencedColumnName = "channel_id"))// COURSES
+            inverseJoinColumns = @JoinColumn(name = "channel_id", referencedColumnName = "channel_id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Channel> channels;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany//(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_TO_FAV_MOVIES",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "filmweb_id", referencedColumnName = "filmweb_id"))// COURSES
+            inverseJoinColumns = @JoinColumn(name = "filmweb_id", referencedColumnName = "filmweb_id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<FavoriteMovie> movies;
 
     public String getLogin() {
@@ -82,5 +84,13 @@ public class User {
 
     public void setChannels(List<Channel> channels) {
         this.channels = channels;
+    }
+
+    public List<FavoriteMovie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<FavoriteMovie> movies) {
+        this.movies = movies;
     }
 }

@@ -14,8 +14,7 @@ public class AddUserAfterOauth {
 
     public boolean addUser(String userName) {
 
-        if (userDao.findByLogin(userName) == null
-                || userDao.findByLogin(userName).isEmpty()) {
+        if (userDao.findByLogin(userName) == null){
 
             User user = new User();
             user.setLogin(userName);

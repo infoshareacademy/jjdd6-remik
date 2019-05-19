@@ -10,12 +10,13 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hibernate.hql.internal.antlr.HqlTokenTypes.CONCAT;
 
-
+@Transactional
 @Stateless
 public class ProgrammeDao {
 

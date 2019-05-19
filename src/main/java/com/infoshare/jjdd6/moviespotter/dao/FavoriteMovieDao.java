@@ -10,9 +10,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Stateless
 public class FavoriteMovieDao {
 
@@ -49,7 +51,7 @@ public class FavoriteMovieDao {
 
     public List<FavoriteMovie> findAll() {
         Query query = entityManager
-                .createQuery("SELECT c from USERS_TO_FAV_MOVIES c");
+                .createQuery("SELECT c from USER_TO_FAV_MOVIES c");
 
         return query.getResultList();
     }

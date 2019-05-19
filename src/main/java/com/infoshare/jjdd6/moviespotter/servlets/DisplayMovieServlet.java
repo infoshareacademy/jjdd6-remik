@@ -1,6 +1,7 @@
 package com.infoshare.jjdd6.moviespotter.servlets;
 
 import com.infoshare.jjdd6.moviespotter.dao.FavoriteMovieDao;
+import com.infoshare.jjdd6.moviespotter.dao.UserDao;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
 import com.infoshare.jjdd6.moviespotter.models.FavoriteMovie;
 import com.infoshare.jjdd6.moviespotter.models.User;
@@ -40,7 +41,7 @@ public class DisplayMovieServlet extends HttpServlet {
     SessionInfo sessionInfo;
 
     @Inject
-    User user;
+    UserDao userDao;
 
     private static final Logger log = LoggerFactory.getLogger(DisplayMovieServlet.class.getName());
 
@@ -55,14 +56,38 @@ public class DisplayMovieServlet extends HttpServlet {
         if (film != null) {
             model.put("m_movie", film);
             model.put("m_persons", filmWebBrowser.getFilmPersons(id));
+            model.put("fwID", id);
         }
+//
+//        if (!favoriteMovieDao
+//                .findById(id)
+//                .getUsers()
+//                .stream()
+//                .map(User::getName)
+//                .filter(u -> u.equals(sessionInfo.getUserName()))
+//                .findAny().isEmpty()) {
+//
+//            model.put("isFavorite", true);
+//        }
 
-        if (favoriteMovieDao
-                .findById(id)
-                .getUsers()
-                .contains(sessionInfo.getUserName())) {
 
-            model.put("isFavorite", true);
+        if (sessionInfo.getUserName()!=null) {
+            User user = userDao.findByLogin(sessionInfo.getUserName());
+
+            log("user "+ user.getLogin()+" "+user.getMovies().size());
+
+            if (user
+                    .getMovies()
+                    .contains(
+                            favoriteMovieDao
+                                    .findById(id))
+            ) {
+
+                model.put("isFavorite", 1);
+            } else {
+
+                model.put("isFavorite", 0);
+            }
         }
 
 
