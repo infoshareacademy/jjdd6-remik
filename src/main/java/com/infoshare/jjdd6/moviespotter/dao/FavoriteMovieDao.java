@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +20,13 @@ import java.util.List;
 public class FavoriteMovieDao {
 
     private static final Logger log = LoggerFactory.getLogger(FavoriteMovieDao.class.getName());
-    private Session session;
 
     @PersistenceContext
     private EntityManager entityManager;
-    private List<FavoriteMovie> temp = new ArrayList<>();
 
     public FavoriteMovie save(FavoriteMovie c) {
 
-        //session.refresh(c);
+        log.info("trying to write favmovie: "+c.getFilmWebId());
         entityManager.persist(c);
         log.debug("creating " + c);
         return c;
@@ -45,13 +44,22 @@ public class FavoriteMovieDao {
         }
     }
 
-    public FavoriteMovie findById(Long Id) {
+    public FavoriteMovie findById(int Id) {
         return entityManager.find(FavoriteMovie.class, Id);
+    }
+
+
+
+    public List<FavoriteMovie> findByFwId(Long filmWebId) {
+        Query query = entityManager
+                .createQuery("SELECT c from FavoriteMovie c where c.filmWebId = :filmWebId")
+                .setParameter("filmWebId", filmWebId);
+        return query.getResultList();
     }
 
     public List<FavoriteMovie> findAll() {
         Query query = entityManager
-                .createQuery("SELECT c from USER_TO_FAV_MOVIES c");
+                .createQuery("SELECT c from FavoriteMovie c");
 
         return query.getResultList();
     }

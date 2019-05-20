@@ -1,15 +1,10 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
 
-import javax.ejb.Stateful;
-import javax.enterprise.context.SessionScoped;
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Stateful
-@Transactional
 @Entity
 @Table(name = "CHANNELS")
 public class Channel {

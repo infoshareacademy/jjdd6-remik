@@ -1,11 +1,13 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
+import com.sun.istack.Nullable;
 import org.checkerframework.common.aliasing.qual.Unique;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,8 +32,7 @@ public class User {
     @Column(name = "onlyShowFavorites")
     private Boolean onlyShowFavorites;
 
-
-    @Unique
+    @Nullable
     @ManyToMany//(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_TO_FAV_CHANNELS",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
@@ -39,12 +40,9 @@ public class User {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Channel> channels;
 
-    @ManyToMany//(fetch = FetchType.EAGER)
-    @JoinTable(name = "USER_TO_FAV_MOVIES",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "filmweb_id", referencedColumnName = "filmweb_id"))
+    @ManyToMany//(mappedBy = "users", fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<FavoriteMovie> movies;
+    private List<FavoriteMovie> movies = new ArrayList<>();
 
     public String getLogin() {
         return login;

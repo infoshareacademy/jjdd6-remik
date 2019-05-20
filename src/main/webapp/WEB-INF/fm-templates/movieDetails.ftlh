@@ -117,10 +117,12 @@
                         <div>
 
                             <br>
+                            <#if movies??>
                             <#list movies as m>
                                 <li>${m.polishTitle!} (${m.title!}) ${m.year?c!} <a
                                             href="/programme/movie?fwID=${m.id?c!}">szukaj w movieSpotter</a></li>
                             </#list>
+                            </#if>
                         </div>
 
 

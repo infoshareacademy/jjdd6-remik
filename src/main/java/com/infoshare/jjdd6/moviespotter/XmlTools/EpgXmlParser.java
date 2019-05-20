@@ -32,9 +32,6 @@ public class EpgXmlParser {
     @EJB
     private ChannelDao channelDao;
 
-    @EJB
-    Programme programme;
-
     @Inject
     private ShouldLoadChannel shouldLoadChannel;
 
@@ -62,7 +59,6 @@ public class EpgXmlParser {
             Channel channel = new Channel();
 
             Node node = channelsList.item(i);
-            //Channel channel = new Channel();
 
             String channelName = node.getAttributes().getNamedItem("id").getTextContent();
             channel.setName(channelName);

@@ -21,10 +21,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@Transactional
 @WebServlet("/programme/movie")
 public class DisplayMovieServlet extends HttpServlet {
 
@@ -35,13 +38,13 @@ public class DisplayMovieServlet extends HttpServlet {
     private FilmWebBrowser filmWebBrowser;
 
     @Inject
-    FavoriteMovieDao favoriteMovieDao;
+    private FavoriteMovieDao favoriteMovieDao;
 
     @Inject
-    SessionInfo sessionInfo;
+    private SessionInfo sessionInfo;
 
     @Inject
-    UserDao userDao;
+    private UserDao userDao;
 
     private static final Logger log = LoggerFactory.getLogger(DisplayMovieServlet.class.getName());
 
@@ -58,38 +61,27 @@ public class DisplayMovieServlet extends HttpServlet {
             model.put("m_persons", filmWebBrowser.getFilmPersons(id));
             model.put("fwID", id);
         }
-//
-//        if (!favoriteMovieDao
-//                .findById(id)
-//                .getUsers()
-//                .stream()
-//                .map(User::getName)
-//                .filter(u -> u.equals(sessionInfo.getUserName()))
-//                .findAny().isEmpty()) {
-//
-//            model.put("isFavorite", true);
-//        }
 
 
-        if (sessionInfo.getUserName()!=null) {
-            User user = userDao.findByLogin(sessionInfo.getUserName());
+        FavoriteMovie favoriteMovie = new FavoriteMovie();
+        favoriteMovie.setFilmWebId(id);
+        favoriteMovie.setPolishTitle(film.getPolishTitle());
+        favoriteMovie.setTitle(film.getTitle());
 
-            log("user "+ user.getLogin()+" "+user.getMovies().size());
+        User user = userDao.findByLogin(sessionInfo.getUserName());
 
-            if (user
-                    .getMovies()
-                    .contains(
-                            favoriteMovieDao
-                                    .findById(id))
-            ) {
+        if (user != null) {
 
-                model.put("isFavorite", 1);
-            } else {
 
-                model.put("isFavorite", 0);
+
+            List<FavoriteMovie> userMovies = user.getMovies();
+            if (userMovies != null || userMovies.isEmpty()) {
+                favoriteMovie.getUsers().add(user);
+                favoriteMovieDao.save(favoriteMovie);
+                userMovies.add(favoriteMovie);
+                userDao.save(user);
             }
         }
-
 
         Template template = templateProvider.getTemplate(getServletContext(), "movieDetails.ftlh");
 
