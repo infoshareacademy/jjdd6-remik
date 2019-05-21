@@ -11,6 +11,7 @@ import info.talacha.filmweb.search.models.FilmSearchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class FilmWebBrowser {
     public Film getFilmInfo(Long id) {
         try {
             return filmwebApi.getFilmData(id);
-        } catch (FilmwebException e) {
+        } catch (Exception  e) {
             log.error("Filmweb exeption: " + e);
             return null;
         }
@@ -77,13 +78,13 @@ public class FilmWebBrowser {
 
         try {
             persons.addAll(filmwebApi.getPersons(id, Profession.DIRECTOR, 0, 5));
-        } catch (FilmwebException e) {
+        } catch (Exception e) {
             log.error("Filmweb exeption: " + e);
         }
 
         try {
             persons.addAll(filmwebApi.getPersons(id, Profession.ACTOR, 0, 5));
-        } catch (FilmwebException e) {
+        } catch (Exception e) {
             log.error("Filmweb exeption: " + e);
         }
 
