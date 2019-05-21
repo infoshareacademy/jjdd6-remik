@@ -30,22 +30,11 @@ public class Main {
     @Inject
     UserDao userDao;
 
-    public String returnLoggedUserLogin () {
-        return mockedUser;
-    }
-
     @PostConstruct
     public void startUp() {
 
         System.setProperty("log4j.configurationFile", configLoader.getProperties().getProperty("dataPath"));
         BasicConfigurator.configure();
-
-        try {
-            User anyrem = new User();
-            anyrem.setLogin("anyrem");
-            userDao.save(anyrem);
-        } catch (Exception e){
-        }
 
         log.info("Calling epgXmlParser.");
         epgXmlCaller.parseXmlTvData();

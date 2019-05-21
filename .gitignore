@@ -1,3 +1,6 @@
+*.iml
 .gitignore
-/.idea/
 /target/
+/.idea/
+#/data/appConfig.properties
+/OLD/

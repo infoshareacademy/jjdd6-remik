@@ -6,6 +6,7 @@ import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
 import com.infoshare.jjdd6.moviespotter.services.EpgDateConverter;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.jboss.ejb3.annotation.TransactionTimeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -16,9 +17,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.util.concurrent.TimeUnit;
 
 @Stateless
-@Transactional
+//@Transactional
+@TransactionTimeout(value = 60, unit = TimeUnit.MINUTES)
 public class EpgXmlParser {
 
     private static final Logger log = LoggerFactory.getLogger(EpgXmlParser.class.getName());
@@ -32,7 +35,18 @@ public class EpgXmlParser {
     @Inject
     private ShouldLoadChannel shouldLoadChannel;
 
+    @Inject
+    EpgDateConverter epgDateConverter;
+
+
     public void doParse(Document doc) {
+
+        doParseChannels(doc);
+        doParseProgrammes(doc);
+    }
+
+
+    private void doParseChannels(Document doc) {
 
         NodeList channelsList = doc.getDocumentElement().getElementsByTagName("channel");
 
@@ -42,8 +56,10 @@ public class EpgXmlParser {
 
         for (int i = 0; i < len; i++) {
 
-            Node node = channelsList.item(i);
             Channel channel = new Channel();
+
+            Node node = channelsList.item(i);
+            //Channel channel = new Channel();
 
             String channelName = node.getAttributes().getNamedItem("id").getTextContent();
             channel.setName(channelName);
@@ -58,8 +74,7 @@ public class EpgXmlParser {
                 }
             }
 
-
-            if (channelDao.findByName(channelName).isEmpty()) {
+            if (channelDao.findByName(channelName) == null) {
 
                 try {
                     channelDao.save(channel);
@@ -71,21 +86,33 @@ public class EpgXmlParser {
                 log.warn("Duplicate entry: " + channelName);
             }
         }
+    }
 
 
-        EpgDateConverter epgDateConverter = new EpgDateConverter();
+    private void doParseProgrammes(Document doc) {
+
         NodeList programmesList = doc.getDocumentElement().getElementsByTagName("programme");
+        log.info("Number of programmes in XML file: " + programmesList.getLength());
 
         for (int i = 0; i < programmesList.getLength(); i++) {
 
-            Programme programme = new Programme();
-            Channel channel = new Channel();
             Node node = programmesList.item(i);
+            doAddProgramme(node);
+        }
+    }
 
-            String channelName = node.getAttributes().getNamedItem("channel").getNodeValue();
 
+    private boolean doAddProgramme(Node node) {
 
-            if (channelDao.findByName(channelName) == null || channelDao.findByName(channelName).isEmpty()) {
+        String channelName = node.getAttributes().getNamedItem("channel").getNodeValue();
+        Programme programme = new Programme();
+        Channel channel = new Channel();
+        String channelName2 = "";
+        int hash;
+
+        if (shouldLoadChannel.checkShouldBeLoaded(channelName)) {
+
+            if (channelDao.findByName(channelName) == null || channelDao.findByName(channelName) == null) {
                 channel.setName(channelName);
 
                 try {
@@ -93,19 +120,16 @@ public class EpgXmlParser {
                     programme.setChannel(channel);
                     log.info("Programme channel created and set: " + programme.getChannel().getName());
                 } catch (Exception e) {
-                   log.error("Error adding channel: "+e);
-                    continue;
+                    e.printStackTrace();
+                    return false;
                 }
 
             } else {
 
-                programme.setChannel(channelDao.findByName(channelName).orElse(null));
-                log.info("Programme channel found and set: " + programme.getChannel().getName());
+                programme.setChannel(channelDao.findByName(channelName));
+                log.debug("Programme channel found and set: " + programme.getChannel().getName());
             }
 
-            if (shouldLoadChannel.checkShouldBeLoaded(channelName)) {
-                continue;
-            }
 
             programme
                     .setStart(epgDateConverter
@@ -115,7 +139,7 @@ public class EpgXmlParser {
                             )
                     );
 
-
+            ;
             programme
                     .setStop(epgDateConverter
                             .toLocalDateTime(node.getAttributes()
@@ -195,9 +219,7 @@ public class EpgXmlParser {
                 }
             }
 
-            if ((programmeDao.findByChannelAndDate(programme.getChannel().getName(), programme.getStart(), programme.getStop()).isEmpty()
-                    || (programmeDao.findByChannelAndDate(programme.getChannel().getName(), programme.getStart(), programme.getStop())) == null)
-            ) {
+            programme.setHash((channelName + programme.getStart()).hashCode());
 
                 try {
 
@@ -207,10 +229,13 @@ public class EpgXmlParser {
                     log.error("SQL transaction error: " + e);
                 }
             } else {
-                log.info("PROGRAMME table::duplicate found::" + programme.getStart() + programme.getChannel());
+                log.debug("PROGRAMME table::duplicate found::" + programme.getStart() + programme.getChannel());
             }
 
-        }
-        log.info("Number of programmes in XML file: " + programmesList.getLength());
+        return true;
     }
 }
+
+
+
+

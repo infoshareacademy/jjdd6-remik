@@ -9,9 +9,11 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Stateless
 public class UserDao {
 
@@ -46,13 +48,19 @@ public class UserDao {
     }
 
 
-    public Optional<User> findByLogin(String User) {
+    public User findByLogin(String User) {
 
         Query query = entityManager
                 .createQuery("SELECT c FROM User c WHERE c.login like :User")
                 .setParameter("User", User);
 
-        return query.getResultStream().findFirst();
+
+        try {
+            return (User)query.getSingleResult();
+        } catch (Exception e) {
+            log.error("user not found");
+            return null;
+        }
     }
 
     public List <User> findAll() {

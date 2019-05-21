@@ -1,12 +1,13 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
 
+import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Transactional
 @Entity
 @Table(name = "CHANNELS")
 public class Channel {
@@ -27,7 +28,7 @@ public class Channel {
     @Column(name = "displayCounter")
     private int displayCounter;
 
-    @OneToMany(mappedBy = "channel", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "channel", fetch = FetchType.LAZY)
     private List<Programme> programmes;
 
     @OneToMany(mappedBy = "channels", fetch = FetchType.LAZY)

@@ -1,7 +1,9 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
-import org.checkerframework.checker.units.qual.C;
 import org.checkerframework.common.aliasing.qual.Unique;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,7 +19,7 @@ public class User {
     private int id;
 
     @NotNull
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String login;
 
     @Column(name = "name")
@@ -30,12 +32,31 @@ public class User {
     private Boolean onlyShowFavorites;
 
 
-    @Unique
-    @ManyToMany(fetch = FetchType.EAGER)
+
+    @ManyToMany//(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_TO_FAV_CHANNELS",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "channel_id", referencedColumnName = "channel_id"))// COURSES
+            inverseJoinColumns = @JoinColumn(name = "channel_id", referencedColumnName = "channel_id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Channel> channels;
+
+    @ManyToMany()//(fetch = FetchType.EAGER)
+    @JoinTable(name = "USER_TO_FAV_MOVIES",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id"))
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<FavoriteMovie> favoriteMovies;
+
+    public User() {
+    }
+
+    public User(@NotNull String login, String name, String surname, Boolean onlyShowFavorites, List<Channel> channels, List<FavoriteMovie> favoriteMovies) {
+        this.login = login;
+        Name = name;
+        Surname = surname;
+        this.onlyShowFavorites = onlyShowFavorites;
+        this.channels = channels;
+        this.favoriteMovies = favoriteMovies;
+    }
 
     public String getLogin() {
         return login;
@@ -75,5 +96,13 @@ public class User {
 
     public void setChannels(List<Channel> channels) {
         this.channels = channels;
+    }
+
+    public List<FavoriteMovie> getMovies() {
+        return favoriteMovies;
+    }
+
+    public void setMovies(List<FavoriteMovie> movies) {
+        this.favoriteMovies = movies;
     }
 }

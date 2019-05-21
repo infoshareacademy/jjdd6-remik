@@ -20,6 +20,29 @@ button.favbutton:hover {
     color: #1b1e21;
 }
 
+
+button.fav-mov-button, button.fav-mov-button:active {
+
+    color: #ffc50a;
+    /*color: #ffc107;*/
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    font-size: x-large;
+    padding: 0px;
+    margin-right: 0px;
+    border-radius: 0%;
+
+}
+
+button.fav-mov-button:hover {
+    color: #1b1e21;
+}
+
+
 .list-group-item {
 
     font-size: smaller;

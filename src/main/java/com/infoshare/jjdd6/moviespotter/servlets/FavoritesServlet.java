@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class FavoritesServlet extends HttpServlet {
     @Inject
     ChannelDao channelDao;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
         String channel = request.getParameter("favchan");
         final int channelInt = NumberUtils.toInt(channel, 0);
@@ -43,7 +45,10 @@ public class FavoritesServlet extends HttpServlet {
         log.info("favorite channel clicked: " + channel);
 
         if (channelInt > 0) {
-            User user = userDao.findByLogin(Main.mockedUser).orElse(userDao.findById(1));
+
+            HttpSession session = request.getSession();
+            User user = userDao.findByLogin(session.getAttribute("userName").toString());
+            log.info(user.getLogin());
 
             List<Channel> userList = user.getChannels()
                     .stream()

@@ -1,13 +1,12 @@
 package com.infoshare.jjdd6.moviespotter.models;
 
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
+import org.checkerframework.common.aliasing.qual.Unique;
 
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Transactional
 @Entity
 @Table(name = "PROGRAMMES")
 public class Programme {
@@ -64,26 +63,13 @@ public class Programme {
     @Column(name = "date")
     private int date;
 
+    @NotNull
+    @Unique
+    @Column(name = "hash", unique = true)
+    private int hash;
+
 
     public Programme() {
-    }
-
-    public Programme(Channel channel, LocalDateTime start, LocalDateTime stop, String titlePl, String titleEn, String titleXx, String subtitlePl, String descPl, String categoriesPl, String director, String actor, String rating, String episodeXmlNs, String country, int date) {
-        this.channel = channel;
-        this.start = start;
-        this.stop = stop;
-        this.titlePl = titlePl;
-        this.titleEn = titleEn;
-        this.titleXx = titleXx;
-        this.subtitlePl = subtitlePl;
-        this.descPl = descPl;
-        this.categoriesPl = categoriesPl;
-        this.director = director;
-        this.actor = actor;
-        this.rating = rating;
-        this.episodeXmlNs = episodeXmlNs;
-        this.country = country;
-        this.date = date;
     }
 
     public int getId() {
@@ -244,6 +230,14 @@ public class Programme {
 
     public void setDate(int date) {
         this.date = date;
+    }
+
+    public int getHash() {
+        return hash;
+    }
+
+    public void setHash(int hash) {
+        this.hash = hash;
     }
 
     @Override

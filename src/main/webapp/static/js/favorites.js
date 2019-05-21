@@ -14,3 +14,20 @@ function favorites(a) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
     xhr.send('favchan=' + a);
 }
+
+
+function favoritesMov(a) {
+
+    var menuItem = document.getElementById(a);
+
+    if (menuItem.innerText == "☆") {
+        menuItem.innerText = "★"
+    } else {
+        menuItem.innerText = "☆"
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/programme/movie/favorites", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+    xhr.send('favmov=' + a);
+}

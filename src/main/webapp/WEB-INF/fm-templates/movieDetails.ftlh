@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://java.sun.com/jsf/html">
 
 <head>
 
@@ -15,6 +15,8 @@
 
     <!-- Custom styles for this template -->
     <link href="/static/css/shop-item.css" rel="stylesheet">
+    <link href="/static/css/ChannelMenuWithFavorites.css" rel="stylesheet">
+
 
 </head>
 
@@ -46,30 +48,36 @@
                         <table>
                             <tr>
                                 <td>
-
                                     <#attempt>
                                         <img src=${m_movie.posterURL!}>
                                         <#recover>
                                     </#attempt>
                                 </td>
-                                <td>
-                                    <#attempt>
+                                <#--                                <td>-->
                                 <td width="100%">
-                                    <ul>
-                                        <li>${m_movie.polishTitle!}</li>
-                                        <li>${m_movie.title!}</li>
-                                        <li>${m_movie.year?c!}</li>
-                                        <li>${m_movie.rate}/${m_movie.votes?c}</li>
-                                        <li><a href=${m_movie.websiteURL!}>Strona filmu na filmweb.pl</a></li>
-                                        <li>${m_movie.plot!}</li>
-                                        <#if m_movie.genres??>
-                                        <li>${m_movie.genres!}</li>
-                                    </ul>
-                                    </#if>
-                                </td>
-                                <#recover>
-                                </#attempt>
+<#--                                    <#attempt>-->
+                                        <ul>
 
+                                            <li>${m_movie.polishTitle!}
+                                                <#if isFavorite??>
+                                                <button class="fav-mov-button" id="${fwID?c!}"
+                                                        onclick="favoritesMov(${fwID?c!})">${isFavorite?switch(0, '☆', 1, '★')}</button>
+                                                </#if>
+                                            </li>
+                                            <li>${m_movie.title!}</li>
+                                            <li>${m_movie.year?c!}</li>
+                                            <li>${m_movie.rate}/${m_movie.votes?c}</li>
+                                            <li><a href=${m_movie.websiteURL!}>Strona filmu na filmweb.pl</a></li>
+                                            <#if m_movie.plot??>
+                                            <li>${m_movie.plot!}</li>
+                                            </#if>
+                                            <#if m_movie.genres??>
+                                                <li>${m_movie.genres!}</li>
+                                            </#if>
+                                        </ul>
+
+<#--                                        <#recover>-->
+<#--                                    </#attempt>-->
                                 </td>
                             </tr>
                         </table>
@@ -89,7 +97,7 @@
                                         <b>${p.role!"Reżyseria"}</b> - ${p.name} ${p.info!}
                                         <br><br>
                                     <#else>
-                                        <b>${p.role!" --- "}</b> - ${p.name} ${p.info!}
+                                        <b>${p.role!" ? "}</b> - ${p.name} ${p.info!}
                                     </#if>
                                 </div>
                             </#list>
@@ -140,5 +148,6 @@
 <script src="/static/vendor/jquery/jquery.min.js"></script>
 <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+<script src="/static/js/favorites.js"></script>
 </body>
 </html>

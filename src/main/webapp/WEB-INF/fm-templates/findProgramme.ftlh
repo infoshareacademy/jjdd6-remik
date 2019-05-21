@@ -71,6 +71,8 @@
                         <#if item.rating != "" && item??>
                             Ocena:  <span class="text-warning">${item.rating!}</span>
                         </#if>
+
+                        <#if item.channel.name != ":-(">
                         <p class="text-right">
                             <a href="#">
                                 <img src="/static/images/calendar-svgrepo-com.svg" height="36" width="36">
@@ -82,6 +84,7 @@
                                 <img src="/static/images/movie-camera-svgrepo-com.svg" height="36" width="36">
                             </a>
                         </p>
+                        </#if>
 
                     </div>
                 </div>

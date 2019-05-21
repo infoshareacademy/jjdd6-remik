@@ -10,14 +10,17 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hibernate.hql.internal.antlr.HqlTokenTypes.CONCAT;
 
-
+@Transactional
 @Stateless
 public class ProgrammeDao {
+
+    private Session session;
 
     private static final Logger log = LoggerFactory.getLogger(ProgrammeDao.class.getName());
 
@@ -56,19 +59,24 @@ public class ProgrammeDao {
 
     public List<Programme> findByChannelAndDate(String channel, @Nullable LocalDateTime from, @Nullable LocalDateTime to) {
 
-        if (from == null) {
-            from = LocalDateTime.now();
-        }
-        if (to == null) {
-            to = LocalDateTime.now().plusYears(100);
-        }
+        try {
+            if (from == null) {
+                from = LocalDateTime.now();
+            }
+            if (to == null) {
+                to = LocalDateTime.now().plusYears(100);
+            }
 
-        Query query = entityManager
-                .createQuery("SELECT s FROM Programme s WHERE s.channel.name like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.channel.name, s.start")
-                .setParameter("channel", channel)
-                .setParameter("from", from)
-                .setParameter("to", to);
-        return query.getResultList();
+            Query query = entityManager
+                    .createQuery("SELECT s FROM Programme s WHERE s.channel.name like :channel AND s.start >= :from AND s.start <= :to ORDER BY s.channel.name, s.start")
+                    .setParameter("channel", channel)
+                    .setParameter("from", from)
+                    .setParameter("to", to);
+            return query.getResultList();
+        } catch (Exception e) {
+            log.error("By channel, from, to: "+e);
+            return null;
+        }
     }
 
     public List<Programme> getAllProgrammes() {
@@ -100,5 +108,9 @@ public class ProgrammeDao {
                 .createQuery("SELECT s FROM Programme s WHERE s.titlePl like CONCAT('%', :title, '%') OR s.titleEn like CONCAT('%', :title, '%') OR s.titleXx like CONCAT('%', :title, '%')")
                 .setParameter("title", title);
         return query.getResultList();
+    }
+
+    public Programme findByHash(int hash) {
+        return entityManager.find(Programme.class, hash);
     }
 }

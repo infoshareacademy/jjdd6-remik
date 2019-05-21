@@ -3,25 +3,26 @@
 
 <h3 class="my-4">Lista kanałów</h3>
 <div class="list-group">
-    <#--                <form method="post" onsubmit="/programme/fav">-->
 
+    <#if usersFavorites??>
     <#attempt>
-    <#assign x = usersFavorites>
+        <#assign x = usersFavorites>
         <#recover>
     </#attempt>
+    </#if>
 
 
     <#list channels as channel>
         <div class="list-group-item">
-            <#attempt>
-            <button  class="favbutton" id="${channel.id!}" onclick="favorites('${channel.id!}')">${x?seq_contains(channel.id)?string("★","☆")}</button>
-            <#recover>
-            </#attempt>
+            <#if x??>
+                <#attempt>
+                    <button class="favbutton" id="${channel.id!}"
+                            onclick="favorites('${channel.id!}')">${x?seq_contains(channel.id)?string("★","☆")}</button>
+                    <#recover>
+                </#attempt>
+            </#if>
             <a href="/programme/new?ch=${channel.name?url}">${channel.name!}</a>
         </div>
     </#list>
-    <#--                style="font-size: 12px"-->
-    <#--                </form>-->
 </div>
 </div>
-<!-- /.col-lg-3 -->

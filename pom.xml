@@ -101,12 +101,11 @@
             <version>1.4.1-beta</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.google.api.client/google-api-client-auth-oauth2 -->
-
+        <!-- https://mvnrepository.com/artifact/org.jboss.ejb3/jboss-ejb3-ext-api -->
         <dependency>
-            <groupId>com.google.api.client</groupId>
-            <artifactId>google-api-client-auth-oauth2</artifactId>
-            <version>1.2.3-alpha</version>
+            <groupId>org.jboss.ejb3</groupId>
+            <artifactId>jboss-ejb3-ext-api</artifactId>
+            <version>2.3.0.Final</version>
         </dependency>
 
         <dependency>
@@ -125,10 +124,10 @@
             <groupId>info.talacha</groupId>
             <artifactId>FilmwebApi</artifactId>
             <version>0.3.4</version>
-            <!--<scope>system</scope>-->
-            <systemPath>
-                ${basedir}/lib/FilmwebApi-0.3.4.jar
-            </systemPath>
+<!--            <scope>system</scope>-->
+<!--            <systemPath>-->
+<!--                ${basedir}/lib/FilmwebApi-0.3.4.jar-->
+<!--            </systemPath>-->
         </dependency>
 
         <dependency>
@@ -162,6 +161,45 @@
             <artifactId>freemarker</artifactId>
             <version>2.3.28</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-calendar -->
+
+
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-calendar</artifactId>
+            <version>v3-rev377-1.23.0</version>
+<!--            <version>v3-rev377-1.25.0</version>-->
+<!--            <version>v3-rev20190430-1.28.0</version>-->
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.oauth-client/google-oauth-client-jetty -->
+        <dependency>
+            <groupId>com.google.oauth-client</groupId>
+            <artifactId>google-oauth-client-jetty</artifactId>
+            <version>1.23.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.23.0</version>
+        </dependency>
+
+        <dependency>
+        <groupId>com.google.oauth-client</groupId>
+        <artifactId>google-oauth-client-appengine</artifactId>
+        <version>1.23.0</version>
+        </dependency>
+
     </dependencies>
 
 
