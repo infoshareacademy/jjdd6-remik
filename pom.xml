@@ -124,10 +124,10 @@
             <groupId>info.talacha</groupId>
             <artifactId>FilmwebApi</artifactId>
             <version>0.3.4</version>
-<!--            <scope>system</scope>-->
-<!--            <systemPath>-->
-<!--                ${basedir}/lib/FilmwebApi-0.3.4.jar-->
-<!--            </systemPath>-->
+            <scope>system</scope>
+            <systemPath>
+                ${basedir}/lib/FilmwebApi-0.3.4.jar
+            </systemPath>
         </dependency>
 
         <dependency>
@@ -175,8 +175,8 @@
         <dependency>
             <groupId>com.google.apis</groupId>
             <artifactId>google-api-services-calendar</artifactId>
-            <version>v3-rev377-1.23.0</version>
-<!--            <version>v3-rev377-1.25.0</version>-->
+<!--            <version>v3-rev377-1.23.0</version>-->
+            <version>v3-rev377-1.25.0</version>
 <!--            <version>v3-rev20190430-1.28.0</version>-->
         </dependency>
 
@@ -184,25 +184,23 @@
         <dependency>
             <groupId>com.google.oauth-client</groupId>
             <artifactId>google-oauth-client-jetty</artifactId>
-            <version>1.23.0</version>
+            <version>1.25.0</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
         <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
-            <version>1.23.0</version>
+            <version>1.25.0</version>
         </dependency>
 
         <dependency>
         <groupId>com.google.oauth-client</groupId>
         <artifactId>google-oauth-client-appengine</artifactId>
-        <version>1.23.0</version>
+        <version>1.25.0</version>
         </dependency>
 
     </dependencies>
-
-
 
     <build>
         <plugins>

@@ -1,9 +1,7 @@
 package com.infoshare.jjdd6.moviespotter.servlets;
 
-import com.infoshare.jjdd6.moviespotter.dao.ChannelDao;
 import com.infoshare.jjdd6.moviespotter.dao.FavoriteMovieDao;
 import com.infoshare.jjdd6.moviespotter.dao.UserDao;
-import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.FavoriteMovie;
 import com.infoshare.jjdd6.moviespotter.models.User;
 import com.infoshare.jjdd6.moviespotter.oAuth2.SessionInfo;
@@ -19,14 +17,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Transactional
 @WebServlet("/programme/movie/favorites")
