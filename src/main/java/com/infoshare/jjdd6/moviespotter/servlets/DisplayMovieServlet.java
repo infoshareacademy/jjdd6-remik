@@ -36,13 +36,10 @@ public class DisplayMovieServlet extends HttpServlet {
     private FilmWebBrowser filmWebBrowser;
 
     @Inject
-    FavoriteMovieDao favoriteMovieDao;
+    private SessionInfo sessionInfo;
 
     @Inject
-    SessionInfo sessionInfo;
-
-    @Inject
-    UserDao userDao;
+    private UserDao userDao;
 
     private static final Logger log = LoggerFactory.getLogger(DisplayMovieServlet.class.getName());
 
