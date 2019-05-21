@@ -27,13 +27,7 @@ public class LogOutServlet extends HttpServlet {
     private final static Logger log = LoggerFactory.getLogger(LogOutServlet.class.getName());
 
     @Inject
-    TemplateProvider templateProvider;
-
-    @Inject
-    AddUserAfterOauth addUserAfterOauth;
-
-    @Inject
-    SessionInfo sessionInfo;
+    private SessionInfo sessionInfo;
 
     @Override
     protected void doGet (HttpServletRequest req, HttpServletResponse resp)

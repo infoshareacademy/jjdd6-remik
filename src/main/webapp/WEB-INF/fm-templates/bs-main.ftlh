@@ -49,7 +49,7 @@
 
                 <div class="card mt-4">
                     <div class="card-body">
-                        <h3 class="card-title">${item.start!}</h3>
+                        <h3 class="card-title">${item.start?replace("T", " ")!}</h3>
                         <h4>${item.titlePl!}<br></h4>
                         <#if item.director??>
                             <p class="card-text"><b>Reżyseria</b>: ${item.director!}</p>

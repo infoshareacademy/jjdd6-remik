@@ -1,36 +1,42 @@
 package com.infoshare.jjdd6.moviespotter.oAuth2;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.infoshare.jjdd6.moviespotter.dao.UserDao;
 import com.infoshare.jjdd6.moviespotter.freemarker.TemplateProvider;
+import com.infoshare.jjdd6.moviespotter.models.FavoriteMovie;
+import com.infoshare.jjdd6.moviespotter.models.User;
 import com.infoshare.jjdd6.moviespotter.services.AddUserAfterOauth;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 @WebServlet("/programme/account")
-public class LoginServlet extends HttpServlet {
+public class AccountServlet extends HttpServlet {
 
-    private final static Logger log = LoggerFactory.getLogger(LoginServlet.class.getName());
-
-    @Inject
-    TemplateProvider templateProvider;
+    private final static Logger log = LoggerFactory.getLogger(AccountServlet.class.getName());
 
     @Inject
-    AddUserAfterOauth addUserAfterOauth;
+    private TemplateProvider templateProvider;
 
     @Inject
-    SessionInfo sessionInfo;
+    private AddUserAfterOauth addUserAfterOauth;
+
+    @Inject
+    private SessionInfo sessionInfo;
+
+    @Inject
+    private UserDao userDao;
 
     @Override
     protected void doGet (HttpServletRequest req, HttpServletResponse resp)
@@ -53,11 +59,16 @@ public class LoginServlet extends HttpServlet {
             }
         } else {
 
+            Map<String,Object> model = new HashMap<>();
+
+            User user = userDao.findByLogin(sessionInfo.getUserName());
+            List<FavoriteMovie> usersMovies= user.getMovies();
+            model.put("movies", usersMovies);
+            model.put("user", sessionInfo.getUserName());
+
             Template template = templateProvider.getTemplate(getServletContext(), "logout.ftlh");
 
             log.info("using freemarker template: " + template.getName());
-
-            Map<String,Object> model = new HashMap<>();
 
             try {
                 template.process(model, resp.getWriter());

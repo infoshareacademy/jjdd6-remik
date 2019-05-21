@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @WebServlet("/programme/movie")
@@ -58,30 +59,22 @@ public class DisplayMovieServlet extends HttpServlet {
             model.put("m_persons", filmWebBrowser.getFilmPersons(id));
             model.put("fwID", id);
         }
-//
-//        if (!favoriteMovieDao
-//                .findById(id)
-//                .getUsers()
-//                .stream()
-//                .map(User::getName)
-//                .filter(u -> u.equals(sessionInfo.getUserName()))
-//                .findAny().isEmpty()) {
-//
-//            model.put("isFavorite", true);
-//        }
-
 
         if (sessionInfo.getUserName()!=null) {
             User user = userDao.findByLogin(sessionInfo.getUserName());
 
             log("user "+ user.getLogin()+" "+user.getMovies().size());
 
-            if (user
-                    .getMovies()
-                    .contains(
-                            favoriteMovieDao
-                                    .findById(id))
-            ) {
+            List<FavoriteMovie> userMovies = user.getMovies();
+
+            log.info("user " + user.getLogin() + " has " + userMovies.size());
+
+            if ((userMovies
+                    .stream()
+                    .filter(a -> a.getFilmWebId().equals(id))
+                    .count() == 1
+
+            ))  {
 
                 model.put("isFavorite", 1);
             } else {

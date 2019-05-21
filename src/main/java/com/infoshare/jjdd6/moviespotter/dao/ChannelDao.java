@@ -2,7 +2,7 @@ package com.infoshare.jjdd6.moviespotter.dao;
 
 import com.infoshare.jjdd6.moviespotter.models.Channel;
 import com.infoshare.jjdd6.moviespotter.models.Programme;
-import com.infoshare.jjdd6.moviespotter.services.DummiesProducer;
+//import com.infoshare.jjdd6.moviespotter.services.DummiesProducer;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

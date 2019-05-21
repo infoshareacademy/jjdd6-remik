@@ -32,9 +32,6 @@ public class EpgXmlParser {
     @EJB
     private ChannelDao channelDao;
 
-    @EJB
-    Programme programme;
-
     @Inject
     private ShouldLoadChannel shouldLoadChannel;
 
@@ -224,13 +221,6 @@ public class EpgXmlParser {
 
             programme.setHash((channelName + programme.getStart()).hashCode());
 
-//            if ((programmeDao.findByChannelAndDate(programme.getChannel().getName(), programme.getStart(), programme.getStop()).isEmpty()
-//                    || (programmeDao.findByChannelAndDate(programme.getChannel().getName(), programme.getStart(), programme.getStop())) == null)
-//            ) {
-
-
-//            if (programmeDao.findByHash(programme.getHash()) == null) {
-
                 try {
 
                     programmeDao.save(programme);
@@ -241,7 +231,6 @@ public class EpgXmlParser {
             } else {
                 log.debug("PROGRAMME table::duplicate found::" + programme.getStart() + programme.getChannel());
             }
-//        }
 
         return true;
     }

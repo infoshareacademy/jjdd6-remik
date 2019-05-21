@@ -45,13 +45,20 @@ public class FavoriteMovieDao {
         }
     }
 
-    public FavoriteMovie findById(Long Id) {
+    public FavoriteMovie findById(int Id) {
         return entityManager.find(FavoriteMovie.class, Id);
+    }
+
+    public List<FavoriteMovie> findByFwId(Long filmWebId) {
+        Query query = entityManager
+                .createQuery("select c from FAVORITE_MOVIES c where c.filmWebId = :filmWebId")
+                .setParameter("filmWebId", filmWebId);
+        return query.getResultList();
     }
 
     public List<FavoriteMovie> findAll() {
         Query query = entityManager
-                .createQuery("SELECT c from USER_TO_FAV_MOVIES c");
+                .createQuery("SELECT c from FAVORITE_MOVIES c");
 
         return query.getResultList();
     }

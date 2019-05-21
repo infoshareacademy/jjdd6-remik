@@ -8,8 +8,6 @@ import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Stateful
-@Transactional
 @Entity
 @Table(name = "CHANNELS")
 public class Channel {
