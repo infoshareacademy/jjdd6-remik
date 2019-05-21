@@ -16,7 +16,6 @@ import org.w3c.dom.NodeList;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.util.concurrent.TimeUnit;
 
 @Stateless
